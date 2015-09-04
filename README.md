@@ -24,3 +24,12 @@ See how simple this schedule is to store in a database? You need ONE column of o
 A typical situation when Golden Fox comes to use is when you are scheduling services to run at specific times. 
 Given a schedule and a point in time, you can let Golden Fox find a future point in time according to the schedule.
 
+## Does Golden Fox understand English?
+
+Well, foxes usually don't do, but this fox is golden for a reason. As long as the words you talk fit into this flow chart, you're fine.
+
+![Flow chart](https://raw.githubusercontent.com/mattiasnordqvist/Golden-Fox/master/diagram.png "Simple english")
+
+## Contribute
+
+I have really no idea about how you should write code to do this kind of task in a nice way. This is my humble first try. Please advice me or make a pull request where you fix the mess behind the scenes. :)
