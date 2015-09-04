@@ -32,4 +32,6 @@ Well, foxes usually don't, but this fox is golden for a reason. As long as the w
 
 ## Contribute
 
-I have really no idea about how you should write code to do this kind of task in a nice way. This is my humble first try. Please advice me or make a pull request where you fix the mess behind the scenes. :)
+It is hard to teach foxes English. You're welcome to give him a lesson and expand his vocabulary and understanding. :D
+
+I have really no idea about how you should write code to do this kind of task in a nice way. This is my humble first try. Please advice me or make a pull request where you fix the mess behind the scenes.
