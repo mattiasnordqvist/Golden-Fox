@@ -15,7 +15,7 @@ Schedule.Fox("every day @ 10:00").From(DateTime.Now).Take(10)  // => An IEnumera
 With a little creativity you could design your own extension method so that this syntax is available for you
 ```csharp
 
-"sundays at 22:30".StartAt("2015-08-14").First() // => 2015-08-16 22:30:00
+"sundays at 22:30".From("2015-08-14").First() // => 2015-08-16 22:30:00
 
 ```
 
