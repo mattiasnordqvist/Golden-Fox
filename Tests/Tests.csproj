@@ -44,7 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="New\ClockTest.cs" />
-    <Compile Include="New\ScheduleTests.cs" />
+    <Compile Include="New\EveryWeekdayTests.cs" />
+    <Compile Include="New\EveryDayTests.cs" />
     <Compile Include="Parsing\DateTimeExtensionsTests.cs" />
     <Compile Include="Parsing\GoldenFoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

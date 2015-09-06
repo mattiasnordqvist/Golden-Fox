@@ -4,7 +4,7 @@ namespace GoldenFox.New
 {
     public class Clock : IComparable<Clock>
     {
-        public Clock(){}
+        public Clock() { }
 
         public Clock(int hh, int mm)
         {

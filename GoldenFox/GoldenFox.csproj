@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="New\Clock.cs" />
+    <Compile Include="New\DateTimeExtensions.cs" />
     <Compile Include="New\Interval.cs" />
     <Compile Include="New\Schedule.cs" />
     <Compile Include="Parsing\DateTimeExtensions.cs" />
