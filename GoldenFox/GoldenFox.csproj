@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="New\Clock.cs" />
+    <Compile Include="New\Interval.cs" />
+    <Compile Include="New\Schedule.cs" />
     <Compile Include="Parsing\DateTimeExtensions.cs" />
     <Compile Include="Parsing\DateTimeComputer.cs" />
     <Compile Include="Parsing\Fox.cs" />

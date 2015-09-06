@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="New\ClockTest.cs" />
+    <Compile Include="New\ScheduleTests.cs" />
     <Compile Include="Parsing\DateTimeExtensionsTests.cs" />
     <Compile Include="Parsing\GoldenFoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
