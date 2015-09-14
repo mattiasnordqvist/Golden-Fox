@@ -18,11 +18,11 @@ namespace GoldenFox.New
         {
         }
 
-        public Schedule(Clock times, List<int> days, Interval interval) : this(new List<Clock> { times }, days, interval)
+        public Schedule(Clock times, IEnumerable<int> days, Interval interval) : this(new List<Clock> { times }, days, interval)
         {
         }
 
-        public Schedule(List<Clock> times, List<int> days, Interval interval)
+        public Schedule(List<Clock> times, IEnumerable<int> days, Interval interval)
         {
             Times = times;
             Days = days.Select(x => Tuple.Create(x, interval)).ToList();

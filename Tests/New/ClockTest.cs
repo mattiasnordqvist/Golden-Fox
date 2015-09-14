@@ -21,7 +21,7 @@ namespace Tests.New
         [Test]
         public void Later()
         {
-            var now = new DateTime(2015, 11, 1,12, 1, 2);
+            var now = new DateTime(2015, 11, 1, 12, 1, 2);
             Assert.AreEqual(
                 1,
                 Math.Sign(new Clock(now.AddHours(1)).CompareTo(new Clock(now))));
