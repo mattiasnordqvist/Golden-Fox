@@ -8,7 +8,7 @@ namespace GoldenFox.New
     {
         private List<Clock> _times;
 
-        private List<int> _daysOffset;
+        private List<Tuple<int, Interval>> _days;
 
         public Schedule(Clock times, int days, Interval interval) : this(new List<Clock> { times }, new List<int> { days }, interval)
         {
@@ -25,8 +25,7 @@ namespace GoldenFox.New
         public Schedule(List<Clock> times, List<int> days, Interval interval)
         {
             Times = times;
-            DaysOffset = days;
-            Interval = interval;
+            Days = days.Select(x => Tuple.Create(x, interval)).ToList();
         }
 
         public List<Clock> Times
@@ -42,40 +41,33 @@ namespace GoldenFox.New
             }
         }
 
-        public List<int> DaysOffset
+        public List<Tuple<int, Interval>> Days
         {
             get
             {
-                return _daysOffset;
+                return _days;
             }
 
             set
             {
-                _daysOffset = value.OrderBy(x => x).ToList();
+                _days = value.OrderBy(x => x.Item1).ToList();
             }
         }
 
-        public Interval Interval { get; set; }
-
         public DateTime Next(DateTime from, bool includeNow = false)
         {
-            if (Interval == Interval.Day || Interval == Interval.Week)
-            {
-                return DaysOffset.Select(
+                return Days.Select(
                     day =>
                     {
-                        var daysToNextOccurence = GetDaysToNextOccurence(from, Interval, day);
+                        var daysToNextOccurence = GetDaysToNextOccurence(from, day.Item2, day.Item1);
 
                         return Times.Select(
-                            time => (includeNow && daysToNextOccurence % GetIntervalLength(Interval) == 0 && time.CompareTo(new Clock(@from)) == 0)
+                            time => (includeNow && daysToNextOccurence % GetIntervalLength(day.Item2) == 0 && time.CompareTo(new Clock(@from)) == 0)
                                         ? @from
-                                        : (time.CompareTo(new Clock(@from)) > 0 && daysToNextOccurence % GetIntervalLength(Interval) == 0
+                                        : (time.CompareTo(new Clock(@from)) > 0 && daysToNextOccurence % GetIntervalLength(day.Item2) == 0
                                                ? @from.At(time) 
                                                : @from.AddDays(daysToNextOccurence).At(time))).OrderBy(x => x).First();
                     }).OrderBy(x => x).First();
-            }
-
-            return from;
         }
 
         private int GetDaysToNextOccurence(DateTime @from, Interval interval, int daysOffset)
