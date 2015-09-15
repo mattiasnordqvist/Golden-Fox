@@ -62,6 +62,24 @@ namespace Tests.Full
         }
 
         [Test]
+        public void FirstDayEveryMonthAtSpecificTime()
+        {
+            "1st day every month at 10:20".From("2015-08-14").Gives("2015-09-01 10:20:00");
+        }
+
+        [Test]
+        public void _2ndDayEveryMonthAtSpecificTime()
+        {
+            "2nd day every month at 10:20".From("2015-09-01").Gives("2015-09-02 10:20:00");
+        }
+
+        [Test]
+        public void _2ndDayEveryMonthAtSpecificTime_WhenWeSkipToNewMonth()
+        {
+            "2nd day every month at 10:20".From("2015-08-14").Gives("2015-09-02 10:20:00");
+        }
+
+        [Test]
         public void SundaysAtSpecificTime()
         {
             "sundays at 22:30".From("2015-08-14").Gives("2015-08-16 22:30:00");

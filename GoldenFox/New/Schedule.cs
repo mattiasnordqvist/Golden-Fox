@@ -85,9 +85,10 @@ namespace GoldenFox.New
 
         private int GetDaysToNextOccurence(DateTime @from, Interval interval, int daysOffset)
         {
+            // This doesn't work properly for months with negative daysOffset right now :(
             var intervalLength = GetIntervalLength(interval, from);
             var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1;
-            var daysToNextOccurence = daysOffset <= current ? intervalLength - current + daysOffset : daysOffset - current;
+            var daysToNextOccurence = daysOffset <= current ? intervalLength - current + daysOffset : -current + daysOffset;
             if (daysToNextOccurence <= 0)
             {
                 daysToNextOccurence += intervalLength;
@@ -104,7 +105,6 @@ namespace GoldenFox.New
             }
             else 
             {
-                // month
                 return DateTime.DaysInMonth(context.Year, context.Month);
             }
         }
