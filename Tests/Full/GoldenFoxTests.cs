@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 
-using GoldenFox.Parsing;
+using GoldenFox.New;
 
 using NUnit.Framework;
 
-namespace Tests.Parsing
+namespace Tests.Full
 {
     [TestFixture]
     public class GoldenFoxTests

@@ -1,6 +1,8 @@
 using NUnit.Framework;
 
-namespace Tests.Parsing
+using Tests.Parsing;
+
+namespace Tests.Full
 {
     [TestFixture]
     public class ScheduleTests
@@ -8,13 +10,19 @@ namespace Tests.Parsing
         [Test]
         public void EveryDayAt_ExactlyTheSameTime()
         {
-            "every day at 06:30".From("2015-10-05 06:30:00").Gives("2015-10-05 06:30:00");
+            "every day at 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
+        }
+
+        [Test]
+        public void EveryDayAt_ExactlyTheSameTime_GivesNextDay()
+        {
+            "every day at 06:30".From("2015-10-05 06:30:00", false).Gives("2015-10-06 06:30:00");
         }
 
         [Test]
         public void EveryDayAt_ExactlyTheSameTime_atSignWorksToo()
         {
-            "everyday@06:30".From("2015-10-05 06:30:00").Gives("2015-10-05 06:30:00");
+            "everyday@06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
         }
 
         [Test]
@@ -48,7 +56,7 @@ namespace Tests.Parsing
         }
 
         [Test]
-        public void LastDayEveryMonthAtSpecificTime_Test2()
+        public void LastDayEveryMonthAtSpecificTime_Test2_WhenWeNeedToSkipToNextMonth()
         {
             "last day every month at 10:20".From("2015-08-31 12:00:00").Gives("2015-09-30 10:20:00");
         }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace GoldenFox.Parsing
+namespace GoldenFox.New
 {
     public class Fox : IEnumerable<DateTime>
     {
@@ -11,16 +11,18 @@ namespace GoldenFox.Parsing
 
         public Fox(string schedule, DateTime startFrom)
         {
-            _schedule = new Schedule(schedule);
+            _schedule = new ScheduleParser().Parse(schedule);
             _current = startFrom;
         }
 
         public IEnumerator<DateTime> GetEnumerator()
         {
+            var includeNow = true;
             while (true)
             {
-                _current = _schedule.Next(_current).AddMinutes(1);
+                _current = _schedule.Next(_current, includeNow);
                 yield return _current;
+                includeNow = false;
             }
         }
 

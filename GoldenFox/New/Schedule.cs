@@ -20,11 +20,13 @@ namespace GoldenFox.New
         {
         }
 
-        public Schedule(List<Clock> times, int days, Interval interval) : this(times, new List<int> { days }, interval)
+        public Schedule(List<Clock> times, int days, Interval interval)
+            : this(times, new List<int> { days }, interval)
         {
         }
 
-        public Schedule(Clock times, IEnumerable<int> days, Interval interval) : this(new List<Clock> { times }, days, interval)
+        public Schedule(Clock times, IEnumerable<int> days, Interval interval)
+            : this(new List<Clock> { times }, days, interval)
         {
         }
 
@@ -60,6 +62,11 @@ namespace GoldenFox.New
             }
         }
 
+        public static GoldenFoxFactory Fox(string schedule)
+        {
+            return new GoldenFoxFactory(schedule);
+        }
+
         public DateTime Next(DateTime from, bool includeNow = false)
         {
                 return Days.Select(
@@ -78,10 +85,15 @@ namespace GoldenFox.New
 
         private int GetDaysToNextOccurence(DateTime @from, Interval interval, int daysOffset)
         {
-            var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1; 
-                return daysOffset <= current
-                           ? GetIntervalLength(interval, from) - current + daysOffset
-                           : daysOffset - current;
+            var intervalLength = GetIntervalLength(interval, from);
+            var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1;
+            var daysToNextOccurence = daysOffset <= current ? intervalLength - current + daysOffset : daysOffset - current;
+            if (daysToNextOccurence <= 0)
+            {
+                daysToNextOccurence += intervalLength;
+            }
+
+            return daysToNextOccurence;
         }
 
         private int GetIntervalLength(Interval interval, DateTime context)
@@ -90,8 +102,9 @@ namespace GoldenFox.New
             {
                 return 7;
             }
-            else //month
+            else 
             {
+                // month
                 return DateTime.DaysInMonth(context.Year, context.Month);
             }
         }
