@@ -68,9 +68,9 @@ namespace GoldenFox.New
                         var daysToNextOccurence = GetDaysToNextOccurence(from, day.Item2, day.Item1);
 
                         return Times.Select(
-                            time => (includeNow && daysToNextOccurence % GetIntervalLength(day.Item2) == 0 && time.CompareTo(new Clock(@from)) == 0)
+                            time => (includeNow && daysToNextOccurence % GetIntervalLength(day.Item2, from) == 0 && time.CompareTo(new Clock(@from)) == 0)
                                         ? @from
-                                        : (time.CompareTo(new Clock(@from)) > 0 && daysToNextOccurence % GetIntervalLength(day.Item2) == 0
+                                        : (time.CompareTo(new Clock(@from)) > 0 && daysToNextOccurence % GetIntervalLength(day.Item2, from) == 0
                                                ? @from.At(time) 
                                                : @from.AddDays(daysToNextOccurence).At(time))).OrderBy(x => x).First();
                     }).OrderBy(x => x).First();
@@ -78,16 +78,22 @@ namespace GoldenFox.New
 
         private int GetDaysToNextOccurence(DateTime @from, Interval interval, int daysOffset)
         {
-            return interval == Interval.Day
-                ? GetIntervalLength(interval)
-                : daysOffset <= ((int)from.DayOfWeek - 1)
-                    ? GetIntervalLength(interval) - ((int)from.DayOfWeek - 1) + daysOffset
-                    : daysOffset - ((int)from.DayOfWeek - 1);
+            var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1; 
+                return daysOffset <= current
+                           ? GetIntervalLength(interval, from) - current + daysOffset
+                           : daysOffset - current;
         }
 
-        private int GetIntervalLength(Interval interval)
+        private int GetIntervalLength(Interval interval, DateTime context)
         {
-            return interval == Interval.Day ? 1 : 7;
+            if (interval == Interval.Week)
+            {
+                return 7;
+            }
+            else //month
+            {
+                return DateTime.DaysInMonth(context.Year, context.Month);
+            }
         }
     }
 }
