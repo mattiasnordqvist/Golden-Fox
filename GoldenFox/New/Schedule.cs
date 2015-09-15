@@ -10,6 +10,12 @@ namespace GoldenFox.New
 
         private List<Tuple<int, Interval>> _days;
 
+        public Schedule()
+        {
+            _times = new List<Clock>();
+            _days = new List<Tuple<int, Interval>>();
+        }
+
         public Schedule(Clock times, int days, Interval interval) : this(new List<Clock> { times }, new List<int> { days }, interval)
         {
         }
