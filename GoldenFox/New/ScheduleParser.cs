@@ -13,7 +13,6 @@ namespace GoldenFox.New
         private readonly Tokenizer _tokenizer;
 
         private readonly string[] _days = { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
-        private readonly string[] _nthWeekdays = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th" };
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1116:SplitParametersMustStartOnLineAfterDeclaration", Justification = "Reviewed. Suppression is OK here."), SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed. Suppression is OK here."), SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed. Suppression is OK here.")]
         public ScheduleParser()
@@ -21,7 +20,7 @@ namespace GoldenFox.New
             _tokenizer = new Tokenizer();
             Add("every", "day", "month", "week",
                 "at", "@", ":",
-                "1st", "2nd", "3rd", "4th", "5th", "6th", "7th",
+                "st", "nd", "rd", "th",
                 "last",
                 "s",
                 "and");
@@ -78,7 +77,7 @@ namespace GoldenFox.New
                     }
                     while (parts.NextIf("and"));
                 }
-                else if (_nthWeekdays.Any(x => x == parts.Peek() || parts.Peek("last")))
+                else if (IsNumeric(parts.Peek()) || parts.Peek("last"))
                 {
                     var scopeDays = new List<int>();
                     do
@@ -89,7 +88,8 @@ namespace GoldenFox.New
                         }
                         else
                         {
-                            var nth = Array.IndexOf(_nthWeekdays, parts.NextPart());
+                            var nth = int.Parse(parts.NextPart()) - 1;
+                            parts.SkipIf("st", "nd", "rd", "th");
                             if (parts.NextIf("last"))
                             {
                                 nth = -1 - nth;
@@ -115,7 +115,7 @@ namespace GoldenFox.New
                     }
                     else
                     {
-                        new ParsingException("Unexpected token " + parts.Peek() + ". Expected week, month or year.");
+                        throw new ParsingException("Unexpected token " + parts.Peek() + ". Expected week, month or year.");
                     }
                 }
             }
@@ -151,6 +151,13 @@ namespace GoldenFox.New
             {
                 _tokenizer.AddToken(new StringToken(s));
             }
+        }
+
+        private bool IsNumeric(string s)
+        {
+            int n;
+            var isNumeric = int.TryParse(s, out n);
+            return isNumeric;
         }
     }
 }

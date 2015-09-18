@@ -25,14 +25,8 @@ namespace GoldenFox.New
             return n;
         }
 
-        [Obsolete("Use SkipOrFail")]
-        public PartsTraverser Skip(string expected)
+        private PartsTraverser Skip()
         {
-            if (_parts.First() != expected)
-            {
-                throw new ParsingException("Golden fox did not expect \"" + _parts.First() + "\" to show up here");
-            }
-
             _parts = _parts.Skip(1).ToList();
             return this;
         }
@@ -47,11 +41,11 @@ namespace GoldenFox.New
             return expected == Peek();
         }
 
-        public bool SkipIf(string expected)
+        public bool SkipIf(params string[] expected)
         {
-            if (Peek() == expected)
+            if (expected.Contains(Peek()))
             {
-                Skip(expected);
+                Skip();
                 return true;
             }
 
