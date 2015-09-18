@@ -1,8 +1,8 @@
 using System;
 
-using GoldenFox.New;
+using GoldenFox;
 
-namespace Tests.Parsing
+namespace Tests.Full
 {
     public static class TestExtensions
     {

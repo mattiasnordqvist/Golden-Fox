@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-using GoldenFox.New;
+using GoldenFox;
 
 using NUnit.Framework;
 

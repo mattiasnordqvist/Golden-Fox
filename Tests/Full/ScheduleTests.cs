@@ -1,7 +1,5 @@
 using NUnit.Framework;
 
-using Tests.Parsing;
-
 namespace Tests.Full
 {
     [TestFixture]

@@ -1,4 +1,4 @@
-﻿namespace GoldenFox.New
+﻿namespace GoldenFox
 {
     public enum Interval
     {

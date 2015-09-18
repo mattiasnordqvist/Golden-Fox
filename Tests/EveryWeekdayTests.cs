@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using GoldenFox.New;
+using GoldenFox;
 
 using NUnit.Framework;
 
-namespace Tests.New
+namespace Tests
 {
     [TestFixture]
     public class EveryWeekdayTests

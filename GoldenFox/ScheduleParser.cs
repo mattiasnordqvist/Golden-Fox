@@ -6,7 +6,7 @@ using System.Linq;
 using GoldenFox.Tokenizing;
 using GoldenFox.Tokenizing.TokenTypes;
 
-namespace GoldenFox.New
+namespace GoldenFox
 {
     public class ScheduleParser
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 
-using GoldenFox.New;
+using GoldenFox;
 
 using NUnit.Framework;
 
-namespace Tests.New
+namespace Tests
 {
     [TestFixture]
     public class ClockTest

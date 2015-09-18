@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoldenFox.New
+namespace GoldenFox
 {
     public class Clock : IComparable<Clock>
     {

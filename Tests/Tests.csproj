@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ClockTest.cs" />
-    <Compile Include="Model\EveryMonthsTests.cs" />
-    <Compile Include="Model\EveryWeekdayTests.cs" />
-    <Compile Include="Model\EveryDayTests.cs" />
+    <Compile Include="ClockTest.cs" />
+    <Compile Include="EveryMonthsTests.cs" />
+    <Compile Include="EveryWeekdayTests.cs" />
+    <Compile Include="EveryDayTests.cs" />
     <Compile Include="Full\GoldenFoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Full\ScheduleTests.cs" />

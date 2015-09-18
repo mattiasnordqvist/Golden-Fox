@@ -44,18 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="New\Clock.cs" />
-    <Compile Include="New\DateTimeExtensions.cs" />
-    <Compile Include="New\Interval.cs" />
-    <Compile Include="New\Schedule.cs" />
-    <Compile Include="New\ScheduleParser.cs" />
-    <Compile Include="New\Fox.cs" />
-    <Compile Include="New\GoldenFoxFactory.cs" />
-    <Compile Include="New\ParsingException.cs" />
+    <Compile Include="Clock.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="Interval.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleParser.cs" />
+    <Compile Include="Fox.cs" />
+    <Compile Include="GoldenFoxFactory.cs" />
+    <Compile Include="ParsingException.cs" />
     <Compile Include="Tokenizing\MatchResult.cs" />
     <Compile Include="Tokenizing\TokenTypes\IntegerToken.cs" />
     <Compile Include="Tokenizing\IToken.cs" />
-    <Compile Include="New\PartsTraverser.cs" />
+    <Compile Include="PartsTraverser.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
     <Compile Include="Tokenizing\TokenTypes\StringToken.cs" />

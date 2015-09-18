@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GoldenFox.New
+namespace GoldenFox
 {
     public class Schedule
     {
@@ -83,18 +83,35 @@ namespace GoldenFox.New
                     }).OrderBy(x => x).First();
         }
 
-        private int GetDaysToNextOccurence(DateTime @from, Interval interval, int daysOffset)
+        private int GetDaysToNextOccurence(DateTime from, Interval interval, int daysOffset /*zero-indexed*/)
         {
-            // This doesn't work properly for months with negative daysOffset right now :(
-            var intervalLength = GetIntervalLength(interval, from);
-            var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1;
-            var daysToNextOccurence = daysOffset <= current ? intervalLength - current + daysOffset : -current + daysOffset;
-            if (daysToNextOccurence <= 0)
+            if (interval == Interval.Week || (interval == Interval.Month && daysOffset >= 0))
             {
-                daysToNextOccurence += intervalLength;
-            }
+                var intervalLength = GetIntervalLength(interval, from);
+                var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1;
+                var daysToNextOccurence = daysOffset <= current
+                                              ? intervalLength - current + daysOffset
+                                              : -current + daysOffset;
+                if (daysToNextOccurence <= 0)
+                {
+                    daysToNextOccurence += intervalLength;
+                }
 
-            return daysToNextOccurence;
+                return daysToNextOccurence;
+            }
+            else
+            {
+                var nextDayIfThisMonth = DateTime.DaysInMonth(from.Year, from.Month) + 1 + daysOffset;
+                if (nextDayIfThisMonth > from.Day)
+                {
+                    return nextDayIfThisMonth - from.Day;
+                }
+                else
+                {
+                    var nextDayInNextMonth = DateTime.DaysInMonth(from.AddMonths(1).Year, from.AddMonths(1).Month) + 1 + daysOffset;
+                    return DateTime.DaysInMonth(from.Year, from.Month) - from.Day + nextDayInNextMonth;
+                }
+            }
         }
 
         private int GetIntervalLength(Interval interval, DateTime context)

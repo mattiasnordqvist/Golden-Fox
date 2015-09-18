@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace GoldenFox.New
+namespace GoldenFox
 {
     public class Fox : IEnumerable<DateTime>
     {
