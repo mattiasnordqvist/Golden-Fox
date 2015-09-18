@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GoldenFox.Parsing
+namespace GoldenFox
 {
     public class PartsTraverser
     {
@@ -24,20 +24,9 @@ namespace GoldenFox.Parsing
             return n;
         }
 
-        public PartsTraverser Skip(string expected)
+       public string Peek()
         {
-            if (_parts.First() != expected)
-            {
-                throw new ParsingException("Golden fox did not expect \"" + _parts.First() + "\" to show up here");
-            }
-
-            _parts = _parts.Skip(1).ToList();
-            return this;
-        }
-
-        public string Peek()
-        {
-            return _parts.First();
+            return _parts.Any() ? _parts.First() : null;
         }
 
         public bool Peek(string expected)
@@ -45,11 +34,11 @@ namespace GoldenFox.Parsing
             return expected == Peek();
         }
 
-        public bool SkipIf(string expected)
+        public bool SkipIf(params string[] expected)
         {
-            if (Peek() == expected)
+            if (expected.Contains(Peek()))
             {
-                Skip(expected);
+                Skip();
                 return true;
             }
 
@@ -65,6 +54,23 @@ namespace GoldenFox.Parsing
             }
 
             return false;
+        }
+
+        public PartsTraverser SkipAnyOrFail(params string[] expected)
+        {
+            if (expected.All(x => x != _parts.First()))
+            {
+                throw new ParsingException("Golden fox did not expect \"" + _parts.First() + "\" to show up here");
+            }
+
+            _parts = _parts.Skip(1).ToList();
+            return this;
+        }
+
+        private PartsTraverser Skip()
+        {
+            _parts = _parts.Skip(1).ToList();
+            return this;
         }
     }
 }

@@ -44,21 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsing\DateTimeExtensions.cs" />
-    <Compile Include="Parsing\DateTimeComputer.cs" />
-    <Compile Include="Parsing\Fox.cs" />
-    <Compile Include="Parsing\GoldenFoxFactory.cs" />
-    <Compile Include="Parsing\ParsingException.cs" />
+    <Compile Include="Clock.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="Interval.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleParser.cs" />
+    <Compile Include="Fox.cs" />
+    <Compile Include="GoldenFoxFactory.cs" />
+    <Compile Include="ParsingException.cs" />
     <Compile Include="Tokenizing\MatchResult.cs" />
     <Compile Include="Tokenizing\TokenTypes\IntegerToken.cs" />
     <Compile Include="Tokenizing\IToken.cs" />
-    <Compile Include="Parsing\PartsTraverser.cs" />
-    <Compile Include="Parsing\Schedule.cs" />
-    <Compile Include="Parsing\Time.cs" />
-    <Compile Include="Parsing\TimeParser.cs" />
+    <Compile Include="PartsTraverser.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
-    <Compile Include="Parsing\ScheduleParser.cs" />
     <Compile Include="Tokenizing\TokenTypes\StringToken.cs" />
     <Compile Include="Tokenizing\TokenTypes\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

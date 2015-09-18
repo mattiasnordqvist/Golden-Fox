@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 
-using GoldenFox.Parsing;
+using GoldenFox;
 
 using NUnit.Framework;
 
-namespace Tests.Parsing
+namespace Tests.Full
 {
     [TestFixture]
     public class GoldenFoxTests
@@ -94,6 +94,23 @@ namespace Tests.Parsing
                 Assert.AreEqual(i, dateTime.Month);
                 Assert.AreEqual(DateTime.DaysInMonth(1984, i) - 2, dateTime.Day);
                 Assert.AreEqual(1984, dateTime.Year);
+                i++;
+            }
+        }
+
+        [Test]
+        public void Yadayadayada()
+        {
+            var now = DateTime.Parse("1984-01-01 00:00");
+            var _10months = Schedule.Fox("22nd day every month and 15th day every month @ 12:00").From(now).Take(10);
+            bool fifteenth = true;
+            int i = 1;
+            foreach (var dateTime in _10months)
+            {
+                Assert.AreEqual(fifteenth ? 15 : 22, dateTime.Day);
+                Assert.AreEqual((int)Math.Ceiling(i / 2d), dateTime.Month);
+                Assert.AreEqual(1984, dateTime.Year);
+                fifteenth = !fifteenth;
                 i++;
             }
         }

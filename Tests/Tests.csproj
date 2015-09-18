@@ -43,14 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsing\DateTimeExtensionsTests.cs" />
-    <Compile Include="Parsing\GoldenFoxTests.cs" />
+    <Compile Include="ClockTest.cs" />
+    <Compile Include="EveryMonthsTests.cs" />
+    <Compile Include="EveryWeekdayTests.cs" />
+    <Compile Include="EveryDayTests.cs" />
+    <Compile Include="Full\GoldenFoxTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Parsing\ScheduleParserTests.cs" />
-    <Compile Include="Parsing\ScheduleTests.cs" />
+    <Compile Include="Full\ScheduleTests.cs" />
     <Compile Include="Tokenizing\StringTokenTests.cs" />
-    <Compile Include="Parsing\TestableDateTime.cs" />
-    <Compile Include="Parsing\TestExtensions.cs" />
+    <Compile Include="Full\TestableDateTime.cs" />
+    <Compile Include="Full\TestExtensions.cs" />
     <Compile Include="Tokenizing\TokenizerTests.cs" />
   </ItemGroup>
   <ItemGroup>

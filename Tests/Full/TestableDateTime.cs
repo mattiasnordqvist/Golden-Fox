@@ -2,7 +2,7 @@ using System;
 
 using NUnit.Framework;
 
-namespace Tests.Parsing
+namespace Tests.Full
 {
     public class TestableDateTime
     {

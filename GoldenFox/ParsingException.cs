@@ -1,6 +1,6 @@
 using System;
 
-namespace GoldenFox.Parsing
+namespace GoldenFox
 {
     public class ParsingException : Exception
     {
