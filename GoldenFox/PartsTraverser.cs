@@ -24,13 +24,7 @@ namespace GoldenFox
             return n;
         }
 
-        private PartsTraverser Skip()
-        {
-            _parts = _parts.Skip(1).ToList();
-            return this;
-        }
-
-        public string Peek()
+       public string Peek()
         {
             return _parts.Any() ? _parts.First() : null;
         }
@@ -69,6 +63,12 @@ namespace GoldenFox
                 throw new ParsingException("Golden fox did not expect \"" + _parts.First() + "\" to show up here");
             }
 
+            _parts = _parts.Skip(1).ToList();
+            return this;
+        }
+
+        private PartsTraverser Skip()
+        {
             _parts = _parts.Skip(1).ToList();
             return this;
         }
