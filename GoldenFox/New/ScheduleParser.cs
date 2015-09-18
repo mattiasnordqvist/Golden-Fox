@@ -122,22 +122,31 @@ namespace GoldenFox.New
             while (parts.NextIf("and"));
             days = days.Distinct().ToList();
 
-            parts.SkipAnyOrFail("@", "at");
+            schedule.Times = ParseTimes(parts);
+            schedule.Days = days;
+        }
 
+        private List<Clock> ParseTimes(PartsTraverser parts)
+        {
+            parts.SkipAnyOrFail("@", "at");
             var times = new List<Clock>();
+
             do
             {
-                var part = parts.NextPart();
-                var hour = int.Parse(part);
-                parts.SkipAnyOrFail(":");
-                part = parts.NextPart();
-                var minute = int.Parse(part);
-                times.Add(new Clock { Hour = hour, Minute = minute });
+                times.Add(ParseClock(parts));
             }
             while (parts.NextIf("and"));
+            return times;
+        } 
 
-            schedule.Times = times;
-            schedule.Days = days;
+        private Clock ParseClock(PartsTraverser parts)
+        {
+            var part = parts.NextPart();
+            var hour = int.Parse(part);
+            parts.SkipAnyOrFail(":");
+            part = parts.NextPart();
+            var minute = int.Parse(part);
+            return new Clock { Hour = hour, Minute = minute };
         }
 
         private List<string> ParseParts(string parseThis)
