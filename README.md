@@ -34,4 +34,4 @@ This fox ain't golden for no reason. As long as the words you talk fit into this
 
 It is hard to teach foxes English. You're welcome to give him a lesson and expand his vocabulary and understanding. Or just create an issues for input that you wish the fox to recognize.
 
-I have really no idea about how you should write code to do this kind of task in a nice way. This is my humble first try. Please advice me or make a pull request where you fix the mess behind the scenes.
+Make a pull request and give me a lesson in parsing. I need it...
