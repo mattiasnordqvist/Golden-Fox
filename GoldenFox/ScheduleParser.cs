@@ -18,7 +18,7 @@ namespace GoldenFox
         public ScheduleParser()
         {
             _tokenizer = new Tokenizer();
-            Add("every", "day", "month", "week",
+            Add("every", "day", "month", "week", "year",
                 "at", "@", ":",
                 "st", "nd", "rd", "th",
                 "last",

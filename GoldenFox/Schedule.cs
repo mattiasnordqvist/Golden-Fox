@@ -83,46 +83,61 @@ namespace GoldenFox
                     }).OrderBy(x => x).First();
         }
 
-        private int GetDaysToNextOccurence(DateTime from, Interval interval, int daysOffset /*zero-indexed*/)
+        private int GetDaysToNextOccurence(DateTime from, Interval interval, int daysOffset)
         {
-            if (interval == Interval.Week || (interval == Interval.Month && daysOffset >= 0))
+            var nextDayIfThisInterval = (daysOffset >= 0 ? 0 : GetIntervalLength(interval, from)) + 1 + daysOffset;
+            if (nextDayIfThisInterval > DayIn(from, interval))
             {
-                var intervalLength = GetIntervalLength(interval, from);
-                var current = interval == Interval.Week ? (int)from.DayOfWeek - 1 : from.Day - 1;
-                var daysToNextOccurence = daysOffset <= current
-                                              ? intervalLength - current + daysOffset
-                                              : -current + daysOffset;
-                if (daysToNextOccurence <= 0)
-                {
-                    daysToNextOccurence += intervalLength;
-                }
-
-                return daysToNextOccurence;
+                return nextDayIfThisInterval - DayIn(from, interval);
             }
             else
             {
-                var nextDayIfThisMonth = DateTime.DaysInMonth(from.Year, from.Month) + 1 + daysOffset;
-                if (nextDayIfThisMonth > from.Day)
-                {
-                    return nextDayIfThisMonth - from.Day;
-                }
-                else
-                {
-                    var nextDayInNextMonth = DateTime.DaysInMonth(from.AddMonths(1).Year, from.AddMonths(1).Month) + 1 + daysOffset;
-                    return DateTime.DaysInMonth(from.Year, from.Month) - from.Day + nextDayInNextMonth;
-                }
+                var nextDayIfNextInterval = (daysOffset >= 0 ? 0 : GetIntervalLength(interval, Add(from, interval))) + 1 + daysOffset;
+                return GetIntervalLength(interval, from) - DayIn(from, interval) + nextDayIfNextInterval;
+            }
+        }
+
+        private int DayIn(DateTime @from, Interval interval)
+        {
+            switch (interval)
+            {
+                case Interval.Week:
+                    return ((int)@from.DayOfWeek == 0) ? 7 : (int)@from.DayOfWeek;
+                case Interval.Month:
+                    return @from.Day;
+                case Interval.Year:
+                    return @from.DayOfYear;
+                default: throw new Exception();
+            }
+        }
+
+        private DateTime Add(DateTime @from, Interval interval)
+        {
+            switch (interval)
+            {
+                case Interval.Week:
+                    return @from.AddDays(7);
+                case Interval.Month:
+                    return @from.AddMonths(1);
+                case Interval.Year:
+                    return @from.AddYears(1);
+                default:
+                    throw new Exception();
             }
         }
 
         private int GetIntervalLength(Interval interval, DateTime context)
         {
-            if (interval == Interval.Week)
+            switch (interval)
             {
-                return 7;
-            }
-            else 
-            {
-                return DateTime.DaysInMonth(context.Year, context.Month);
+                case Interval.Week:
+                    return 7;
+                case Interval.Month:
+                    return DateTime.DaysInMonth(context.Year, context.Month);
+                case Interval.Year:
+                    return new DateTime(context.Year, 12, 31).DayOfYear;
+                default:
+                    throw new Exception();
             }
         }
     }
