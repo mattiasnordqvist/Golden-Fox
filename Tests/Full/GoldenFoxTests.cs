@@ -10,6 +10,21 @@ namespace Tests.Full
     [TestFixture]
     public class GoldenFoxTests
     {
+
+        [Test]
+        public void EveryHour()
+        {
+            var hundredHours = Schedule.Fox("every hour").From(new DateTime(2015, 1, 1, 5, 23, 2)).Take(100).ToList();
+            var index = 6;
+            Assert.AreEqual(100, hundredHours.Count());
+            foreach (var dateTime in hundredHours)
+            {
+                Assert.AreEqual(index % 24, dateTime.Hour);
+                Assert.AreEqual(1 + Math.Floor(index / 24d), dateTime.Day);
+                index++;
+            }
+        }
+
         [Test]
         public void TenDaysFromNowEveryDayAtTenOClock()
         {

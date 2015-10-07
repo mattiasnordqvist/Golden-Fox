@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Mattias Nordqvist")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
+[assembly: AssemblyVersion("1.0.2")]
+[assembly: AssemblyFileVersion("1.0.2")]
 [assembly: AssemblyProduct("Golden Fox")]
 [assembly: AssemblyCompany("Mattias Nordqvist")]
 

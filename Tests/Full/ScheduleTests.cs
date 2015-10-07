@@ -6,6 +6,12 @@ namespace Tests.Full
     public class ScheduleTests
     {
         [Test]
+        public void EveryHour()
+        {
+            "every hour".From("2015-01-01 05:23", true).Gives("2015-01-01 06:00");
+        }
+
+        [Test]
         public void EveryDayAt_ExactlyTheSameTime()
         {
             "every day at 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
