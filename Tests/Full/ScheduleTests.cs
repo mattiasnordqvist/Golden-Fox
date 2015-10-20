@@ -14,6 +14,7 @@ namespace Tests.Full
         [Test]
         public void EveryMinute()
         {
+            "every minute".From("2015-01-01 05:23", false).Gives("2015-01-01 05:24");
             "every minute".From("2015-01-01 23:59", false).Gives("2015-01-02 00:00");
         }
 
