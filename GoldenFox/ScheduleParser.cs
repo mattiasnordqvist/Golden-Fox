@@ -18,7 +18,7 @@ namespace GoldenFox
         public ScheduleParser()
         {
             _tokenizer = new Tokenizer();
-            Add("every", "day", "month", "week", "year", "hour",
+            Add("every", "day", "month", "week", "year", "hour", "minute",
                 "at", "@", ":",
                 "st", "nd", "rd", "th",
                 "last",
@@ -46,7 +46,7 @@ namespace GoldenFox
             {
                 if (parts.NextIf("every"))
                 {
-                    if (parts.NextIf("day") || parts.Peek("hour"))
+                    if (parts.NextIf("day") || parts.Peek("hour") || parts.Peek("minute"))
                     {
                         days.AddRange(
                             new[]
@@ -132,6 +132,16 @@ namespace GoldenFox
             if (parts.Peek("hour"))
             {
                 times = Enumerable.Range(0, 24).Select(x => new Clock(x, 0)).ToList();
+            }
+            else if (parts.Peek("minute"))
+            {
+                for (var i = 0; i < 24; i++)
+                {
+                    for (var y = 0; y < 60; y++)
+                    {
+                        times.Add(new Clock(i, y));
+                    }
+                }
             }
             else
             {

@@ -26,6 +26,20 @@ namespace Tests.Full
         }
 
         [Test]
+        public void EveryMinute()
+        {
+            var aLotOfMinutes = Schedule.Fox("every minute").From(new DateTime(2015, 1, 1, 0, 0, 0)).Take(1440).ToList();
+            var index = 0;
+            Assert.AreEqual(1440, aLotOfMinutes.Count());
+            foreach (var minute in aLotOfMinutes)
+            {
+                Assert.AreEqual(index % 60, minute.Minute);
+                Assert.AreEqual(Math.Floor(index / 60d), minute.Hour);
+                index++;
+            }
+        }
+
+        [Test]
         public void TenDaysFromNowEveryDayAtTenOClock()
         {
             var now = DateTime.Now;
