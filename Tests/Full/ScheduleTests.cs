@@ -12,6 +12,12 @@ namespace Tests.Full
         }
 
         [Test]
+        public void EveryMinute()
+        {
+            "every minute".From("2015-01-01 05:23", false).Gives("2015-01-01 05:24");
+        }
+
+        [Test]
         public void EveryDayAt_ExactlyTheSameTime()
         {
             "every day at 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
