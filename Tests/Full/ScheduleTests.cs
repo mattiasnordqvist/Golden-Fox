@@ -19,6 +19,66 @@ namespace Tests.Full
         }
 
         [Test]
+        public void EveryMinuteBetweenBeforeStart()
+        {
+            "every minute between 16:00 and 17:00".From("2015-01-01 05:23", false).Gives("2015-01-01 16:00");
+        }
+
+        [Test]
+        public void EveryMinuteBetweenBeforeInTheMiddle()
+        {
+            "every minute between 16:00 and 17:00".From("2015-01-01 16:23", false).Gives("2015-01-01 16:24");
+        }
+
+        [Test]
+        public void EveryMinuteBetweenBeforeEnd()
+        {
+            "every minute between 16:00 and 17:00".From("2015-01-01 16:59", false).Gives("2015-01-01 17:00");
+        }
+
+        [Test]
+        public void EveryMinuteBetweenAtEnd()
+        {
+            "every minute between 16:00 and 17:00".From("2015-01-01 17:00", false).Gives("2015-01-02 16:00");
+        }
+
+        [Test]
+        public void EveryMinuteBetweenAfterEnd()
+        {
+            "every minute between 16:00 and 17:00".From("2015-01-01 17:10", false).Gives("2015-01-02 16:00");
+        }
+
+        [Test]
+        public void EveryHourBetweenBeforeStart()
+        {
+            "every hour between 18:00 and 21:00".From("2015-01-01 05:23", false).Gives("2015-01-01 18:00");
+        }
+
+        [Test]
+        public void EveryHourBetweenBeforeInTheMiddle()
+        {
+            "every hour between 18:00 and 21:00".From("2015-01-01 18:23", false).Gives("2015-01-01 19:00");
+        }
+
+        [Test]
+        public void EveryHourBetweenBeforeEnd()
+        {
+            "every hour between 18:00 and 21:00".From("2015-01-01 20:59", false).Gives("2015-01-01 21:00");
+        }
+
+        [Test]
+        public void EveryHourBetweenAtEnd()
+        {
+            "every hour between 18:00 and 21:00".From("2015-01-01 21:00", false).Gives("2015-01-02 18:00");
+        }
+
+        [Test]
+        public void EveryHourBetweenAfterEnd()
+        {
+            "every hour between 18:00 and 21:00".From("2015-01-01 21:10", false).Gives("2015-01-02 18:00");
+        }
+
+        [Test]
         public void EveryDayAt_ExactlyTheSameTime()
         {
             "every day at 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");

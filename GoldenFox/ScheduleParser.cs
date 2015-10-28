@@ -23,7 +23,8 @@ namespace GoldenFox
                 "st", "nd", "rd", "th",
                 "last",
                 "s",
-                "and");
+                "and",
+                "between");
             Add(_days);
             _tokenizer.AddToken(new IntegerToken());
         }
@@ -129,17 +130,45 @@ namespace GoldenFox
         private List<Clock> ParseTimes(PartsTraverser parts)
         {
             var times = new List<Clock>();
-            if (parts.Peek("hour"))
+            if (parts.SkipIf("hour"))
             {
                 times = Enumerable.Range(0, 24).Select(x => new Clock(x, 0)).ToList();
+                if (parts.SkipIf("between"))
+                {
+                    Clock from = ParseClock(parts);
+                    parts.SkipAnyOrFail("and");
+                    Clock to = ParseClock(parts);
+                    times = times.Where(x => x.CompareTo(from) >= 0 && x.CompareTo(to) <= 0).ToList();
+                }
             }
-            else if (parts.Peek("minute"))
+
+            else if (parts.SkipIf("minute"))
             {
+                Clock from = null;
+                Clock to = null;
+                if (parts.SkipIf("between"))
+                {
+                    from = ParseClock(parts);
+                    parts.SkipAnyOrFail("and");
+                    to = ParseClock(parts);
+                }
+
                 for (var i = 0; i < 24; i++)
                 {
                     for (var y = 0; y < 60; y++)
                     {
-                        times.Add(new Clock(i, y));
+                        var clock = new Clock(i, y);
+                        if (from != null && to != null)
+                        {
+                            if (clock.CompareTo(from) >= 0 && clock.CompareTo(to) <= 0)
+                            {
+                                times.Add(clock);
+                            }
+                        }
+                        else
+                        {
+                            times.Add(clock);
+                        }
                     }
                 }
             }
