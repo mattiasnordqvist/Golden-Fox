@@ -151,12 +151,12 @@ namespace Tests.Tokenizing
         }
 
         [Test]
-        [ExpectedException(typeof(TokenizationException))]
         public void ParseExceptionNoMatchTokens()
         {
             var tokens = new List<IToken> { };
             var parseThis = "testtest";
-            new Tokenizer(tokens).Parse(parseThis);
+            var tokenizer = new Tokenizer(tokens);
+            Assert.Throws<TokenizationException>(() => tokenizer.Parse(parseThis));
         }
     }
 }
