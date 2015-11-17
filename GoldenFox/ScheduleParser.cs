@@ -58,8 +58,9 @@ namespace GoldenFox
                                     Tuple.Create(6, Interval.Week)
                                 });
                     }
-                    else // weekday
+                    else 
                     {
+                        // weekday
                         do
                         {
                             var nextDay = parts.NextPart();
@@ -141,7 +142,6 @@ namespace GoldenFox
                     times = times.Where(x => x.CompareTo(from) >= 0 && x.CompareTo(to) <= 0).ToList();
                 }
             }
-
             else if (parts.SkipIf("minute"))
             {
                 Clock from = null;
@@ -176,13 +176,13 @@ namespace GoldenFox
             {
                 parts.SkipAnyOrFail("@", "at");
                
-
                 do
                 {
                     times.Add(ParseClock(parts));
                 }
                 while (parts.NextIf("and"));
             }
+
             return times;
         } 
 
