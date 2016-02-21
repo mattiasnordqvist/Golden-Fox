@@ -153,7 +153,7 @@ namespace Tests.Tokenizing
         [Test]
         public void ParseExceptionNoMatchTokens()
         {
-            var tokens = new List<IToken> { };
+            var tokens = new List<IToken>();
             var parseThis = "testtest";
             var tokenizer = new Tokenizer(tokens);
             Assert.Throws<TokenizationException>(() => tokenizer.Parse(parseThis));

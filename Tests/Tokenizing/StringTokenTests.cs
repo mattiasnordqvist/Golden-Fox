@@ -8,7 +8,7 @@ namespace Tests.Tokenizing
     [TestFixture]
     public class StringTokenTests
     {
-        private IToken _test = new StringToken("test");
+        private readonly IToken _test = new StringToken("test");
 
         [Test]
         public void ExactMatch()

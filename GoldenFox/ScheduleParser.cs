@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using GoldenFox.Tokenizing;
+using GoldenFox.Tokenizing.Normalizers;
 using GoldenFox.Tokenizing.TokenTypes;
 
 namespace GoldenFox
@@ -13,6 +14,11 @@ namespace GoldenFox
         private readonly Tokenizer _tokenizer;
 
         private readonly string[] _days = { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
+
+        private readonly IEnumerable<INormalizer> _normalizers = new List<INormalizer>
+        {
+            new AtAliasNormalizer(),                                                        
+        };
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1116:SplitParametersMustStartOnLineAfterDeclaration", Justification = "Reviewed. Suppression is OK here."), SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed. Suppression is OK here."), SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed. Suppression is OK here.")]
         public ScheduleParser()
@@ -32,8 +38,9 @@ namespace GoldenFox
         public Schedule Parse(string parseThis)
         {
             var schedule = new Schedule();
-
-            var parts = new PartsTraverser(ParseParts(parseThis));
+            var seperatedParts = ParseParts(parseThis);
+            seperatedParts = _normalizers.Aggregate(seperatedParts, (current, normalizer) => normalizer.Normalize(current));
+            var parts = new PartsTraverser(seperatedParts);
 
             ParseBigLoop(parts, schedule);
 
