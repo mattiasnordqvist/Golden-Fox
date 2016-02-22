@@ -45,6 +45,7 @@
     <Compile Include="Interval.cs" />
     <Compile Include="NewModel\DateTimeExtensions.cs" />
     <Compile Include="NewModel\Day.cs" />
+    <Compile Include="NewModel\DayInMonth.cs" />
     <Compile Include="NewModel\First.cs" />
     <Compile Include="NewModel\From.cs" />
     <Compile Include="NewModel\Interval.cs" />
