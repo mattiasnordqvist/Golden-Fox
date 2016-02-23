@@ -10,6 +10,18 @@ namespace GoldenFox
 {
     public class ScheduleParser
     {
+        private class IntervalToUseForHours
+        {
+            public int Minutes { get; private set; }
+            public int Seconds { get; private set; }
+
+            public IntervalToUseForHours(int minutes, int seconds)
+            {
+                Minutes = minutes;
+                Seconds = seconds;
+            }
+        }
+
         private readonly Tokenizer _tokenizer;
 
         private readonly string[] _days = { "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
@@ -18,13 +30,15 @@ namespace GoldenFox
         public ScheduleParser()
         {
             _tokenizer = new Tokenizer();
-            Add("every", "day", "month", "week", "year", "hour", "minute",
+            Add("every", "day", "month", "week", "year", "hour", 
+                "minute", "minutes", "second", "seconds",
                 "at", "@", ":",
                 "st", "nd", "rd", "th",
                 "last",
-                "s",
+                "s", "m",
                 "and",
-                "between");
+                "between",
+                "hh:mm:", "hh:", "mm:");
             Add(_days);
             _tokenizer.AddToken(new IntegerToken());
         }
@@ -47,7 +61,7 @@ namespace GoldenFox
             {
                 if (parts.NextIf("every"))
                 {
-                    if (parts.NextIf("day") || parts.Peek("hour") || parts.Peek("minute"))
+                    if (parts.NextIf("day") || parts.Peek("hour") || parts.Peek("minute") || parts.Peek("second"))
                     {
                         days.AddRange(
                             new[]
@@ -130,22 +144,46 @@ namespace GoldenFox
 
         private List<Clock> ParseTimes(PartsTraverser parts)
         {
+            Clock from = null;
+            Clock to = null;
+
             var times = new List<Clock>();
             if (parts.SkipIf("hour"))
             {
-                times = Enumerable.Range(0, 24).Select(x => new Clock(x, 0)).ToList();
-                if (parts.SkipIf("between"))
+                var intervals = new List<IntervalToUseForHours>();
+
+                while (parts.SkipIf("@", "at", "and"))
                 {
-                    Clock from = ParseClock(parts);
-                    parts.SkipAnyOrFail("and");
-                    Clock to = ParseClock(parts);
-                    times = times.Where(x => x.CompareTo(from) >= 0 && x.CompareTo(to) <= 0).ToList();
+                    if (IsNumeric(parts.Peek()))
+                    {
+                        intervals.Add(
+                            new IntervalToUseForHours(
+                                int.Parse(parts.NextPart()),
+                                -1));
+                        parts.SkipAnyOrFail("minutes", "m");
+                    }
+                    else if (parts.NextIf("hh:"))
+                    {
+                        var seconds = -1;
+                        var minutes = int.Parse(parts.NextPart());
+                        if (parts.SkipIf(":"))
+                        {
+                            seconds = int.Parse(parts.NextPart());
+                        }
+
+                        intervals.Add(
+                            new IntervalToUseForHours(
+                                minutes,
+                                seconds));
+                    }
+                    else
+                    {
+                        throw new ParsingException("Unexpected token " + parts.Peek() +
+                                                   ". Expected \"hh:mm:\" or \"mm:\".");
+                    }
                 }
-            }
-            else if (parts.SkipIf("minute"))
-            {
-                Clock from = null;
-                Clock to = null;
+
+                //times = Enumerable.Range(0, 24).Select(x => new Clock(x, 0)).ToList();
                 if (parts.SkipIf("between"))
                 {
                     from = ParseClock(parts);
@@ -153,21 +191,173 @@ namespace GoldenFox
                     to = ParseClock(parts);
                 }
 
-                for (var i = 0; i < 24; i++)
+                for (var hh = 0; hh < 24; hh++)
                 {
-                    for (var y = 0; y < 60; y++)
+                    for (var mm = 0; mm < 60; mm++)
                     {
-                        var clock = new Clock(i, y);
-                        if (from != null && to != null)
+                        for (var ss = 0; ss < 60; ss++)
                         {
-                            if (clock.CompareTo(from) >= 0 && clock.CompareTo(to) <= 0)
+                            var clock = new Clock(hh, mm, ss);
+                            if (from != null && to != null)
+                            {
+                                if (clock.CompareTo(from) >= 0 && clock.CompareTo(to) <= 0)
+                                {
+                                    if (intervals.Any())
+                                    {
+                                        if (intervals.Any(i =>
+                                            ((i.Minutes >= 0 && i.Seconds >= 0) && (clock.Minute == i.Minutes && clock.Seconds == i.Seconds)) ||
+                                            ((i.Minutes >= 0 && i.Seconds < 0) && (clock.Minute == i.Minutes && clock.Seconds == 0))))
+                                        {
+                                            times.Add(clock);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (clock.Minute == 0 && clock.Seconds == 0)
+                                        {
+                                            times.Add(clock);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (intervals.Any())
+                                {
+                                    if (intervals.Any(i =>
+                                        ((i.Minutes >= 0 && i.Seconds >= 0) && (clock.Minute == i.Minutes && clock.Seconds == i.Seconds)) ||
+                                        ((i.Minutes >= 0 && i.Seconds < 0) && (clock.Minute == i.Minutes && clock.Seconds == 0))))
+                                    {
+                                        times.Add(clock);
+                                    }
+                                }
+                                else
+                                {
+                                    if (clock.Minute == 0 && clock.Seconds == 0)
+                                    {
+                                        times.Add(clock);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (parts.SkipIf("minute"))
+            {
+                var secondsIntervals = new List<int>();
+
+                while (parts.SkipIf("@", "at", "and"))
+                {
+                    if (IsNumeric(parts.Peek()))
+                    {
+                        secondsIntervals.Add(int.Parse(parts.NextPart()));
+                        parts.SkipAnyOrFail("seconds", "s");
+                    }
+                    else if (parts.NextIf("hh:mm:"))
+                    {
+                        if (IsNumeric(parts.Peek()))
+                        {
+                            secondsIntervals.Add(int.Parse(parts.NextPart()));
+                        }
+                    }
+                    else if (parts.NextIf("mm:"))
+                    {
+                        if (IsNumeric(parts.Peek()))
+                        {
+                            secondsIntervals.Add(int.Parse(parts.NextPart()));
+                        }
+                    }
+                    else
+                    {
+                        throw new ParsingException("Unexpected token " + parts.Peek() +
+                                                   ". Expected \"hh:mm:\" or \"mm:\".");
+                    }
+                }
+
+                if (parts.SkipIf("between"))
+                {
+                    from = ParseClock(parts);
+                    parts.SkipAnyOrFail("and");
+                    to = ParseClock(parts);
+                }
+
+                for (var hh = 0; hh < 24; hh++)
+                {
+                    for (var mm = 0; mm < 60; mm++)
+                    {
+                        for (var ss = 0; ss < 60; ss++)
+                        {
+                            var clock = new Clock(hh, mm, ss);
+                            if (from != null && to != null)
+                            {
+                                if (clock.CompareTo(from) >= 0 && clock.CompareTo(to) <= 0)
+                                {
+                                    if (secondsIntervals.Any())
+                                    {
+                                        if (secondsIntervals.Contains(clock.Seconds))
+                                        {
+                                            times.Add(clock);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (clock.Seconds == 0)
+                                        {
+                                            times.Add(clock);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (secondsIntervals.Any())
+                                {
+                                    if (secondsIntervals.Contains(clock.Seconds))
+                                    {
+                                        times.Add(clock);
+                                    }
+                                }
+                                else if (clock.Seconds == 0)
+                                {
+                                    times.Add(clock);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (parts.SkipIf("second"))
+            {
+                if (parts.SkipIf("between"))
+                {
+                    from = ParseClock(parts);
+                    parts.SkipAnyOrFail("and");
+                    to = ParseClock(parts);
+                }
+
+                for (var hh = 0; hh < 24; hh++)
+                {
+                    for (var mm = 0; mm < 60; mm++)
+                    {
+                        for (var ss = 0; ss < 60; ss++)
+                        {
+                            if (hh == 16 && mm == 10)
+                            {
+                                var stop = 0;
+                            }
+                            var clock = new Clock(hh, mm, ss);
+                            if (from != null && to != null)
+                            {
+                                if (clock.CompareTo(from) >= 0 && clock.CompareTo(to) <= 0)
+                                {
+                                    times.Add(clock);
+                                }
+                            }
+                            else
                             {
                                 times.Add(clock);
                             }
-                        }
-                        else
-                        {
-                            times.Add(clock);
                         }
                     }
                 }
@@ -175,12 +365,11 @@ namespace GoldenFox
             else
             {
                 parts.SkipAnyOrFail("@", "at");
-               
+
                 do
                 {
                     times.Add(ParseClock(parts));
-                }
-                while (parts.NextIf("and"));
+                } while (parts.NextIf("and"));
             }
 
             return times;
@@ -193,6 +382,12 @@ namespace GoldenFox
             parts.SkipAnyOrFail(":");
             part = parts.NextPart();
             var minute = int.Parse(part);
+            if (parts.SkipIf(":"))
+            {
+                var seconds = int.Parse(parts.NextPart());
+                return new Clock { Hour = hour, Minute = minute, Seconds = seconds};
+            }
+
             return new Clock { Hour = hour, Minute = minute };
         }
 
