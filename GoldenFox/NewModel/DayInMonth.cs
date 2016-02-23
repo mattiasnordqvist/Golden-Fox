@@ -8,19 +8,17 @@ namespace GoldenFox.NewModel
 
         private readonly Timestamp _timestamp;
 
-        public DayInMonth(int day, Timestamp timestamp, From from, bool includeNow = false)
-            : base(from, includeNow)
+        public DayInMonth(int day, Timestamp timestamp)
         {
             _day = day;
             _timestamp = timestamp;
         }
 
-        public override DateTime Evaluate()
+        public override DateTime Evaluate(DateTime from, bool includeNow = false)
         {
-            var from = From.Evaluate();
             var comparison = _timestamp.CompareTo(from);
 
-            if (IncludeNow && from.Day == _day && comparison == 0)
+            if (includeNow && from.Day == _day && comparison == 0)
             {
                 return from;
             }
@@ -29,12 +27,12 @@ namespace GoldenFox.NewModel
                 int daysToAdd;
                 if (comparison >= 0 && _day == @from.Day)
                 {
-                    if (comparison == 0 && IncludeNow)
+                    if (comparison == 0 && includeNow)
                     {
                         // Same day, just later
                         daysToAdd = 0;
                     }
-                    else if (comparison == 0 && !IncludeNow)
+                    else if (comparison == 0 && !includeNow)
                     {
                         daysToAdd = DateTime.DaysInMonth(@from.Year, @from.Month) - @from.Day + _day;
                     }

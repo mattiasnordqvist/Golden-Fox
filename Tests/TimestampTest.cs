@@ -1,11 +1,10 @@
 ﻿using System;
 
-using GoldenFox;
 using GoldenFox.NewModel;
 
 using NUnit.Framework;
 
-namespace Tests.NewModel
+namespace Tests
 {
     [TestFixture]
     public class TimestampTest

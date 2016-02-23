@@ -4,6 +4,15 @@ namespace GoldenFox.NewModel
 {
     public class Timestamp : IComparable<Timestamp>, IComparable<DateTime>
     {
+
+        public Timestamp(params int[] components) : this(components.Length > 0 ? components[0] : 0,
+            components.Length > 1 ? components[1] : 0,
+            components.Length > 2 ? components[2] : 0,
+            components.Length > 3 ? components[3] : 0)
+        {
+                
+        }
+
         public Timestamp(DateTime time) : this(time.Hour, time.Minute, time.Second, time.Millisecond)
         { 
             

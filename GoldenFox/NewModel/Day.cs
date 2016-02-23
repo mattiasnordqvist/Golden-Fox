@@ -6,21 +6,19 @@ namespace GoldenFox.NewModel
     {
         private readonly Timestamp _timestamp;
 
-        public Day(From from, bool includeNow = false) : this(new Timestamp(),from, includeNow)
+        public Day() : this(new Timestamp())
         {
         }
 
-        public Day(Timestamp timestamp, From from, bool includeNow = false)
-            : base(from, includeNow)
+        public Day(Timestamp timestamp)
         {
             _timestamp = timestamp;
         }
 
-        public override DateTime Evaluate()
+        public override DateTime Evaluate(DateTime from, bool includeNow = false)
         {
-            var from = From.Evaluate();
             var comparison = _timestamp.CompareTo(from);
-            if (comparison == 0 && IncludeNow)
+            if (comparison == 0 && includeNow)
             {
                 return from;
             }
