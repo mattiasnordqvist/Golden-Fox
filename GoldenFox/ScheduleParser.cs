@@ -31,7 +31,7 @@ namespace GoldenFox
         {
             _tokenizer = new Tokenizer();
             Add("every", "day", "month", "week", "year", "hour", 
-                "minute", "minutes", "m,", "second", "seconds",
+                "minute", "minutes", "second", "seconds",
                 "at", "@", ":",
                 "st", "nd", "rd", "th",
                 "last",
