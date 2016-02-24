@@ -49,6 +49,7 @@
     <Compile Include="Internal\Constant.cs" />
     <Compile Include="Internal\Hour.cs" />
     <Compile Include="Internal\Interval.cs" />
+    <Compile Include="Internal\Second.cs" />
     <Compile Include="IOperator.cs" />
     <Compile Include="Internal\Minute.cs" />
     <Compile Include="Internal\StringExtensions.cs" />

@@ -52,6 +52,20 @@ namespace GoldenFox.Internal
             return new Minute();
         }
 
+        public override IOperator<DateTime> VisitSecond(GoldenFoxLanguageParser.SecondContext context)
+        {
+            var time0 = context.Time(0);
+            var time1 = context.Time(1);
+            if (time0 != null && time1 != null)
+            {
+                return new Second(new Between(ParseTime(time0), ParseTime(time1)));
+            }
+
+            return new Second();
+        }
+
+
+
         public override IOperator<DateTime> VisitDay(GoldenFoxLanguageParser.DayContext context)
         {
             return new Day(ParseTime(context.Time()));
