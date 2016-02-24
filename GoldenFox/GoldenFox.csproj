@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clock.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="Interval.cs" />
     <Compile Include="NewModel\DateTimeExtensions.cs" />
     <Compile Include="NewModel\Day.cs" />
     <Compile Include="NewModel\DayInMonth.cs" />
@@ -51,22 +48,13 @@
     <Compile Include="NewModel\Constant.cs" />
     <Compile Include="NewModel\Interval.cs" />
     <Compile Include="NewModel\IOperator.cs" />
+    <Compile Include="NewModel\StringExt.cs" />
     <Compile Include="NewModel\Timestamp.cs" />
+    <Compile Include="NewModel\Visitor.cs" />
     <Compile Include="NewModel\Weekday.cs" />
     <Compile Include="Schedule.cs" />
-    <Compile Include="ScheduleParser.cs" />
     <Compile Include="Fox.cs" />
     <Compile Include="GoldenFoxFactory.cs" />
-    <Compile Include="ParsingException.cs" />
-    <Compile Include="Tokenizing\MatchResult.cs" />
-    <Compile Include="Tokenizing\Normalizers\SimpleAliasNormalizer.cs" />
-    <Compile Include="Tokenizing\TokenTypes\IntegerToken.cs" />
-    <Compile Include="Tokenizing\IToken.cs" />
-    <Compile Include="PartsTraverser.cs" />
-    <Compile Include="Tokenizing\TokenizationException.cs" />
-    <Compile Include="Tokenizing\Tokenizer.cs" />
-    <Compile Include="Tokenizing\TokenTypes\StringToken.cs" />
-    <Compile Include="Tokenizing\TokenTypes\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

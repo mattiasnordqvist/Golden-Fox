@@ -46,7 +46,7 @@ namespace Tests
         {
             var expected = new DateTime(2015, 09, 30, 06, 30, 00);
             var from = new DateTime(2015, 09, 05, 12, 00, 00);
-            Assert.AreEqual(expected, new DayInMonth(-1, new Timestamp(6, 30)).Evaluate(from));
+            Assert.AreEqual(expected, new DayInMonth(0, new Timestamp(6, 30)).Evaluate(from));
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Tests
         {
             var expected = new DateTime(2015, 09, 29, 06, 30, 00);
             var from = new DateTime(2015, 09, 05, 12, 00, 00);
-            Assert.AreEqual(expected, new DayInMonth(-2, new Timestamp(6, 30)).Evaluate(from));
+            Assert.AreEqual(expected, new DayInMonth(-1, new Timestamp(6, 30)).Evaluate(from));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Tests
         {
             var expected = new DateTime(2015, 02, 27, 06, 30, 00);
             var from = new DateTime(2015, 02, 05, 12, 00, 00);
-            Assert.AreEqual(expected, new DayInMonth(-2, new Timestamp(6, 30)).Evaluate(from));
+            Assert.AreEqual(expected, new DayInMonth(-1, new Timestamp(6, 30)).Evaluate(from));
         }
 
         [Test]

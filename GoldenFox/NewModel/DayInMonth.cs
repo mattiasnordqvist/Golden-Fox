@@ -16,46 +16,62 @@ namespace GoldenFox.NewModel
 
         public override DateTime Evaluate(DateTime from, bool includeNow = false)
         {
-            var comparison = _timestamp.CompareTo(from);
-
-            if (includeNow && from.Day == _day && comparison == 0)
+            var comparison = new Timestamp(from).CompareTo(_timestamp);
+            
+                if (IsSameDay(from, _day))
             {
-                return from;
+                if (comparison == 0 && includeNow)
+                {
+                    return from;
+                }
+                if (comparison > 0 || comparison == 0 && !includeNow)
+                {
+                    return from.AddMonths(1).SetDay(_day).SetTime(_timestamp);
+                }
+                else
+                {
+                    return from.SetTime(_timestamp);
+                }
             }
             else
             {
-                int daysToAdd;
-                if (comparison >= 0 && _day == @from.Day)
+                if (_day > 0)
                 {
-                    if (comparison == 0 && includeNow)
+                    if (_day > @from.Day)
                     {
-                        // Same day, just later
-                        daysToAdd = 0;
-                    }
-                    else if (comparison == 0 && !includeNow)
-                    {
-                        daysToAdd = DateTime.DaysInMonth(@from.Year, @from.Month) - @from.Day + _day;
+                        return @from.SetDay(_day).SetTime(_timestamp);
                     }
                     else
                     {
-                        daysToAdd = 0;
+                        return @from.AddMonths(1).SetDay(_day).SetTime(_timestamp);
                     }
                 }
                 else
                 {
-                    // next occurence of day of month
-                    var dayDiff = (DateTime.DaysInMonth(@from.Year, @from.Month) - @from.Day + _day) % DateTime.DaysInMonth(@from.Year, @from.Month) + (_day < 0 ? 1 : 0);
-                    if (dayDiff == 0)
+                    if(@from.DaysOfMonth() + _day > @from.Day)
                     {
-                        daysToAdd = DateTime.DaysInMonth(@from.Year, @from.Month) - @from.Day + _day;
+                        return @from.SetDay(_day).SetTime(_timestamp);
                     }
                     else
                     {
-                        daysToAdd = dayDiff;
+                        return @from.AddMonths(1).SetDay(_day).SetTime(_timestamp);
                     }
                 }
-                return from.AddDays(daysToAdd).SetTime(_timestamp);
             }
+            
+        }
+
+        private bool IsSameDay(DateTime @from, int day)
+        {
+            if (day > 0 && day == @from.Day)
+            {
+                return true;
+            }
+            if (day <= 0 && @from.Day - @from.DaysOfMonth()  == day)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

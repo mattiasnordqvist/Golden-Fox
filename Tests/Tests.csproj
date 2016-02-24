@@ -50,10 +50,8 @@
     <Compile Include="EveryDayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Full\ScheduleTests.cs" />
-    <Compile Include="Tokenizing\StringTokenTests.cs" />
     <Compile Include="Full\TestableDateTime.cs" />
     <Compile Include="Full\TestExtensions.cs" />
-    <Compile Include="Tokenizing\TokenizerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoldenFox\GoldenFox.csproj">
