@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenFox.ANTLR", "GoldenFox.ANTLR\GoldenFox.ANTLR.csproj", "{263F6745-70EE-4E0A-9AD8-B7E942CC7012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseConsole", "ParseConsole\ParseConsole.csproj", "{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "ParseConsole\TestConsole.csproj", "{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

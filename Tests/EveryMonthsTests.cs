@@ -1,6 +1,6 @@
 using System;
 
-using GoldenFox.NewModel;
+using GoldenFox.Internal;
 
 using NUnit.Framework;
 

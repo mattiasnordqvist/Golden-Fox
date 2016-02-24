@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Timestamp : IComparable<Timestamp>, IComparable<DateTime>
+    internal class Timestamp : IComparable<Timestamp>, IComparable<DateTime>
     {
 
         public Timestamp(params int[] components) : this(components.Length > 0 ? components[0] : 0,

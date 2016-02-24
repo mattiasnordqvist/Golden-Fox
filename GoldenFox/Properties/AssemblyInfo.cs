@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Golden Fox")]
@@ -15,3 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: Guid("7dfa1881-ab79-4423-aeca-550876f6f902")]
+[assembly: InternalsVisibleTo("Tests")]

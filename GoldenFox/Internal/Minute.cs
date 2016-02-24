@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Minute : Interval
+    internal class Minute : Interval
     {
         private readonly Between _between;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox
 {
     public interface IOperator<T>
     {

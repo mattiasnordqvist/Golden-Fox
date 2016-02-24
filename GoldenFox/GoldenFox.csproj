@@ -41,23 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewModel\Between.cs" />
-    <Compile Include="NewModel\DateTimeExtensions.cs" />
-    <Compile Include="NewModel\Day.cs" />
-    <Compile Include="NewModel\DayInMonth.cs" />
-    <Compile Include="NewModel\First.cs" />
-    <Compile Include="NewModel\Constant.cs" />
-    <Compile Include="NewModel\Hour.cs" />
-    <Compile Include="NewModel\Interval.cs" />
-    <Compile Include="NewModel\IOperator.cs" />
-    <Compile Include="NewModel\Minute.cs" />
-    <Compile Include="NewModel\StringExt.cs" />
-    <Compile Include="NewModel\Timestamp.cs" />
-    <Compile Include="NewModel\Visitor.cs" />
-    <Compile Include="NewModel\Weekday.cs" />
+    <Compile Include="Internal\Between.cs" />
+    <Compile Include="Internal\DateTimeExtensions.cs" />
+    <Compile Include="Internal\Day.cs" />
+    <Compile Include="Internal\DayInMonth.cs" />
+    <Compile Include="Internal\First.cs" />
+    <Compile Include="Internal\Constant.cs" />
+    <Compile Include="Internal\Hour.cs" />
+    <Compile Include="Internal\Interval.cs" />
+    <Compile Include="IOperator.cs" />
+    <Compile Include="Internal\Minute.cs" />
+    <Compile Include="Internal\StringExtensions.cs" />
+    <Compile Include="Internal\Timestamp.cs" />
+    <Compile Include="Internal\Visitor.cs" />
+    <Compile Include="Internal\Weekday.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Fox.cs" />
-    <Compile Include="GoldenFoxFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

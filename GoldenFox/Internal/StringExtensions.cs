@@ -1,6 +1,6 @@
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public static class StringExt
+    internal static class StringExtensions
     {
         public static string Capitalize(this string @this)
         {

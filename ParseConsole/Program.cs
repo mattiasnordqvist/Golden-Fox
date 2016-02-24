@@ -1,15 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 
-using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
-
-using GoldenFox.NewModel;
-
-using TestSomething;
-
-namespace ParseConsole
+namespace TestConsole
 {
     class Program
     {

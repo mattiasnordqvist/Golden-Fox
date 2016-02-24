@@ -1,8 +1,8 @@
 using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Weekday : Interval
+    internal class Weekday : Interval
     {
         private readonly DayOfWeek _day;
 

@@ -6,9 +6,9 @@ using Antlr4.Runtime.Tree;
 
 using TestSomething;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Visitor : GoldenFoxLanguageBaseVisitor<IOperator<DateTime>>
+    internal class Visitor : GoldenFoxLanguageBaseVisitor<IOperator<DateTime>>
     {
         protected override IOperator<DateTime> AggregateResult(IOperator<DateTime> aggregate, IOperator<DateTime> nextResult)
         {

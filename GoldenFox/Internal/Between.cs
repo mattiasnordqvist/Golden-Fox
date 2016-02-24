@@ -1,6 +1,6 @@
-﻿namespace GoldenFox.NewModel
+﻿namespace GoldenFox.Internal
 {
-    public class Between
+    internal class Between
     {
         public Timestamp From { get; set; }
 

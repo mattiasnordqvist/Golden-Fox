@@ -5,7 +5,7 @@ using System.IO;
 
 using Antlr4.Runtime;
 
-using GoldenFox.NewModel;
+using GoldenFox.Internal;
 
 using TestSomething;
 

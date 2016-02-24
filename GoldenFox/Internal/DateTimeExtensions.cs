@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public static class DateTimeExtensions
+    internal static class DateTimeExtensions
     {
         public static DateTime SetTime(this DateTime @this, Timestamp timestamp)
         {

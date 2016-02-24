@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class DayInMonth : Interval
+    internal class DayInMonth : Interval
     {
         private readonly int _day;
 

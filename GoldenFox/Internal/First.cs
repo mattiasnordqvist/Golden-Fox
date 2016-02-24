@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class First  : IOperator<DateTime>
+    internal class First  : IOperator<DateTime>
     {
         private readonly List<IOperator<DateTime>> _nexts;
 

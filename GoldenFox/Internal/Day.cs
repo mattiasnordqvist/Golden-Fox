@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Day : Interval
+    internal class Day : Interval
     {
         private readonly Timestamp _timestamp;
 

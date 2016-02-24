@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public class Constant : IOperator<DateTime>
+    internal class Constant : IOperator<DateTime>
     {
         private readonly DateTime _constant;
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using GoldenFox.NewModel;
+using GoldenFox;
+using GoldenFox.Internal;
 
 using NUnit.Framework;
 

@@ -4,9 +4,21 @@ namespace GoldenFox
 {
     public class Schedule
     {
-        public static GoldenFoxFactory Fox(string schedule)
+
+        private readonly string _schedule;
+
+        internal Schedule(string schedule)
         {
-            return new GoldenFoxFactory(schedule);
+            _schedule = schedule;
+        }
+
+        public Fox From(DateTime from)
+        {
+            return new Fox(_schedule, from);
+        }
+        public static Schedule Fox(string schedule)
+        {
+            return new Schedule(schedule);
         }
     }
 }

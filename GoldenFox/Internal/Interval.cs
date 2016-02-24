@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace GoldenFox.NewModel
+namespace GoldenFox.Internal
 {
-    public abstract class Interval : IOperator<DateTime>
+    internal abstract class Interval : IOperator<DateTime>
     {
         public abstract DateTime Evaluate(DateTime dateTime, bool includeNow = false);
     }
