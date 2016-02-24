@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenFox", "GoldenFox\GoldenFox.csproj", "{8480F33A-4585-4055-8BAF-48ACB74D7A94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{057FA6CA-049B-4753-81AA-2C62F96A42F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenFox.ANTLR", "GoldenFox.ANTLR\GoldenFox.ANTLR.csproj", "{263F6745-70EE-4E0A-9AD8-B7E942CC7012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "ParseConsole\TestConsole.csproj", "{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +24,14 @@ Global
 		{057FA6CA-049B-4753-81AA-2C62F96A42F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{057FA6CA-049B-4753-81AA-2C62F96A42F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057FA6CA-049B-4753-81AA-2C62F96A42F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263F6745-70EE-4E0A-9AD8-B7E942CC7012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263F6745-70EE-4E0A-9AD8-B7E942CC7012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263F6745-70EE-4E0A-9AD8-B7E942CC7012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263F6745-70EE-4E0A-9AD8-B7E942CC7012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

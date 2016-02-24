@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using GoldenFox;
+using GoldenFox.Internal;
 
 using NUnit.Framework;
 
@@ -13,57 +14,74 @@ namespace Tests
         [Test]
         public void EveryDayAt0630FromSameTimeIncludeNow()
         {
+            var from = new DateTime(2015, 10, 05, 6, 30, 0);
+            var expected = new DateTime(2015, 10, 5, 6, 30, 0);
+
             Assert.AreEqual(
-                new DateTime(2015, 10, 5, 6, 30, 0),
-                new Schedule(new List<Clock> { new Clock { Hour = 6, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                    .Next(new DateTime(2015, 10, 05, 6, 30, 0), true));
+                expected,
+                new First(new List<IOperator<DateTime>> { new Day(new Timestamp(6,30)) }).Evaluate(@from, true)
+            );
         }
 
         [Test]
         public void EveryDayAt0630FromJustBefore()
         {
+            var from = new DateTime(2015, 10, 05, 6, 20, 0);
+            var expected = new DateTime(2015, 10, 5, 6, 30, 0);
+
             Assert.AreEqual(
-                new DateTime(2015, 10, 5, 6, 30, 0),
-                
-                new Schedule(new List<Clock> { new Clock { Hour = 6, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                .Next(new DateTime(2015, 10, 05, 6, 20, 0)));
+                expected,
+                new First(new List<IOperator<DateTime>> { new Day(new Timestamp(6, 30)) }).Evaluate(@from)
+            );
         }
 
         [Test]
         public void EveryDayAt0630FromJustAfter()
         {
+            var from = new DateTime(2015,10,5, 6,40,0);
+            var expected = new DateTime(2015, 10, 6, 6, 30, 0);
             Assert.AreEqual(
-                new DateTime(2015, 10, 6, 6, 30, 0),
-                new Schedule(new List<Clock> { new Clock { Hour = 6, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                .Next(new DateTime(2015, 10, 05, 6, 40, 0)));
-        }
-
-        [Test]
-        public void EveryDayAt0630FromSameTimeDoNotIncludeNow()
-        {
-            Assert.AreEqual(
-                new DateTime(2015, 10, 6, 6, 30, 0),
-                new Schedule(new List<Clock> { new Clock { Hour = 6, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                    .Next(new DateTime(2015, 10, 05, 6, 30, 0)));
-        }
-
-        [Test]
-        public void EveryDayAtTwoTimesBothLaterSameDay()
-        {
-            Assert.AreEqual(
-                new DateTime(2015, 10, 5, 7, 30, 0),
-                new Schedule(new List<Clock> { new Clock { Hour = 7, Minute = 30 }, new Clock { Hour = 8, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                .Next(new DateTime(2015, 10, 05, 6, 30, 0)));
+                expected,
+                new First(new List<IOperator<DateTime>> { new Day(new Timestamp(6, 30)), }).Evaluate(@from)
+                );
         }
 
         [Test]
         public void EveryDayAtTwoTimesOneLaterSameDayOneEarlierNextDay()
         {
+            var expected = new DateTime(2015, 10, 5, 8, 30, 0);
+            var from = new DateTime(2015, 10, 5, 6, 30, 0);
+
             Assert.AreEqual(
-                new DateTime(2015, 10, 5, 8, 30, 0),
-                new Schedule(
-                    new List<Clock> { new Clock { Hour = 5, Minute = 30 }, new Clock { Hour = 8, Minute = 30 } }, new List<int> { 0, 1, 2, 3, 4, 5, 6 }, Interval.Week)
-                .Next(new DateTime(2015, 10, 05, 6, 30, 0)));
+                expected,
+                new First(new List<IOperator<DateTime>>
+                    {
+                        new Day(new Timestamp(5, 30)),
+                        new Day(new Timestamp(8, 30)),
+                    }).Evaluate(@from));
+        }
+
+
+        [Test]
+        public void EveryDayAtTwoTimesBothLaterSameDay()
+        {
+            var expected = new DateTime(2015, 10, 5, 7, 30, 0);
+            var from = new DateTime(2015, 10, 05, 6, 30, 0);
+            Assert.AreEqual(expected,
+                new First(new List<IOperator<DateTime>>
+                    {
+                        new Day(new Timestamp(7, 30)),
+                        new Day(new Timestamp(8, 30)),
+                    }).Evaluate(@from)
+                );
+        }
+
+        [Test]
+        public void EveryDayAt0630FromSameTimeDoNotIncludeNow()
+        {
+            var expected = new DateTime(2015, 10, 6, 6, 30, 0);
+            var from = new DateTime(2015, 10, 05, 6, 30, 0);
+            Assert.AreEqual(expected, new Day(new Timestamp(6, 30)).Evaluate(from));
         }
     }
 }
