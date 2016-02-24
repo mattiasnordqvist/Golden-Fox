@@ -41,13 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewModel\Between.cs" />
     <Compile Include="NewModel\DateTimeExtensions.cs" />
     <Compile Include="NewModel\Day.cs" />
     <Compile Include="NewModel\DayInMonth.cs" />
     <Compile Include="NewModel\First.cs" />
     <Compile Include="NewModel\Constant.cs" />
+    <Compile Include="NewModel\Hour.cs" />
     <Compile Include="NewModel\Interval.cs" />
     <Compile Include="NewModel\IOperator.cs" />
+    <Compile Include="NewModel\Minute.cs" />
     <Compile Include="NewModel\StringExt.cs" />
     <Compile Include="NewModel\Timestamp.cs" />
     <Compile Include="NewModel\Visitor.cs" />

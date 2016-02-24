@@ -1,18 +1,21 @@
 grammar GoldenFoxLanguage;
 
-schedule: interval (And schedule)?;
-interval: 
-            (Every (weekday | day)) 
-          | numberedweekday
+schedule: ( minute
+          | hour
           | weekdays
-          | numbereddayinmonth
-          ;
+          | weekday 
+          | day
+          | numberedweekday
+          | numbereddayinmonth) 
+          (And schedule)?;
 
-weekday: Weekday At Time;
+weekday: Every Weekday At Time;
 weekdays: Weekday's' At Time;
 numberedweekday: ((NumberedDay (Last)?) | Last) Day Every Week At Time;
 numbereddayinmonth: ((NumberedDay (Last)?) | Last) Day Every Month At Time;
-day: Day At Time;
+day: Every Day At Time;
+hour: Every 'hour' ('between' Time And Time)?;
+minute: Every 'minute' ('between' Time And Time)?;
 
 
 WS: (' ' | '\t' | ('\r'? '\n'))+ -> channel(HIDDEN);
@@ -27,5 +30,6 @@ Last: 'last';
 And: 'and';
 NumberedDay: (Digit Digit? ('st' | 'nd' | 'rd' | 'th'));
 Time: (Hour':'Minute);
+
 Hour: Digit Digit;
 Minute: Digit Digit;

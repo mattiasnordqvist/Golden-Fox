@@ -2,17 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Antlr4.Runtime.Tree;
+
 using TestSomething;
 
 namespace GoldenFox.NewModel
 {
     public class Visitor : GoldenFoxLanguageBaseVisitor<IOperator<DateTime>>
     {
-        public override IOperator<DateTime> VisitInterval(GoldenFoxLanguageParser.IntervalContext context)
-        {
-            return VisitChildren(context);
-        }
-
         protected override IOperator<DateTime> AggregateResult(IOperator<DateTime> aggregate, IOperator<DateTime> nextResult)
         {
             if (aggregate == null)
@@ -31,10 +28,33 @@ namespace GoldenFox.NewModel
             return VisitChildren(context);
         }
 
+        public override IOperator<DateTime> VisitHour(GoldenFoxLanguageParser.HourContext context)
+        {
+            var time0 = context.Time(0);
+            var time1 = context.Time(1);
+            if (time0 != null && time1 != null)
+            {
+                return new Hour(new Between(ParseTime(time0), ParseTime(time1)));
+            }
+
+            return new Hour();
+        }
+
+        public override IOperator<DateTime> VisitMinute(GoldenFoxLanguageParser.MinuteContext context)
+        {
+            var time0 = context.Time(0);
+            var time1 = context.Time(1);
+            if (time0 != null && time1 != null)
+            {
+                return new Minute(new Between(ParseTime(time0), ParseTime(time1)));
+            }
+
+            return new Minute();
+        }
+
         public override IOperator<DateTime> VisitDay(GoldenFoxLanguageParser.DayContext context)
         {
-            var timeComponents = context.Time().GetText().Split(':').Select(int.Parse).ToArray();
-            return new Day(new Timestamp(timeComponents));
+            return new Day(ParseTime(context.Time()));
         }
 
         public override IOperator<DateTime> VisitNumberedweekday(GoldenFoxLanguageParser.NumberedweekdayContext context)
@@ -50,8 +70,12 @@ namespace GoldenFox.NewModel
 
                 index = index % 7;
             }
-            var timeComponents = context.Time().GetText().Split(':').Select(int.Parse).ToArray();
-            return new Weekday((DayOfWeek)index, new Timestamp(timeComponents));
+            return new Weekday((DayOfWeek)index, ParseTime(context.Time()));
+        }
+
+        private Timestamp ParseTime(ITerminalNode node)
+        {
+            return new Timestamp(node.GetText().Split(':').Select(int.Parse).ToArray());;
         }
 
         public override IOperator<DateTime> VisitNumbereddayinmonth(GoldenFoxLanguageParser.NumbereddayinmonthContext context)
@@ -59,32 +83,30 @@ namespace GoldenFox.NewModel
             var index = 0;
             if (context.NumberedDay() != null)
             {
-                index = int.Parse(context.NumberedDay().GetText().Substring(0, context.NumberedDay().GetText().Length-2).ToString());
+                index = int.Parse(context.NumberedDay().GetText().Substring(0, context.NumberedDay().GetText().Length - 2));
                 if (context.Last() != null)
                 {
                     index = - index + 1;
                 }
             }
-            var timeComponents = context.Time().GetText().Split(':').Select(int.Parse).ToArray();
-            return new DayInMonth(index, new Timestamp(timeComponents));
+            return new DayInMonth(index, ParseTime(context.Time()));
         }
 
         public override IOperator<DateTime> VisitWeekdays(GoldenFoxLanguageParser.WeekdaysContext context)
         {
-            DayOfWeek dayOfWeek;
-            Enum.TryParse(context.Weekday().GetText().Capitalize(), out dayOfWeek);
-            var timeComponents = context.Time().GetText().Split(':').Select(int.Parse).ToArray();
-
-            return new Weekday(dayOfWeek, new Timestamp(timeComponents));
+            return new Weekday(ParseWeekDay(context.Weekday()), ParseTime(context.Time()));
         }
 
         public override IOperator<DateTime> VisitWeekday(GoldenFoxLanguageParser.WeekdayContext context)
         {
+            return new Weekday(ParseWeekDay(context.Weekday()), ParseTime(context.Time()));
+        }
+
+        private DayOfWeek ParseWeekDay(ITerminalNode node)
+        {
             DayOfWeek dayOfWeek;
-            Enum.TryParse(context.Weekday().GetText().Capitalize(), out dayOfWeek);
-            var timeComponents = context.Time().GetText().Split(':').Select(int.Parse).ToArray();
-            
-            return new Weekday(dayOfWeek, new Timestamp(timeComponents));
+            Enum.TryParse(node.GetText().Capitalize(), out dayOfWeek);
+            return dayOfWeek;
         }
     }
 }

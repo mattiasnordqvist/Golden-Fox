@@ -30,5 +30,21 @@ namespace GoldenFox.NewModel
                 return @this.AddMonths(1).AddDays(-@this.AddMonths(1).Day).AddDays(day);
             }
         }
+
+        public static DateTime StripMinutes(this DateTime @this)
+        {
+            return @this.AddMinutes(-@this.Minute).StripSeconds();
+
+        }
+
+        public static DateTime StripSeconds(this DateTime @this)
+        {
+            return @this.AddSeconds(-@this.Second).StripMilliseconds();
+        }
+
+        public static DateTime StripMilliseconds(this DateTime @this)
+        {
+            return @this.AddMilliseconds(-@this.Millisecond);
+        }
     }
 }
