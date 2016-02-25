@@ -1,38 +1,33 @@
 grammar GoldenFoxLanguage;
 
-schedule: ( minute
-          | hour
-          | second
+schedule: ( everyminute
+          | everyhour
+          | everysecond
+          | everyday
+          | everyweekday 
           | weekdays
-          | weekday 
-          | day
           | numberedweekday
-          | numbereddayinmonth) 
-          (And schedule)?;
+          | numbereddayinmonth
+          ) 
+          ('and' schedule)?;
 
-weekday: Every Weekday At Time;
-weekdays: Weekday's' At Time;
-numberedweekday: ((NumberedDay (Last)?) | Last) Day Every Week At Time;
-numbereddayinmonth: ((NumberedDay (Last)?) | Last) Day Every Month At Time;
-day: Every Day At Time;
-hour: Every 'hour' ('between' Time And Time)?;
-minute: Every 'minute' ('between' Time And Time)?;
-second: Every 'second' ('between' Time And Time)?;
+everyday: 'every day' At time;
+everyminute: 'every minute' (At secondsOffset)? (between)?; 
+everyhour: 'every hour' (At minutesOffset)? (between)?;
+everysecond: 'every second' (between)?;
+everyweekday: 'every' weekday At time;
+weekdays: weekday's' At time;
+numberedweekday: ((numberedDay (Last)?) | Last) 'day every week' At time;
+numbereddayinmonth: ((numberedDay (Last)?) | Last) 'day every month' At time;
 
-
+secondsOffset: ((('mm:'|'hh:mm:')INT) | (INT 'seconds')) ('and' secondsOffset)?;
+minutesOffset: ((('hh:')INT(':'INT)?) | (INT 'minutes')) ('and' minutesOffset)?;
+between: 'between' time 'and' time;
+time: (INT':'INT(':'INT)?);
+weekday: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
+numberedDay: INT('st'|'nd'|'rd'|'th');
+ 
 WS: (' ' | '\t' | ('\r'? '\n'))+ -> channel(HIDDEN);
-Every: 'every';
-Day: 'day';
-Week: 'week';
-Month: 'month';
-Weekday: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
+INT:[0-9]+;
 At: ('at' | '@');
-Digit: [0-9];
 Last: 'last';
-And: 'and';
-NumberedDay: (Digit Digit? ('st' | 'nd' | 'rd' | 'th'));
-Time: (Hour':'Minute(':'Second)?);
-
-Hour: Digit Digit;
-Minute: Digit Digit;
-Second: Digit Digit;

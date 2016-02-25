@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
 
 using GoldenFox.Internal;
 
@@ -13,8 +14,9 @@ namespace GoldenFox
 {
     public class Fox : IEnumerable<DateTime>
     {
-        private DateTime _current;
         private readonly IOperator<DateTime> _schedule;
+
+        private DateTime _current;
 
         public Fox(string schedule, DateTime startFrom)
         {
@@ -28,10 +30,12 @@ namespace GoldenFox
             var tokens = new CommonTokenStream(lexer);
             var parser = new GoldenFoxLanguageParser(tokens);
             var tree = parser.schedule();
-            var visitor = new Visitor();
-            var interval = visitor.Visit(tree);
-            return interval;
-            
+
+            var listener = new Listener();
+            var walker = new ParseTreeWalker();
+
+            walker.Walk(listener, tree);
+            return listener.Result;
         } 
 
         public IEnumerator<DateTime> GetEnumerator()

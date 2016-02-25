@@ -2,15 +2,15 @@
 {
     internal class Between
     {
-        public Timestamp From { get; set; }
-
-        public Timestamp To { get; set; }
-
         public Between(Timestamp from, Timestamp to)
         {
             From = @from;
             To = to;
         }
+
+        public Timestamp From { get; set; }
+
+        public Timestamp To { get; set; }
 
         public bool Contains(Timestamp timestamp)
         {

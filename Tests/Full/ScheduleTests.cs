@@ -93,7 +93,7 @@ namespace Tests.Full
         [Test]
         public void EveryDayAt_ExactlyTheSameTime_atSignWorksToo()
         {
-            "everyday@06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
+            "every day @ 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
         }
 
         [Test]
@@ -337,8 +337,6 @@ namespace Tests.Full
 
             "every minute at hh:mm:07".From("2016-02-09").Gives("2016-02-09 00:00:07");
             "every minute @ hh:mm:47".From("2016-02-09 15:47:30").Gives("2016-02-09 15:47:47");
-
-            "every minute at 10s".From("2016-02-11 10:30:20").Gives("2016-02-11 10:31:10");
         }
 
         [Test]
@@ -385,8 +383,6 @@ namespace Tests.Full
 
             "every hour at hh:15:30".From("2016-02-10 08:15:29").Gives("2016-02-10 08:15:30");
             "every hour @ hh:25:40".From("2016-02-10").Gives("2016-02-10 00:25:40");
-
-            "every hour at 5m".From("2016-02-11").Gives("2016-02-11 00:05:00");
         }
 
         [Test]
@@ -420,6 +416,24 @@ namespace Tests.Full
 
             "every hour at hh:15:30 between 16:00 and 22:00".From("2016-02-10").Gives("2016-02-10 16:15:30");
             "every hour @ hh:25:40 between 17:00 and 23:00".From("2016-02-10 17:25:39").Gives("2016-02-10 17:25:40");
+        }
+
+        [Test]
+        public void ListenerWillEnterTimeMultipleTimesOnThisOneSoLetsHopeTheTimestampsStackIsPoppedCorrectly()
+        {
+            "every day @ 13:00 and 26th day every month at 12:00 and every minute between 08:00 and 09:00".From("2016-02-26 00:06:00").Gives("2016-02-26 08:00:00");
+        }
+
+        [Test]
+        public void IfThisOneWorks()
+        {
+            "every minute between 08:00 and 09:00".From("2016-02-26 00:06:00").Gives("2016-02-26 08:00:00");
+        }
+
+        [Test]
+        public void AndThisOneToo()
+        {
+            "26th day every month at 12:00".From("2016-02-26 00:06:00").Gives("2016-02-26 12:00:00");
         }
     }
 }

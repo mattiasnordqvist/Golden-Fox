@@ -13,7 +13,6 @@ namespace GoldenFox.Internal
                     .AddMilliseconds(timestamp.Ms);
         }
 
-
         public static int DaysOfMonth(this DateTime @this)
         {
             return DateTime.DaysInMonth(@this.Year, @this.Month);
@@ -34,7 +33,6 @@ namespace GoldenFox.Internal
         public static DateTime StripMinutes(this DateTime @this)
         {
             return @this.AddMinutes(-@this.Minute).StripSeconds();
-
         }
 
         public static DateTime StripSeconds(this DateTime @this)

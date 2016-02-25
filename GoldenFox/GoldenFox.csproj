@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Between.cs" />
+    <Compile Include="Internal\ContextExtensions.cs" />
     <Compile Include="Internal\DateTimeExtensions.cs" />
     <Compile Include="Internal\Day.cs" />
     <Compile Include="Internal\DayInMonth.cs" />
@@ -49,12 +50,12 @@
     <Compile Include="Internal\Constant.cs" />
     <Compile Include="Internal\Hour.cs" />
     <Compile Include="Internal\Interval.cs" />
+    <Compile Include="Internal\Listener.cs" />
     <Compile Include="Internal\Second.cs" />
     <Compile Include="IOperator.cs" />
     <Compile Include="Internal\Minute.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="Internal\Timestamp.cs" />
-    <Compile Include="Internal\Visitor.cs" />
     <Compile Include="Internal\Weekday.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Fox.cs" />

@@ -47,6 +47,7 @@ namespace GoldenFox.Internal
                     var dayDiff = ((int)_day - (int)@from.DayOfWeek + 7) % 7;
                     daysToAdd = dayDiff == 0 ? 7 : dayDiff;
                 }
+
                 return from
                     .AddDays(daysToAdd)
                     .SetTime(_timestamp);
