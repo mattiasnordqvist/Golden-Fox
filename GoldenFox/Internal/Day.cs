@@ -22,6 +22,7 @@ namespace GoldenFox.Internal
             {
                 return from;
             }
+
             var daysToAdd = comparison <= 0 ? 1 : 0;
             return from
                 .AddDays(daysToAdd)

@@ -93,7 +93,7 @@ namespace Tests.Full
         [Test]
         public void EveryDayAt_ExactlyTheSameTime_atSignWorksToo()
         {
-            "everyday@06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
+            "every day @ 06:30".From("2015-10-05 06:30:00", true).Gives("2015-10-05 06:30:00");
         }
 
         [Test]
@@ -304,6 +304,136 @@ namespace Tests.Full
         public void EveryMondayAtSpecificTime()
         {
             "every monday at 22:30".From("2015-08-14").Gives("2015-08-17 22:30:00");
+        }
+
+        [Test]
+        public void EverySecond()
+        {
+            "every second".From("2016-02-09").Gives("2016-02-09 00:00:01");
+            "every second".From("2016-02-10 10:15:10").Gives("2016-02-10 10:15:11");
+        }
+
+        [Test]
+        public void EverySecondWithIncludeNow()
+        {
+            "every second".From("2016-02-09", false).Gives("2016-02-09 00:00:01");
+            "every second".From("2016-02-10", true).Gives("2016-02-10 00:00:00");
+        }
+
+        [Test]
+        public void EverySecondBetween()
+        {
+            "every second between 16:10:20 and 16:10:40".From("2016-02-11 15:30:00").Gives("2016-02-11 16:10:20");
+        }
+
+        [Test]
+        public void EveryMinuteAtSeconds()
+        {
+            "every minute at 15 seconds".From("2016-02-09").Gives("2016-02-09 00:00:15");
+            "every minute @ 17 seconds".From("2016-02-09 11:14:18").Gives("2016-02-09 11:15:17");
+
+            "every minute at mm:05".From("2016-02-09").Gives("2016-02-09 00:00:05");
+            "every minute @ mm:06".From("2016-02-09 14:02:05").Gives("2016-02-09 14:02:06");
+
+            "every minute at hh:mm:07".From("2016-02-09").Gives("2016-02-09 00:00:07");
+            "every minute @ hh:mm:47".From("2016-02-09 15:47:30").Gives("2016-02-09 15:47:47");
+        }
+
+        [Test]
+        public void EveryMinuteAtSecondsWithIncludeNow()
+        {
+            "every minute @ 17 seconds".From("2016-02-09 11:14:17", false).Gives("2016-02-09 11:15:17");
+            "every minute @ 17 seconds".From("2016-02-09 11:14:17", true).Gives("2016-02-09 11:14:17");
+        }
+
+        [Test]
+        public void EveryMinuteAtSecondsAnd()
+        {
+            "every minute at 15 seconds and 45 seconds".From("2016-02-09 00:00:20").Gives("2016-02-09 00:00:45");
+            "every minute @ 17 seconds and 27 seconds".From("2016-02-09 11:14:18").Gives("2016-02-09 11:14:27");
+
+            "every minute at mm:05 and mm:55".From("2016-02-09 06:08:06").Gives("2016-02-09 06:08:55");
+            "every minute @ mm:06 and mm:16".From("2016-02-09 14:02:15").Gives("2016-02-09 14:02:16");
+
+            "every minute at hh:mm:07 and hh:mm:37".From("2016-02-09 00:00:10").Gives("2016-02-09 00:00:37");
+            "every minute @ hh:mm:47 and hh:mm:57".From("2016-02-09 15:47:50").Gives("2016-02-09 15:47:57");
+        }
+
+        [Test]
+        public void EveryMinuteAtSecondsBetween()
+        {
+            "every minute at 15 seconds between 12:00 and 14:00".From("2016-02-09 13:40:20").Gives("2016-02-09 13:41:15");
+            "every minute @ 17 seconds between 13:30 and 14:00".From("2016-02-09 15:50:38").Gives("2016-02-10 13:30:17");
+
+            "every minute at mm:05 between 18:40 and 19:00".From("2016-02-09").Gives("2016-02-09 18:40:05");
+            "every minute @ mm:06 between 04:59 and 19:00".From("2016-02-09 06:17:00").Gives("2016-02-09 06:17:06");
+
+            "every minute at hh:mm:07 between 10:11 and 16:00".From("2016-02-09").Gives("2016-02-09 10:11:07");
+            "every minute @ hh:mm:47 between 09:00 and 14:00".From("2016-02-09 10:00:00").Gives("2016-02-09 10:00:47");
+        }
+
+        [Test]
+        public void EveryHourAtMinutes()
+        {
+            "every hour at 10 minutes".From("2016-02-10").Gives("2016-02-10 00:10:00");
+            "every hour @ 20 minutes".From("2016-02-10 03:55:00").Gives("2016-02-10 04:20:00");
+
+            "every hour at hh:15".From("2016-02-10").Gives("2016-02-10 00:15:00");
+            "every hour @ hh:25".From("2016-02-10 01:25:01").Gives("2016-02-10 02:25:00");
+
+            "every hour at hh:15:30".From("2016-02-10 08:15:29").Gives("2016-02-10 08:15:30");
+            "every hour @ hh:25:40".From("2016-02-10").Gives("2016-02-10 00:25:40");
+        }
+
+        [Test]
+        public void EveryHourAtMinutesWithIncludeNow()
+        {
+            "every hour @ 20 minutes".From("2016-02-10 03:20", false).Gives("2016-02-10 04:20:00");
+            "every hour @ 20 minutes".From("2016-02-10 03:20", true).Gives("2016-02-10 03:20:00");
+        }
+
+        [Test]
+        public void EveryHourAtMinutesAnd()
+        {
+            "every hour at 10 minutes and 15 minutes".From("2016-02-10").Gives("2016-02-10 00:10:00");
+            "every hour @ 20 minutes and 25 minutes".From("2016-02-10 02:22:00").Gives("2016-02-10 02:25:00");
+
+            "every hour at hh:30 and hh:35".From("2016-02-10 12:34:59").Gives("2016-02-10 12:35:00");
+            "every hour @ hh:25 and hh:45".From("2016-02-10 14:45:01").Gives("2016-02-10 15:25:00");
+
+            "every hour at hh:15:30 and hh:45:18".From("2016-02-10 07:30:05").Gives("2016-02-10 07:45:18");
+            "every hour @ hh:25:40 and hh:55:30".From("2016-02-10 00:25:40").Gives("2016-02-10 00:55:30");
+        }
+
+        [Test]
+        public void EveryHourAtMinutesBetween()
+        {
+            "every hour at 10 minutes between 12:00 and 18:00".From("2016-02-10").Gives("2016-02-10 12:10:00");
+            "every hour @ 20 minutes between 13:00 and 19:00".From("2016-02-10 18:20:01").Gives("2016-02-11 13:20:00");
+
+            "every hour at hh:15 between 14:00 and 20:00".From("2016-02-10").Gives("2016-02-10 14:15:00");
+            "every hour @ hh:25 between 15:00 and 21:00".From("2016-02-10 15:25:01").Gives("2016-02-10 16:25:00");
+
+            "every hour at hh:15:30 between 16:00 and 22:00".From("2016-02-10").Gives("2016-02-10 16:15:30");
+            "every hour @ hh:25:40 between 17:00 and 23:00".From("2016-02-10 17:25:39").Gives("2016-02-10 17:25:40");
+        }
+
+        [Test]
+        public void ListenerWillEnterTimeMultipleTimesOnThisOneSoLetsHopeTheTimestampsStackIsPoppedCorrectly()
+        {
+            "every day @ 13:00 and 26th day every month at 12:00 and every minute between 08:00 and 09:00".From("2016-02-26 00:06:00").Gives("2016-02-26 08:00:00");
+        }
+
+        [Test]
+        public void IfThisOneWorks()
+        {
+            "every minute between 08:00 and 09:00".From("2016-02-26 00:06:00").Gives("2016-02-26 08:00:00");
+        }
+
+        [Test]
+        public void AndThisOneToo()
+        {
+            "26th day every month at 12:00".From("2016-02-26 00:06:00").Gives("2016-02-26 12:00:00");
         }
     }
 }

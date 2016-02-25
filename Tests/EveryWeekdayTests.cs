@@ -16,10 +16,7 @@ namespace Tests
         {
             var expected = new DateTime(2015, 10, 5, 6, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 20, 0);
-            Assert.AreEqual(
-                expected,
-                new Weekday(DayOfWeek.Monday, new Timestamp(6, 30)).Evaluate(from)
-            );
+            Assert.AreEqual(expected, new Weekday(DayOfWeek.Monday, new Timestamp(6, 30)).Evaluate(from));
         }
 
         [Test]
@@ -27,24 +24,16 @@ namespace Tests
         {
             var expected = new DateTime(2015, 10, 12, 5, 30, 0);
             var from = new DateTime(2015, 10, 07, 6, 30, 0);
-            Assert.AreEqual(
-                expected,
-                new Weekday(DayOfWeek.Monday, new Timestamp(5, 30)).Evaluate(from)
-            );
+            Assert.AreEqual(expected, new Weekday(DayOfWeek.Monday, new Timestamp(5, 30)).Evaluate(from));
         }
         
         [Test]
         public void EveryMondayAt0630FromSameTimeIncludeNow()
         {
-            var expected = new DateTime(2015,10,5,6,30,0);
+            var expected = new DateTime(2015, 10, 5, 6, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
-            Assert.AreEqual(
-                expected,
-                new Weekday(DayOfWeek.Monday, new Timestamp(6, 30)).Evaluate(from, true)
-            );
+            Assert.AreEqual(expected, new Weekday(DayOfWeek.Monday, new Timestamp(6, 30)).Evaluate(from, true));
         }
-
-
 
         [Test]
         public void EveryMondayAt0630FromJustAfter()
@@ -151,7 +140,6 @@ namespace Tests
             var expected = new DateTime(2015, 10, 12, 7, 30, 0);
             var from = new DateTime(2015, 10, 6, 6, 30, 0);
             Assert.AreEqual(expected, new Weekday(DayOfWeek.Monday, new Timestamp(7, 30)).Evaluate(from));
-
         }
 
         [Test]

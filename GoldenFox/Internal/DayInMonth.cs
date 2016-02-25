@@ -18,13 +18,14 @@ namespace GoldenFox.Internal
         {
             var comparison = new Timestamp(from).CompareTo(_timestamp);
             
-                if (IsSameDay(from, _day))
+            if (IsSameDay(from, _day))
             {
                 if (comparison == 0 && includeNow)
                 {
                     return from;
                 }
-                if (comparison > 0 || comparison == 0 && !includeNow)
+
+                if (comparison > 0 || (comparison == 0 && !includeNow))
                 {
                     return from.AddMonths(1).SetDay(_day).SetTime(_timestamp);
                 }
@@ -48,7 +49,7 @@ namespace GoldenFox.Internal
                 }
                 else
                 {
-                    if(@from.DaysOfMonth() + _day > @from.Day)
+                    if (@from.DaysOfMonth() + _day > @from.Day)
                     {
                         return @from.SetDay(_day).SetTime(_timestamp);
                     }
@@ -58,7 +59,6 @@ namespace GoldenFox.Internal
                     }
                 }
             }
-            
         }
 
         private bool IsSameDay(DateTime @from, int day)
@@ -67,10 +67,12 @@ namespace GoldenFox.Internal
             {
                 return true;
             }
+
             if (day <= 0 && @from.Day - @from.DaysOfMonth()  == day)
             {
                 return true;
             }
+
             return false;
         }
     }
