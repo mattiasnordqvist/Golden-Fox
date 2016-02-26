@@ -97,6 +97,14 @@ namespace Tests.Full
         }
 
         [Test]
+        public void EveryDayAtTwoTimes()
+        {
+            "every day @ 06:30 and 08:30".From("2015-10-05 07:30:00").Gives("2015-10-05 08:30:00");
+            "every day @ 06:30 and 08:30".From("2015-10-05 05:30:00").Gives("2015-10-05 06:30:00");
+            "every day @ 06:30 and 08:30".From("2015-10-05 15:30:00").Gives("2015-10-06 06:30:00");
+        }
+
+        [Test]
         public void EveryDayAt_SameDayJustLater()
         {
             "every day at 06:30".From("2015-10-05 05:20:00").Gives("2015-10-05 06:30:00");

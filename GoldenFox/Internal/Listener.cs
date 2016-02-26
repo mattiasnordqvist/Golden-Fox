@@ -37,7 +37,10 @@ namespace GoldenFox.Internal
 
         public override void ExitEveryday(GoldenFoxLanguageParser.EverydayContext context)
         {
-            _stack.Push(new Day(_timestamps.Pop()));
+            while(_timestamps.Any())
+            {
+                _stack.Push(new Day(_timestamps.Pop()));
+            }
         }
 
         public override void ExitEverysecond(GoldenFoxLanguageParser.EverysecondContext context)
@@ -76,12 +79,18 @@ namespace GoldenFox.Internal
 
         public override void ExitEveryweekday(GoldenFoxLanguageParser.EveryweekdayContext context)
         {
-            _stack.Push(new Weekday(ParseWeekDay(context.weekday()), _timestamps.Pop()));
+            while (_timestamps.Any())
+            {
+                _stack.Push(new Weekday(ParseWeekDay(context.weekday()), _timestamps.Pop()));
+            }
         }
 
         public override void ExitWeekdays(GoldenFoxLanguageParser.WeekdaysContext context)
         {
-            _stack.Push(new Weekday(ParseWeekDay(context.weekday()), _timestamps.Pop()));
+            while (_timestamps.Any())
+            {
+                _stack.Push(new Weekday(ParseWeekDay(context.weekday()), _timestamps.Pop()));
+            }
         }
 
         public override void ExitNumberedweekday(GoldenFoxLanguageParser.NumberedweekdayContext context)
@@ -98,7 +107,10 @@ namespace GoldenFox.Internal
                 index = index % 7;
             }
 
-            _stack.Push(new Weekday((DayOfWeek)index, _timestamps.Pop()));
+            while (_timestamps.Any())
+            {
+                _stack.Push(new Weekday((DayOfWeek)index, _timestamps.Pop()));
+            }
         }
 
         public override void ExitNumbereddayinmonth(GoldenFoxLanguageParser.NumbereddayinmonthContext context)
@@ -112,8 +124,10 @@ namespace GoldenFox.Internal
                     index = -index + 1;
                 }
             }
-
-            _stack.Push(new DayInMonth(index, _timestamps.Pop()));
+            while (_timestamps.Any())
+            {
+                _stack.Push(new DayInMonth(index, _timestamps.Pop()));
+            }
         }
 
         public override void ExitEveryhour(GoldenFoxLanguageParser.EveryhourContext context)

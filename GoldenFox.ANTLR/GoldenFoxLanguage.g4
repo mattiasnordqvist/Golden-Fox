@@ -11,19 +11,20 @@ schedule: ( everyminute
           ) 
           ('and' schedule)?;
 
-everyday: 'every day' At time;
+everyday: 'every day' At times;
 everyminute: 'every minute' (At secondsOffset)? (between)?; 
 everyhour: 'every hour' (At minutesOffset)? (between)?;
 everysecond: 'every second' (between)?;
-everyweekday: 'every' weekday At time;
-weekdays: weekday's' At time;
-numberedweekday: ((numberedDay (Last)?) | Last) 'day every week' At time;
-numbereddayinmonth: ((numberedDay (Last)?) | Last) 'day every month' At time;
+everyweekday: 'every' weekday At times;
+weekdays: weekday's' At times;
+numberedweekday: ((numberedDay (Last)?) | Last) 'day every week' At times;
+numbereddayinmonth: ((numberedDay (Last)?) | Last) 'day every month' At times;
 
 secondsOffset: ((('mm:'|'hh:mm:')INT) | (INT 'seconds')) ('and' secondsOffset)?;
 minutesOffset: ((('hh:')INT(':'INT)?) | (INT 'minutes')) ('and' minutesOffset)?;
 between: 'between' time 'and' time;
 time: (INT':'INT(':'INT)?);
+times: time ('and' time)?;
 weekday: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
 numberedDay: INT('st'|'nd'|'rd'|'th');
  
