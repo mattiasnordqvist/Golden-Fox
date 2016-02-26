@@ -14,4 +14,8 @@
     <copyright>Copyright 2015</copyright>
     <tags>Scheduling</tags>
   </metadata>
+  <files>
+    <file src="bin\release\GoldenFox.ANTLR.dll" target="lib/net45" />
+    <file src="bin\release\Antlr4.Runtime.dll" target="lib/net45" />
+  </files>
 </package>
