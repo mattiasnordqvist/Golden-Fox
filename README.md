@@ -26,9 +26,7 @@ Given a schedule and a point in time, you can let Golden Fox find a future point
 
 ## Does Golden Fox understand English?
 
-This fox ain't golden for no reason. As long as the words you talk fit into this flow chart below, you're fine.
-
-![Flow chart](https://raw.githubusercontent.com/mattiasnordqvist/Golden-Fox/master/diagram.png "Simple english")
+This fox ain't golden for no reason. As long as the words you talk fit into [this grammar](GoldenFox.ANTLR/GoldenFoxLanguage.g4), you're fine.
 
 ## Contribute
 
