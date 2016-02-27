@@ -45,6 +45,7 @@
     <Compile Include="Internal\ContextExtensions.cs" />
     <Compile Include="Internal\DateTimeExtensions.cs" />
     <Compile Include="Internal\Day.cs" />
+    <Compile Include="Internal\DayInYear.cs" />
     <Compile Include="Internal\DayInMonth.cs" />
     <Compile Include="Internal\First.cs" />
     <Compile Include="Internal\Constant.cs" />

@@ -8,6 +8,7 @@ schedule: ( everyminute
           | weekdays
           | numberedweekday
           | numbereddayinmonth
+          | numbereddayinyear
           ) 
           ('and' schedule)?;
 
@@ -19,6 +20,7 @@ everyweekday: 'every' weekday At times;
 weekdays: weekday's' At times;
 numberedweekday: ((numberedDay (Last)?) | Last) 'day every week' At times;
 numbereddayinmonth: ((numberedDay (Last)?) | Last) 'day every month' At times;
+numbereddayinyear: ((numberedDay (Last)?) | Last) 'day every year' At times;
 
 secondsOffset: ((('mm:'|'hh:mm:')INT) | (INT 'seconds')) ('and' secondsOffset)?;
 minutesOffset: ((('hh:')INT(':'INT)?) | (INT 'minutes')) ('and' minutesOffset)?;

@@ -18,7 +18,13 @@ namespace GoldenFox.Internal
             return DateTime.DaysInMonth(@this.Year, @this.Month);
         }
 
-        public static DateTime SetDay(this DateTime @this, int day)
+        public static int DaysOfYear(this DateTime @this)
+        {
+            return DateTime.IsLeapYear(@this.Year) ? 365 : 366;
+        }
+
+
+        public static DateTime SetDayInMonth(this DateTime @this, int day)
         {
             if (day > 0)
             {
@@ -27,6 +33,18 @@ namespace GoldenFox.Internal
             else
             {
                 return @this.AddMonths(1).AddDays(-@this.AddMonths(1).Day).AddDays(day);
+            }
+        }
+
+        public static DateTime SetDayInYear(this DateTime @this, int day)
+        {
+            if (day > 0)
+            {
+                return @this.AddDays(-@this.DayOfYear).AddDays(day);
+            }
+            else
+            {
+                return @this.AddYears(1).AddDays(-@this.AddYears(1).DayOfYear).AddDays(day);
             }
         }
 

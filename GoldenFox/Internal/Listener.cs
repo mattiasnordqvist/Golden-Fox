@@ -43,6 +43,7 @@ namespace GoldenFox.Internal
             }
         }
 
+
         public override void ExitEverysecond(GoldenFoxLanguageParser.EverysecondContext context)
         {
             var second = new Second();
@@ -127,6 +128,24 @@ namespace GoldenFox.Internal
             while (_timestamps.Any())
             {
                 _stack.Push(new DayInMonth(index, _timestamps.Pop()));
+            }
+        }
+
+
+        public override void ExitNumbereddayinyear(GoldenFoxLanguageParser.NumbereddayinyearContext context)
+        {
+            var index = 0;
+            if (context.numberedDay() != null)
+            {
+                index = int.Parse(context.numberedDay().INT().GetText());
+                if (context.Last() != null)
+                {
+                    index = -index + 1;
+                }
+            }
+            while (_timestamps.Any())
+            {
+                _stack.Push(new DayInYear(index, _timestamps.Pop()));
             }
         }
 

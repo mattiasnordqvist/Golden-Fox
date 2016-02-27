@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EveryYearTests.cs" />
     <Compile Include="EveryMonthsTests.cs" />
     <Compile Include="Full\GoldenFoxTests.cs" />
     <Compile Include="EveryWeekdayTests.cs" />

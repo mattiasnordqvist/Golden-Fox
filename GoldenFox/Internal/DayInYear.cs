@@ -2,13 +2,13 @@
 
 namespace GoldenFox.Internal
 {
-    internal class DayInMonth : Interval
+    internal class DayInYear : Interval
     {
         private readonly int _day;
 
         private readonly Timestamp _timestamp;
 
-        public DayInMonth(int day, Timestamp timestamp)
+        public DayInYear(int day, Timestamp timestamp)
         {
             _day = day;
             _timestamp = timestamp;
@@ -27,7 +27,7 @@ namespace GoldenFox.Internal
 
                 if (comparison > 0 || (comparison == 0 && !includeNow))
                 {
-                    return from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                    return from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
                 }
                 else
                 {
@@ -38,24 +38,24 @@ namespace GoldenFox.Internal
             {
                 if (_day > 0)
                 {
-                    if (_day > @from.Day)
+                    if (_day > @from.DayOfYear)
                     {
-                        return @from.SetDayInMonth(_day).SetTime(_timestamp);
+                        return @from.SetDayInYear(_day).SetTime(_timestamp);
                     }
                     else
                     {
-                        return @from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        return @from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
                     }
                 }
                 else
                 {
                     if (@from.DaysOfMonth() + _day > @from.Day)
                     {
-                        return @from.SetDayInMonth(_day).SetTime(_timestamp);
+                        return @from.SetDayInYear(_day).SetTime(_timestamp);
                     }
                     else
                     {
-                        return @from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        return @from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
                     }
                 }
             }
@@ -63,12 +63,12 @@ namespace GoldenFox.Internal
 
         private bool IsSameDay(DateTime @from, int day)
         {
-            if (day > 0 && day == @from.Day)
+            if (day > 0 && day == @from.DayOfYear)
             {
                 return true;
             }
 
-            if (day <= 0 && @from.Day - @from.DaysOfMonth()  == day)
+            if (day <= 0 && @from.DayOfYear - @from.DaysOfYear() == day)
             {
                 return true;
             }

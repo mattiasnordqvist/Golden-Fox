@@ -443,5 +443,12 @@ namespace Tests.Full
         {
             "26th day every month at 12:00".From("2016-02-26 00:06:00").Gives("2016-02-26 12:00:00");
         }
+
+
+        [Test]
+        public void FirstDayEveryYear()
+        {
+            "1st day every year at 12:00".From("2016-02-26 00:06:00").Gives("2017-01-01 12:00:00");
+        }
     }
 }
