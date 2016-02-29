@@ -1,6 +1,5 @@
 ﻿using System;
 
-using GoldenFox.Internal;
 using GoldenFox.Internal.Operators.Intervals;
 
 using NUnit.Framework;
