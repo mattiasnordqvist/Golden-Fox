@@ -8,57 +8,69 @@ namespace GoldenFox.Internal
 
         private readonly Timestamp _timestamp;
 
+        private Func<DateTime, DateTime> _stepFunc;
+
         public DayInYear(int day, Timestamp timestamp)
         {
             _day = day;
             _timestamp = timestamp;
         }
-
-        public override DateTime Evaluate(DateTime from, bool includeNow = false)
+        
+        protected override DateTime ApplyRule(DateTime datetime, bool includeNow)
         {
-            var comparison = new Timestamp(from).CompareTo(_timestamp);
-            
-            if (IsSameDay(from, _day))
+            var comparison = new Timestamp(datetime).CompareTo(_timestamp);
+
+            DateTime candidate;
+            if (IsSameDay(datetime, _day))
             {
                 if (comparison == 0 && includeNow)
                 {
-                    return from;
+                    _stepFunc = x => x;
+                    return _stepFunc(datetime);
                 }
 
                 if (comparison > 0 || (comparison == 0 && !includeNow))
                 {
-                    return from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                    _stepFunc = x => x.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                    candidate = _stepFunc(datetime);
                 }
                 else
                 {
-                    return from.SetTime(_timestamp);
+                    _stepFunc = x => x.SetTime(_timestamp);
+                    candidate = _stepFunc(datetime);
                 }
             }
             else
             {
                 if (_day > 0)
                 {
-                    if (_day > @from.DayOfYear)
+                    if (_day > datetime.DayOfYear)
                     {
-                        return @from.SetDayInYear(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.SetDayInYear(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(datetime);
                     }
                     else
                     {
-                        return @from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(datetime);
                     }
                 }
                 else
                 {
-                    if (@from.DaysOfMonth() + _day > @from.Day)
+                    if (datetime.DaysOfMonth() + _day > datetime.Day)
                     {
-                        return @from.SetDayInYear(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.SetDayInYear(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(datetime);
                     }
                     else
                     {
-                        return @from.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(datetime);
                     }
                 }
             }
+
+            return candidate;
         }
 
         private bool IsSameDay(DateTime @from, int day)
@@ -75,5 +87,7 @@ namespace GoldenFox.Internal
 
             return false;
         }
+
+        
     }
 }

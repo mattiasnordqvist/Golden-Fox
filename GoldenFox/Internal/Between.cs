@@ -1,6 +1,8 @@
-﻿namespace GoldenFox.Internal
+﻿using System;
+
+namespace GoldenFox.Internal
 {
-    internal class Between
+    internal class Between : IConstraint
     {
         public Between(Timestamp from, Timestamp to)
         {
@@ -12,9 +14,22 @@
 
         public Timestamp To { get; set; }
 
-        public bool Contains(Timestamp timestamp)
+        public ConstraintResult Contains(DateTime dateTime, bool includeNow)
         {
-            return From.CompareTo(timestamp) <= 0 && To.CompareTo(timestamp) >= 0;
+            var toEarly = From.CompareTo(new Timestamp(dateTime)) > 0;
+            var toLate = To.CompareTo(new Timestamp(dateTime)) < 0;
+            var passed = !(toEarly || toLate);
+            return new ConstraintResult
+            {
+                Passed = passed,
+                ClosestValidFutureInput = 
+                    passed 
+                        ? dateTime 
+                        : toEarly 
+                            ? dateTime.SetTime(From)
+                            : dateTime.AddDays(1).SetTime(From),
+
+            };
         }
     }
 }

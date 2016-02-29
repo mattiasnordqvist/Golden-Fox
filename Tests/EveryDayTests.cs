@@ -38,6 +38,16 @@ namespace Tests
         }
 
         [Test]
+        public void EveryDayAt0630FromBeforeFrom()
+        {
+            var from = new DateTime(2015, 10, 5, 6, 40, 0);
+            var expected = new DateTime(2016, 1, 1, 6, 30, 0);
+            var sut = new Day(new Timestamp(6, 30));
+            sut.AddConstraint(new From(new DateTime(2016, 1, 1)));
+            Assert.AreEqual(expected, sut.Evaluate(@from));
+        }
+
+        [Test]
         public void EveryDayAtTwoTimesOneLaterSameDayOneEarlierNextDay()
         {
             var expected = new DateTime(2015, 10, 5, 8, 30, 0);

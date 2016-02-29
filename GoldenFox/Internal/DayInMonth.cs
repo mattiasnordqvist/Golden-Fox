@@ -8,57 +8,72 @@ namespace GoldenFox.Internal
 
         private readonly Timestamp _timestamp;
 
+        private Func<DateTime, DateTime> _stepFunc;
+
         public DayInMonth(int day, Timestamp timestamp)
         {
             _day = day;
             _timestamp = timestamp;
         }
 
-        public override DateTime Evaluate(DateTime from, bool includeNow = false)
+        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
         {
-            var comparison = new Timestamp(from).CompareTo(_timestamp);
-            
-            if (IsSameDay(from, _day))
+            var comparison = new Timestamp(dateTime).CompareTo(_timestamp);
+            DateTime candidate;
+            if (IsSameDay(dateTime, _day))
             {
                 if (comparison == 0 && includeNow)
                 {
-                    return from;
+                    _stepFunc = x => x;
+                    return _stepFunc(dateTime);
                 }
 
                 if (comparison > 0 || (comparison == 0 && !includeNow))
                 {
-                    return from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                    _stepFunc = x => x.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                    candidate = _stepFunc(dateTime);
                 }
                 else
                 {
-                    return from.SetTime(_timestamp);
+                    _stepFunc = x => x.SetTime(_timestamp);
+                    candidate = _stepFunc(dateTime);
                 }
             }
             else
             {
                 if (_day > 0)
                 {
-                    if (_day > @from.Day)
+                    if (_day > dateTime.Day)
                     {
-                        return @from.SetDayInMonth(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.SetDayInMonth(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(dateTime);
                     }
                     else
                     {
-                        return @from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(dateTime);
                     }
                 }
                 else
                 {
-                    if (@from.DaysOfMonth() + _day > @from.Day)
+                    if (dateTime.DaysOfMonth() + _day > dateTime.Day)
                     {
-                        return @from.SetDayInMonth(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.SetDayInMonth(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(dateTime);
                     }
                     else
                     {
-                        return @from.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        _stepFunc = x => x.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
+                        candidate = _stepFunc(dateTime);
                     }
                 }
             }
+            return candidate;
+        }
+
+        private DateTime Step(DateTime candidate)
+        {
+            return _stepFunc(candidate);
         }
 
         private bool IsSameDay(DateTime @from, int day)

@@ -24,7 +24,8 @@ namespace Tests
             var expected = new DateTime(2015, 1, 2, 12, 0, 0);
             var from = new DateTime(2015, 1, 1, 13, 0, 0);
 
-            var sut = new Second { Between = new Between(new Timestamp(12), new Timestamp(13)) };
+            var sut = new Second();
+            sut.AddConstraint(new Between(new Timestamp(12), new Timestamp(13)));
             Assert.AreEqual(expected, sut.Evaluate(from));
         }
 
@@ -34,7 +35,8 @@ namespace Tests
             var expected = new DateTime(2015, 1, 1, 13, 0, 0);
             var from = new DateTime(2015, 1, 1, 13, 0, 0);
 
-            var sut = new Second { Between = new Between(new Timestamp(12), new Timestamp(13)) };
+            var sut = new Second();
+            sut.AddConstraint(new Between(new Timestamp(12), new Timestamp(13)));
             Assert.AreEqual(expected, sut.Evaluate(from, true));
         }
     }

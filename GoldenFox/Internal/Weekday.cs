@@ -8,24 +8,26 @@ namespace GoldenFox.Internal
 
         private readonly Timestamp _timestamp;
 
+        private int _tempDaysToAdd;
+
         public Weekday(DayOfWeek day, Timestamp timestamp)
         {
             _day = day;
             _timestamp = timestamp;
         }
 
-        public override DateTime Evaluate(DateTime from, bool includeNow = false)
+        protected override DateTime ApplyRule(DateTime datetime, bool includeNow)
         {
-            var comparison = _timestamp.CompareTo(from);
-
-            if (includeNow && from.DayOfWeek == _day && comparison == 0)
+            var comparison = _timestamp.CompareTo(datetime);
+            DateTime candidate;
+            if (includeNow && datetime.DayOfWeek == _day && comparison == 0)
             {
-                return from;
+                candidate = datetime;
             }
             else
             {
                 int daysToAdd;
-                if (comparison >= 0 && _day == @from.DayOfWeek)
+                if (comparison >= 0 && _day == datetime.DayOfWeek)
                 {
                     if (comparison == 0 && includeNow)
                     {
@@ -44,14 +46,15 @@ namespace GoldenFox.Internal
                 else
                 {
                     // next occurence of weekday
-                    var dayDiff = ((int)_day - (int)@from.DayOfWeek + 7) % 7;
+                    var dayDiff = ((int)_day - (int)datetime.DayOfWeek + 7) % 7;
                     daysToAdd = dayDiff == 0 ? 7 : dayDiff;
                 }
-
-                return from
-                    .AddDays(daysToAdd)
-                    .SetTime(_timestamp);
+                _tempDaysToAdd = daysToAdd;
+                candidate = datetime.AddDays(_tempDaysToAdd).SetTime(_timestamp);
             }
+            return candidate;
+
         }
+
     }
 }

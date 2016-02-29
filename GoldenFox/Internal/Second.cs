@@ -4,26 +4,15 @@ namespace GoldenFox.Internal
 {
     internal class Second : Interval
     {
-        public Between Between { get; set; }
-
-        public override DateTime Evaluate(DateTime dateTime, bool includeNow = false)
+        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
         {
-            DateTime candidate;
-            if (includeNow && dateTime.Second == 0 && dateTime.Millisecond == 0)
+            var candidate = dateTime.StripMilliseconds();
+            if (includeNow && candidate == dateTime)
             {
-                candidate = dateTime;
-            }
-            else
-            {
-                candidate = dateTime.StripMilliseconds().AddSeconds(1);
+                return candidate;
             }
 
-            while (Between != null && !Between.Contains(new Timestamp(candidate)))
-            {
-                candidate = candidate.AddSeconds(1);
-            }
-
-            return candidate;
+            return candidate <= dateTime ? candidate.AddSeconds(1) : candidate;
         }
     }
 }

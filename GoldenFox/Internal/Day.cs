@@ -6,6 +6,7 @@ namespace GoldenFox.Internal
     {
         private readonly Timestamp _timestamp;
 
+
         public Day() : this(new Timestamp())
         {
         }
@@ -15,18 +16,19 @@ namespace GoldenFox.Internal
             _timestamp = timestamp;
         }
 
-        public override DateTime Evaluate(DateTime from, bool includeNow = false)
+        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
         {
-            var comparison = _timestamp.CompareTo(from);
+            var comparison = _timestamp.CompareTo(dateTime);
             if (comparison == 0 && includeNow)
             {
-                return from;
+                return dateTime;
             }
-
-            var daysToAdd = comparison <= 0 ? 1 : 0;
-            return from
-                .AddDays(daysToAdd)
-                .SetTime(_timestamp);
+            else {
+                var daysToAdd = comparison <= 0 ? 1 : 0;
+                return dateTime
+                    .AddDays(daysToAdd)
+                    .SetTime(_timestamp);
+            }
         }
     }
 }

@@ -4,33 +4,18 @@ namespace GoldenFox.Internal
 {
     internal class Minute : Interval
     {
-        public Between Between { get; set; }
-
         public int OffsetInSeconds { get; set; }
 
-        public override DateTime Evaluate(DateTime dateTime, bool includeNow = false)
+
+        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
         {
-            DateTime candidate;
-            if (includeNow && dateTime.Second == OffsetInSeconds && dateTime.Millisecond == 0)
+            var candidate = dateTime.StripSeconds().AddSeconds(OffsetInSeconds);
+            if (includeNow && candidate == dateTime)
             {
-                candidate = dateTime;
-            }
-            else
-            {
-                candidate = dateTime.StripSeconds().AddSeconds(OffsetInSeconds);
-                if (dateTime.Second > OffsetInSeconds
-                    || (dateTime.Second == OffsetInSeconds && !includeNow))
-                {
-                    candidate = candidate.AddMinutes(1);
-                }
+                return candidate;
             }
 
-            while (Between != null && !Between.Contains(new Timestamp(candidate)))
-            {
-                candidate = candidate.AddMinutes(1);
-            }
-
-            return candidate;
+            return candidate <= dateTime ? candidate.AddMinutes(1) : candidate;
         }
     }
 }
