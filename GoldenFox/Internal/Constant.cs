@@ -11,7 +11,7 @@ namespace GoldenFox.Internal
             _constant = constant;
         }
 
-        public DateTime Evaluate(DateTime from, bool includeNow)
+        public DateTime Evaluate(DateTime from, bool inclusive)
         {
             return _constant;
         }

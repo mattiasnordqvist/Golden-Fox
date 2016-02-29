@@ -8,7 +8,7 @@ namespace GoldenFox.Internal
     {
         protected readonly List<IConstraint> Constraints = new List<IConstraint>();
 
-        public virtual DateTime Evaluate(DateTime dateTime, bool includeNow = false)
+        public virtual DateTime Evaluate(DateTime dateTime, bool inclusive = false)
         {
             var candidate = ApplyLowerBoundConstraints(dateTime);
             if (candidate != dateTime)
@@ -16,9 +16,9 @@ namespace GoldenFox.Internal
                 return Evaluate(candidate, true);
             }
 
-            candidate = ApplyRule(candidate, includeNow);
+            candidate = ApplyRule(candidate, inclusive);
 
-            var afterUpperboundApplied = ApplyUpperBoundConstraints(candidate, true); // Upper bound is always include now, because the step has already been made
+            var afterUpperboundApplied = ApplyUpperBoundConstraints(candidate);
             if (afterUpperboundApplied != candidate)
             {
                 return Evaluate(afterUpperboundApplied, true);
@@ -26,7 +26,7 @@ namespace GoldenFox.Internal
             return candidate;
         }
 
-        protected abstract DateTime ApplyRule(DateTime candidate, bool includeNow);
+        protected abstract DateTime ApplyRule(DateTime candidate, bool inclusive);
 
         public void AddConstraint(IConstraint constraint)
         {
@@ -38,15 +38,15 @@ namespace GoldenFox.Internal
             Constraints.AddRange(constraints);
         }
 
-        public DateTime ApplyUpperBoundConstraints(DateTime datetime, bool includeNow)
+        public DateTime ApplyUpperBoundConstraints(DateTime datetime)
         {
             var candidate = datetime;
-            Until()?.Contains(candidate, true);
+            Until()?.Contains(candidate);
 
             
             if (Between() != null)
             {
-                var result = Between().Contains(candidate, true);
+                var result = Between().Contains(candidate);
                 if (!result.Passed)
                 {
                     candidate = result.ClosestValidFutureInput;
@@ -87,7 +87,7 @@ namespace GoldenFox.Internal
             var candidate = dateTime;
             if (From() != null)
             {
-                var result = From().Contains(candidate, true);
+                var result = From().Contains(candidate);
                 if (!result.Passed)
                 {
                     candidate = result.ClosestValidFutureInput;
@@ -96,7 +96,7 @@ namespace GoldenFox.Internal
 
             if (Between() != null)
             {
-                var result = Between().Contains(candidate, true);
+                var result = Between().Contains(candidate);
                 if (!result.Passed)
                 {
                     candidate = result.ClosestValidFutureInput;

@@ -14,7 +14,7 @@ namespace GoldenFox.Internal
 
         public Timestamp To { get; set; }
 
-        public ConstraintResult Contains(DateTime dateTime, bool includeNow)
+        public ConstraintResult Contains(DateTime dateTime)
         {
             var toEarly = From.CompareTo(new Timestamp(dateTime)) > 0;
             var toLate = To.CompareTo(new Timestamp(dateTime)) < 0;

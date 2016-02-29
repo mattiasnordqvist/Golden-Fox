@@ -4,10 +4,10 @@ namespace GoldenFox.Internal
 {
     internal class Second : Interval
     {
-        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime dateTime, bool inclusive)
         {
             var candidate = dateTime.StripMilliseconds();
-            if (includeNow && candidate == dateTime)
+            if (inclusive && candidate == dateTime)
             {
                 return candidate;
             }

@@ -28,7 +28,7 @@ namespace Tests
         }
 
         [Test]
-        public void HourWithOffsetInMinutesAndSecondsExactlySameTimeIncludeNow()
+        public void HourWithOffsetInMinutesAndSecondsExactlySameTimeInclusive()
         {
             var expected = new DateTime(2016, 2, 10, 8, 15, 30);
             var from = new DateTime(2016, 2, 10, 8, 15, 30);
@@ -37,7 +37,7 @@ namespace Tests
         }
 
         [Test]
-        public void HourWithOffsetInMinutesAndSecondsExactlySameTimeNotIncludeNow()
+        public void HourWithOffsetInMinutesAndSecondsExactlySameTimeNotInclusive()
         {
             var expected = new DateTime(2016, 2, 10, 9, 15, 30);
             var from = new DateTime(2016, 2, 10, 8, 15, 30);
@@ -46,7 +46,7 @@ namespace Tests
         }
 
         [Test]
-        public void JustHourNotIncludeNow()
+        public void JustHourNotInclusive()
         {
             var expected = new DateTime(2016, 2, 10, 9, 0, 0);
             var from = new DateTime(2016, 2, 10, 8, 15, 30);
@@ -55,7 +55,7 @@ namespace Tests
         }
 
         [Test]
-        public void JustHourIncludeNow()
+        public void JustHourInclusive()
         {
             var expected = new DateTime(2016, 2, 10, 9, 0, 0);
             var from = new DateTime(2016, 2, 10, 8, 15, 30);
@@ -64,7 +64,7 @@ namespace Tests
         }
 
         [Test]
-        public void JustHourIncludeNowExactSameTime()
+        public void JustHourInclusiveExactSameTime()
         {
             var expected = new DateTime(2016, 2, 10, 9, 0, 0);
             var from = new DateTime(2016, 2, 10, 9, 0, 0);

@@ -11,9 +11,9 @@ namespace GoldenFox.Internal
             _from = @from;
         }
 
-        public ConstraintResult Contains(DateTime dateTime, bool includeNow)
+        public ConstraintResult Contains(DateTime dateTime)
         {
-            var passed = includeNow ?  _from <= dateTime : _from < dateTime;
+            var passed = _from <= dateTime;
             return new ConstraintResult { Passed = passed, ClosestValidFutureInput = passed ? dateTime : _from, };
         }
     }

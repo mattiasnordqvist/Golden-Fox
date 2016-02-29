@@ -30,7 +30,7 @@ namespace Tests
         }
 
         [Test]
-        public void EverySecondExactlyOutsideBetweenButIncludeNow()
+        public void EverySecondExactlyOutsideBetweenButInclusive()
         {
             var expected = new DateTime(2015, 1, 1, 13, 0, 0);
             var from = new DateTime(2015, 1, 1, 13, 0, 0);

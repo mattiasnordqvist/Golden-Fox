@@ -16,11 +16,11 @@ namespace GoldenFox.Internal
             _timestamp = timestamp;
         }
 
-        protected override DateTime ApplyRule(DateTime datetime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime datetime, bool inclusive)
         {
             var comparison = _timestamp.CompareTo(datetime);
             DateTime candidate;
-            if (includeNow && datetime.DayOfWeek == _day && comparison == 0)
+            if (inclusive && datetime.DayOfWeek == _day && comparison == 0)
             {
                 candidate = datetime;
             }
@@ -29,12 +29,12 @@ namespace GoldenFox.Internal
                 int daysToAdd;
                 if (comparison >= 0 && _day == datetime.DayOfWeek)
                 {
-                    if (comparison == 0 && includeNow)
+                    if (comparison == 0 && inclusive)
                     {
                         // Same day, just later
                         daysToAdd = 0;
                     }
-                    else if (comparison == 0 && !includeNow)
+                    else if (comparison == 0 && !inclusive)
                     {
                         daysToAdd = 7;
                     }

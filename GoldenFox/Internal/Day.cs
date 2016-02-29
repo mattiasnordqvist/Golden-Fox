@@ -16,10 +16,10 @@ namespace GoldenFox.Internal
             _timestamp = timestamp;
         }
 
-        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime dateTime, bool inclusive)
         {
             var comparison = _timestamp.CompareTo(dateTime);
-            if (comparison == 0 && includeNow)
+            if (comparison == 0 && inclusive)
             {
                 return dateTime;
             }

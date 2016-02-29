@@ -324,7 +324,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void EverySecondWithIncludeNow()
+        public void EverySecondWithinclusive()
         {
             "every second".From("2016-02-09", false).Gives("2016-02-09 00:00:01");
             "every second".From("2016-02-10", true).Gives("2016-02-10 00:00:00");
@@ -350,7 +350,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void EveryMinuteAtSecondsWithIncludeNow()
+        public void EveryMinuteAtSecondsWithinclusive()
         {
             "every minute @ 17 seconds".From("2016-02-09 11:14:17", false).Gives("2016-02-09 11:15:17");
             "every minute @ 17 seconds".From("2016-02-09 11:14:17", true).Gives("2016-02-09 11:14:17");
@@ -396,7 +396,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void EveryHourAtMinutesWithIncludeNow()
+        public void EveryHourAtMinutesWithinclusive()
         {
             "every hour @ 20 minutes".From("2016-02-10 03:20", false).Gives("2016-02-10 04:20:00");
             "every hour @ 20 minutes".From("2016-02-10 03:20", true).Gives("2016-02-10 03:20:00");
@@ -474,13 +474,13 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromAndUntilFromExactlyFromIncludeNow()
+        public void FromAndUntilFromExactlyFrominclusive()
         {
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2016-01-01 12:00:00", true).Gives("2016-01-01 12:00:00");
         }
 
         [Test]
-        public void FromAndUntilFromExactlyFromNotIncludeNow()
+        public void FromAndUntilFromExactlyFromNotinclusive()
         {
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2016-01-01 12:00:00").Gives("2017-01-01 12:00:00");
         }
@@ -500,7 +500,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromAndUntilFromExactlyUntilIncludeNow()
+        public void FromAndUntilFromExactlyUntilinclusive()
         {
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2018-01-01 12:00:00", true).Gives("2018-01-01 12:00:00");
         }
@@ -518,7 +518,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromSecondShouldBeInclusiveButIncludeNowStillWorksAsItShould()
+        public void FromSecondShouldBeInclusiveButinclusiveStillWorksAsItShould()
         {
             "every second from 2016-02-03 23:45:22".From("2016-02-03 00:00:00").Gives("2016-02-03 23:45:22");
             "every second from 2016-02-03 23:45:22".From("2016-02-03 00:00:00", true).Gives("2016-02-03 23:45:22");
@@ -527,7 +527,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromMinuteShouldBeInclusiveButIncludeNowStillWorksAsItShould()
+        public void FromMinuteShouldBeInclusiveButinclusiveStillWorksAsItShould()
         {
             "every minute from 2016-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
             "every minute from 2016-01-01 until 2018-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
@@ -537,7 +537,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromHourShouldBeInclusiveButIncludeNowStillWorksAsItShould()
+        public void FromHourShouldBeInclusiveButinclusiveStillWorksAsItShould()
         {
             //"every hour from 2016-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
             "every hour from 2016-02-03 23:45".From("2000-01-01 00:00").Gives("2016-02-04 00:00");
@@ -547,7 +547,7 @@ namespace Tests.Full
         }
 
         [Test]
-        public void FromHourShouldBeInclusiveButIncludeNowStillWorksAsItShould2()
+        public void FromHourShouldBeInclusiveButinclusiveStillWorksAsItShould2()
         {
             "every hour from 2016-02-03 22:00".From("2000-01-01 00:00").Gives("2016-02-03 22:00");
             "every hour from 2016-02-03 22:00".From("2016-02-03 22:00", true).Gives("2016-02-03 22:00");

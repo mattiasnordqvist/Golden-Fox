@@ -50,7 +50,7 @@ namespace Tests
         }
 
         [Test]
-        public void ExactlySameDayIncludeNowStaysInSameYear()
+        public void ExactlySameDayInclusiveStaysInSameYear()
         {
             var expected = new DateTime(2015, 02, 27, 06, 30, 00);
             var from = new DateTime(2015, 02, 27, 06, 30, 00);
@@ -58,7 +58,7 @@ namespace Tests
         }
 
         [Test]
-        public void ExactlySameDayDoNotIncludeNowJumpsToNextYear()
+        public void ExactlySameDayDoNotInclusiveJumpsToNextYear()
         {
             var expected = new DateTime(2016, 02, 27, 06, 30, 00);
             var from = new DateTime(2015, 02, 27, 06, 30, 00);

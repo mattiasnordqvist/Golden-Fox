@@ -16,20 +16,20 @@ namespace GoldenFox.Internal
             _timestamp = timestamp;
         }
         
-        protected override DateTime ApplyRule(DateTime datetime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime datetime, bool inclusive)
         {
             var comparison = new Timestamp(datetime).CompareTo(_timestamp);
 
             DateTime candidate;
             if (IsSameDay(datetime, _day))
             {
-                if (comparison == 0 && includeNow)
+                if (comparison == 0 && inclusive)
                 {
                     _stepFunc = x => x;
                     return _stepFunc(datetime);
                 }
 
-                if (comparison > 0 || (comparison == 0 && !includeNow))
+                if (comparison > 0 || (comparison == 0 && !inclusive))
                 {
                     _stepFunc = x => x.AddYears(1).SetDayInYear(_day).SetTime(_timestamp);
                     candidate = _stepFunc(datetime);

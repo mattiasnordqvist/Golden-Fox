@@ -11,9 +11,9 @@ namespace GoldenFox.Internal
             _until = until;
         }
 
-        public ConstraintResult Contains(DateTime dateTime, bool includeNow)
+        public ConstraintResult Contains(DateTime dateTime)
         {
-            if (includeNow ? _until >= dateTime : _until > dateTime)
+            if (_until >= dateTime)
             {
                 return new ConstraintResult { Passed = true, ClosestValidFutureInput = dateTime, };
             }

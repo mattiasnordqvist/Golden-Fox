@@ -40,12 +40,12 @@ namespace GoldenFox
 
         public IEnumerator<DateTime> GetEnumerator()
         {
-            var includeNow = true;
+            var inclusive = true;
             while (true)
             {
-                _current = _schedule.Evaluate(_current, includeNow);
+                _current = _schedule.Evaluate(_current, inclusive);
                 yield return _current;
-                includeNow = false;
+                inclusive = false;
             }
         }
 

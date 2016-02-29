@@ -16,19 +16,19 @@ namespace GoldenFox.Internal
             _timestamp = timestamp;
         }
 
-        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime dateTime, bool inclusive)
         {
             var comparison = new Timestamp(dateTime).CompareTo(_timestamp);
             DateTime candidate;
             if (IsSameDay(dateTime, _day))
             {
-                if (comparison == 0 && includeNow)
+                if (comparison == 0 && inclusive)
                 {
                     _stepFunc = x => x;
                     return _stepFunc(dateTime);
                 }
 
-                if (comparison > 0 || (comparison == 0 && !includeNow))
+                if (comparison > 0 || (comparison == 0 && !inclusive))
                 {
                     _stepFunc = x => x.AddMonths(1).SetDayInMonth(_day).SetTime(_timestamp);
                     candidate = _stepFunc(dateTime);

@@ -12,7 +12,7 @@ namespace Tests
     public class EveryDayTests
     {
         [Test]
-        public void EveryDayAt0630FromSameTimeIncludeNow()
+        public void EveryDayAt0630FromSameTimeInclusive()
         {
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
             var expected = new DateTime(2015, 10, 5, 6, 30, 0);
@@ -67,7 +67,7 @@ namespace Tests
         }
 
         [Test]
-        public void EveryDayAt0630FromSameTimeDoNotIncludeNow()
+        public void EveryDayAt0630FromSameTimeDoNotInclusive()
         {
             var expected = new DateTime(2015, 10, 6, 6, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);

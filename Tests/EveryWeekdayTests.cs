@@ -28,7 +28,7 @@ namespace Tests
         }
         
         [Test]
-        public void EveryMondayAt0630FromSameTimeIncludeNow()
+        public void EveryMondayAt0630FromSameTimeInclusive()
         {
             var expected = new DateTime(2015, 10, 5, 6, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
@@ -46,7 +46,7 @@ namespace Tests
         }
 
         [Test]
-        public void EveryMondayAt0630FromSameTimeDoNotIncludeNow()
+        public void EveryMondayAt0630FromSameTimeDoNotInclusive()
         {
             var expected = new DateTime(2015, 10, 12, 6, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
@@ -151,7 +151,7 @@ namespace Tests
         }
 
         [Test]
-        public void EveryTuesdayAt0630FromMonday0630IncludeNowShouldStillGiveTuesdayAsFirstDay()
+        public void EveryTuesdayAt0630FromMonday0630InclusiveShouldStillGiveTuesdayAsFirstDay()
         {
             var expected = new DateTime(2015, 10, 6, 6, 30, 0);
             var from = new DateTime(2015, 10, 5, 6, 30, 0);

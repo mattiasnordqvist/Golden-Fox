@@ -7,10 +7,10 @@ namespace GoldenFox.Internal
         public int OffsetInSeconds { get; set; }
 
 
-        protected override DateTime ApplyRule(DateTime dateTime, bool includeNow)
+        protected override DateTime ApplyRule(DateTime dateTime, bool inclusive)
         {
             var candidate = dateTime.StripSeconds().AddSeconds(OffsetInSeconds);
-            if (includeNow && candidate == dateTime)
+            if (inclusive && candidate == dateTime)
             {
                 return candidate;
             }

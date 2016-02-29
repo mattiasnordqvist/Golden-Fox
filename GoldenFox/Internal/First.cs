@@ -17,9 +17,9 @@ namespace GoldenFox.Internal
             _nexts = nexts;
         }
 
-        public DateTime Evaluate(DateTime from, bool includeNow = false)
+        public DateTime Evaluate(DateTime from, bool inclusive = false)
         {
-            return _nexts.Select(x => x.Evaluate(from, includeNow)).Min();
+            return _nexts.Select(x => x.Evaluate(from, inclusive)).Min();
         }
     }
 }
