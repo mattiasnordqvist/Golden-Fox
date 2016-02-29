@@ -28,7 +28,6 @@ namespace GoldenFox.Internal.Constraints
                         : toEarly 
                             ? dateTime.SetTime(From)
                             : dateTime.AddDays(1).SetTime(From),
-
             };
         }
     }

@@ -15,7 +15,7 @@ namespace Tests
         {
             var expected = new DateTime(2016, 2, 10, 8, 15, 30);
             var from = new DateTime(2016, 2, 10, 8, 15, 29);
-            var sut = new Hour { OffsetInSeconds = 15 * 60 + 30 };
+            var sut = new Hour { OffsetInSeconds = (15 * 60) + 30 };
             Assert.AreEqual(expected, sut.Evaluate(from));
         }
 

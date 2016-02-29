@@ -17,6 +17,7 @@ namespace GoldenFox.Internal.Operators.Intervals
             {
                 return candidate;
             }
+
             return candidate <= dateTime ? candidate.AddHours(1) : candidate;
         }
     }

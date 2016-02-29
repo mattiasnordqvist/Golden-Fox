@@ -49,12 +49,12 @@ namespace GoldenFox.Internal.Operators.Intervals
                     var dayDiff = ((int)_day - (int)datetime.DayOfWeek + 7) % 7;
                     daysToAdd = dayDiff == 0 ? 7 : dayDiff;
                 }
+
                 _tempDaysToAdd = daysToAdd;
                 candidate = datetime.AddDays(_tempDaysToAdd).SetTime(_timestamp);
             }
+
             return candidate;
-
         }
-
     }
 }

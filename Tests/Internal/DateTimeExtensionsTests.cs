@@ -42,7 +42,7 @@ namespace Tests.Internal
         [Test]
         public void StripMinutes()
         {
-            Assert.AreEqual(new DateTime(2015, 1, 1, 13, 0,0), new DateTime(2015,1,1,13,45,12).StripMinutes());
+            Assert.AreEqual(new DateTime(2015, 1, 1, 13, 0, 0), new DateTime(2015, 1, 1, 13, 45, 12).StripMinutes());
         }
     }
 }

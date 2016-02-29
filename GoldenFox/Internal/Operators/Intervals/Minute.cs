@@ -6,7 +6,6 @@ namespace GoldenFox.Internal.Operators.Intervals
     {
         public int OffsetInSeconds { get; set; }
 
-
         protected override DateTime ApplyRule(DateTime dateTime, bool inclusive)
         {
             var candidate = dateTime.StripSeconds().AddSeconds(OffsetInSeconds);

@@ -87,7 +87,5 @@ namespace GoldenFox.Internal.Operators.Intervals
 
             return false;
         }
-
-        
     }
 }

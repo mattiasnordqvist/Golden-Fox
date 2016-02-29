@@ -23,7 +23,6 @@ namespace GoldenFox.Internal
             return DateTime.IsLeapYear(@this.Year) ? 366 : 365;
         }
 
-
         public static DateTime SetDayInMonth(this DateTime @this, int day)
         {
             if (day > 0)

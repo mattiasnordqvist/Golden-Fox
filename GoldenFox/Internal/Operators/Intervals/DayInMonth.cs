@@ -68,6 +68,7 @@ namespace GoldenFox.Internal.Operators.Intervals
                     }
                 }
             }
+
             return candidate;
         }
 

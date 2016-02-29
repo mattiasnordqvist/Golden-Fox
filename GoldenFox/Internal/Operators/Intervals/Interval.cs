@@ -25,10 +25,9 @@ namespace GoldenFox.Internal.Operators.Intervals
             {
                 return Evaluate(afterUpperboundApplied, true);
             }
+
             return candidate;
         }
-
-        protected abstract DateTime ApplyRule(DateTime candidate, bool inclusive);
 
         public void AddConstraint(IConstraint constraint)
         {
@@ -45,7 +44,6 @@ namespace GoldenFox.Internal.Operators.Intervals
             var candidate = datetime;
             Until()?.Contains(candidate);
 
-            
             if (Between() != null)
             {
                 var result = Between().Contains(candidate);
@@ -54,35 +52,11 @@ namespace GoldenFox.Internal.Operators.Intervals
                     candidate = result.ClosestValidFutureInput;
                 }
             }
+
             return candidate;
         }
 
-        private From From()
-        {
-            if (Constraints.Any(x => x.GetType() == typeof(From)))
-            {
-                return (From)Constraints.First(x => x.GetType() == typeof(From));
-            }
-            return null;
-        }
-
-        private Until Until()
-        {
-            if (Constraints.Any(x => x.GetType() == typeof(Until)))
-            {
-                return (Until)Constraints.First(x => x.GetType() == typeof(Until));
-            }
-            return null;
-        }
-
-        private Between Between()
-        {
-            if (Constraints.Any(x => x.GetType() == typeof(Between)))
-            {
-                return (Between)Constraints.First(x => x.GetType() == typeof(Between));
-            }
-            return null;
-        }
+        protected abstract DateTime ApplyRule(DateTime candidate, bool inclusive);
 
         protected DateTime ApplyLowerBoundConstraints(DateTime dateTime)
         {
@@ -106,7 +80,36 @@ namespace GoldenFox.Internal.Operators.Intervals
             }
 
             return candidate;
+        }
 
+        private From From()
+        {
+            if (Constraints.Any(x => x.GetType() == typeof(From)))
+            {
+                return (From)Constraints.First(x => x.GetType() == typeof(From));
+            }
+
+            return null;
+        }
+
+        private Until Until()
+        {
+            if (Constraints.Any(x => x.GetType() == typeof(Until)))
+            {
+                return (Until)Constraints.First(x => x.GetType() == typeof(Until));
+            }
+
+            return null;
+        }
+
+        private Between Between()
+        {
+            if (Constraints.Any(x => x.GetType() == typeof(Between)))
+            {
+                return (Between)Constraints.First(x => x.GetType() == typeof(Between));
+            }
+
+            return null;
         }
     }
 }

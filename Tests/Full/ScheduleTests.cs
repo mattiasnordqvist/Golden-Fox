@@ -372,14 +372,14 @@ namespace Tests.Full
         [Test]
         public void EveryMinuteAtSecondsBetween()
         {
-          //  "every minute at 15 seconds between 12:00 and 14:00".From("2016-02-09 13:40:20").Gives("2016-02-09 13:41:15");
+            "every minute at 15 seconds between 12:00 and 14:00".From("2016-02-09 13:40:20").Gives("2016-02-09 13:41:15");
             "every minute @ 17 seconds between 13:30 and 14:00".From("2016-02-09 15:50:38").Gives("2016-02-10 13:30:17");
 
-            //"every minute at mm:05 between 18:40 and 19:00".From("2016-02-09").Gives("2016-02-09 18:40:05");
-            //"every minute @ mm:06 between 04:59 and 19:00".From("2016-02-09 06:17:00").Gives("2016-02-09 06:17:06");
+            "every minute at mm:05 between 18:40 and 19:00".From("2016-02-09").Gives("2016-02-09 18:40:05");
+            "every minute @ mm:06 between 04:59 and 19:00".From("2016-02-09 06:17:00").Gives("2016-02-09 06:17:06");
 
-            //"every minute at hh:mm:07 between 10:11 and 16:00".From("2016-02-09").Gives("2016-02-09 10:11:07");
-            //"every minute @ hh:mm:47 between 09:00 and 14:00".From("2016-02-09 10:00:00").Gives("2016-02-09 10:00:47");
+            "every minute at hh:mm:07 between 10:11 and 16:00".From("2016-02-09").Gives("2016-02-09 10:11:07");
+            "every minute @ hh:mm:47 between 09:00 and 14:00".From("2016-02-09 10:00:00").Gives("2016-02-09 10:00:47");
         }
 
         [Test]
@@ -418,14 +418,14 @@ namespace Tests.Full
         [Test]
         public void EveryHourAtMinutesBetween()
         {
-            //"every hour at 10 minutes between 12:00 and 18:00".From("2016-02-10").Gives("2016-02-10 12:10:00");
+            "every hour at 10 minutes between 12:00 and 18:00".From("2016-02-10").Gives("2016-02-10 12:10:00");
             "every hour @ 20 minutes between 13:00 and 19:00".From("2016-02-10 18:20:01").Gives("2016-02-11 13:20:00");
 
-            //"every hour at hh:15 between 14:00 and 20:00".From("2016-02-10").Gives("2016-02-10 14:15:00");
-            //"every hour @ hh:25 between 15:00 and 21:00".From("2016-02-10 15:25:01").Gives("2016-02-10 16:25:00");
+            "every hour at hh:15 between 14:00 and 20:00".From("2016-02-10").Gives("2016-02-10 14:15:00");
+            "every hour @ hh:25 between 15:00 and 21:00".From("2016-02-10 15:25:01").Gives("2016-02-10 16:25:00");
 
-            //"every hour at hh:15:30 between 16:00 and 22:00".From("2016-02-10").Gives("2016-02-10 16:15:30");
-            //"every hour @ hh:25:40 between 17:00 and 23:00".From("2016-02-10 17:25:39").Gives("2016-02-10 17:25:40");
+            "every hour at hh:15:30 between 16:00 and 22:00".From("2016-02-10").Gives("2016-02-10 16:15:30");
+            "every hour @ hh:25:40 between 17:00 and 23:00".From("2016-02-10 17:25:39").Gives("2016-02-10 17:25:40");
         }
 
         [Test]
@@ -452,7 +452,6 @@ namespace Tests.Full
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2016-04-01").Gives("2017-01-01 12:00:00");
         }
 
-
         [Test]
         public void FromAndUntilFromTheMiddle2()
         {
@@ -464,7 +463,6 @@ namespace Tests.Full
         {
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2017-01-01").Gives("2017-01-01 12:00:00");
         }
-
 
         [Test]
         public void FromAndUntilFromAfter()
@@ -490,7 +488,6 @@ namespace Tests.Full
         {
             "1st day every year at 12:00 from 2016-01-01 until 2018-01-01".From("2017-06-01 12:00:00").Gives("2018-01-01 12:00:00");
         }
-
 
         [Test]
         public void FromAndUntilFromSomeBeforeUntil_SpecialCaseUntilShouldNotBeInclusiveWhenTimeIsSpecified()
@@ -539,11 +536,11 @@ namespace Tests.Full
         [Test]
         public void FromHourShouldBeInclusiveButinclusiveStillWorksAsItShould()
         {
-            //"every hour from 2016-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
+            "every hour from 2016-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
             "every hour from 2016-02-03 23:45".From("2000-01-01 00:00").Gives("2016-02-04 00:00");
-            //"every hour from 2016-01-01 until 2018-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
-            //"every hour from 2016-02-03 23:45".From("2016-02-03 23:45", true).Gives("2016-02-04 00:00");
-            //"every hour from 2016-02-03 23:45".From("2016-02-03 23:45").Gives("2016-02-04 00:00");
+            "every hour from 2016-01-01 until 2018-01-01".From("2000-01-01").Gives("2016-01-01 00:00:00");
+            "every hour from 2016-02-03 23:45".From("2016-02-03 23:45", true).Gives("2016-02-04 00:00");
+            "every hour from 2016-02-03 23:45".From("2016-02-03 23:45").Gives("2016-02-04 00:00");
         }
 
         [Test]

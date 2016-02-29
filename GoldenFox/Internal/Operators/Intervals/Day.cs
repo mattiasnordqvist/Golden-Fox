@@ -6,7 +6,6 @@ namespace GoldenFox.Internal.Operators.Intervals
     {
         private readonly Timestamp _timestamp;
 
-
         public Day() : this(new Timestamp())
         {
         }
@@ -23,7 +22,8 @@ namespace GoldenFox.Internal.Operators.Intervals
             {
                 return dateTime;
             }
-            else {
+            else
+            {
                 var daysToAdd = comparison <= 0 ? 1 : 0;
                 return dateTime
                     .AddDays(daysToAdd)
