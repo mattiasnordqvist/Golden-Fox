@@ -48,16 +48,25 @@ namespace GoldenFox.Internal
             }
         }
 
+        /// <summary>
+        /// Return the date with minutes, seconds and milliseconds stripped
+        /// </summary>
         public static DateTime StripMinutes(this DateTime @this)
         {
             return @this.AddMinutes(-@this.Minute).StripSeconds();
         }
 
+        /// <summary>
+        /// Return the date with seconds and milliseconds stripped
+        /// </summary>
         public static DateTime StripSeconds(this DateTime @this)
         {
             return @this.AddSeconds(-@this.Second).StripMilliseconds();
         }
 
+        /// <summary>
+        /// Return the date with milliseconds stripped
+        /// </summary>
         public static DateTime StripMilliseconds(this DateTime @this)
         {
             return @this.AddMilliseconds(-@this.Millisecond);
