@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using GoldenFox;
 using GoldenFox.Internal;
+using GoldenFox.Internal.Operators;
+using GoldenFox.Internal.Operators.Intervals;
 
 using NUnit.Framework;
 

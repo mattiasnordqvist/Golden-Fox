@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GoldenFox.Internal
+using GoldenFox.Internal.Constraints;
+
+namespace GoldenFox.Internal.Operators.Intervals
 {
     internal abstract class Interval : IOperator<DateTime>
     {

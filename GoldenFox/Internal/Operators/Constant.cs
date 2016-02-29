@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoldenFox.Internal
+namespace GoldenFox.Internal.Operators
 {
     internal class Constant : IOperator<DateTime>
     {

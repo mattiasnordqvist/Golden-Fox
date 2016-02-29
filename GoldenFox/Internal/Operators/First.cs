@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GoldenFox.Internal
+namespace GoldenFox.Internal.Operators
 {
     internal class First : IOperator<DateTime>
     {

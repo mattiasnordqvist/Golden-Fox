@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using GoldenFox.Internal.Constraints;
+using GoldenFox.Internal.Operators;
+using GoldenFox.Internal.Operators.Intervals;
+
 using TestSomething;
 
 namespace GoldenFox.Internal
@@ -37,7 +41,7 @@ namespace GoldenFox.Internal
         }
     }
 
-    internal class Listener : GoldenFoxLanguageBaseListener
+    internal class OperatorBuilder : GoldenFoxLanguageBaseListener
     {
         private readonly Stack<Interval> _stack = new Stack<Interval>(); 
 

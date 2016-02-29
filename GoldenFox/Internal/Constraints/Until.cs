@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace GoldenFox.Internal
+namespace GoldenFox.Internal.Constraints
 {
     internal class Until : IConstraint
     {

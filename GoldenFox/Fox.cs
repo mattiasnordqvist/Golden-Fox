@@ -31,7 +31,7 @@ namespace GoldenFox
             var parser = new GoldenFoxLanguageParser(tokens);
             var tree = parser.schedule();
 
-            var listener = new Listener();
+            var listener = new OperatorBuilder();
             var walker = new ParseTreeWalker();
 
             walker.Walk(listener, tree);
