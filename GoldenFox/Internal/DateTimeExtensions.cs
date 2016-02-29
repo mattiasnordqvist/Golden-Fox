@@ -20,7 +20,7 @@ namespace GoldenFox.Internal
 
         public static int DaysOfYear(this DateTime @this)
         {
-            return DateTime.IsLeapYear(@this.Year) ? 365 : 366;
+            return DateTime.IsLeapYear(@this.Year) ? 366 : 365;
         }
 
 

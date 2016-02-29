@@ -48,6 +48,7 @@
     <Compile Include="Full\GoldenFoxTests.cs" />
     <Compile Include="EveryWeekdayTests.cs" />
     <Compile Include="HourTests.cs" />
+    <Compile Include="Internal\DateTimeExtensionsTests.cs" />
     <Compile Include="MinuteTests.cs" />
     <Compile Include="SecondTests.cs" />
     <Compile Include="TimestampTest.cs" />
