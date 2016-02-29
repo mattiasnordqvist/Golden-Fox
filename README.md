@@ -28,8 +28,46 @@ Given a schedule and a point in time, you can let Golden Fox find a future point
 
 This fox ain't golden for no reason. As long as the words you talk fit into [this grammar](GoldenFox.ANTLR/GoldenFoxLanguage.g4), you're fine.
 
+## The Api
+
+```csharp
+
+Schedule.Fox("every day").From(DateTime.Today);
+
+```
+
+or
+
+```csharp
+
+new Fox("every day", DateTime.Today);
+
+```
+Returns an IEnumerable starting with the next occurence from the given date (inclusive)
+
+If you scratch the surface of the golden fox, you'll soon see that his fur is just a disguise. The bare bones of this creature is just a compiler which you can access directly like this
+
+
+```csharp
+
+Fox.Compile("every day").Evaluate(DateTime.Today)
+
+```
+
+which will return just the first occurence from the given date. Not inclusively this time though. Consider 
+
+
+```csharp
+
+Fox.Compile("every day").Evaluate(DateTime.Today, true)
+
+```
+
+if you want inclusiveness.
+
 ## Contribute
 
 It is hard to teach foxes English. You're welcome to give him a lesson and expand his vocabulary and understanding. Or just create an issues for input that you wish the fox to recognize.
 
 Make a pull request and give me a lesson in parsing. I need it...
+
