@@ -43,7 +43,7 @@ or
 new Fox("every day @ 10:00", DateTime.Today);
 
 ```
-Returns an IEnumerable starting with the next occurence from the given date (inclusive)
+Returns an `IEnumerable<DateTime` starting with the next occurence from the given date (inclusive)
 
 If you scratch the surface of the golden fox, you'll soon see that his fur is just a disguise. The bare bones of this creature is just a compiler which you can access directly like this
 
@@ -64,6 +64,47 @@ Fox.Compile("every day @ 10:00").Evaluate(DateTime.Today, true)
 ```
 
 if you want inclusiveness. However, in this case it wouldn't matter, because DateTime.Today evaluates to Today at 00:00 which is makes 10:00 the next occurence no matter if you include 00:00 or not as viable options.
+
+## Intervals
+
+Intervals are expressions like `every minute` or `every day @ 10:00`. Intervals can be combined by placing an `and` between them. Like `ever minute and every day @ 10:00`. However, combining these two wouldn't make any sense, because every day @ 10:00 is also a minute, but you get the point. An interval must specify a point in time that is recurring. Available intervals are
+
+### every hour
+This means at 00:00, 01:00, 02:00, 03:00 and so forth. You can offset the minutes and seconds by using any of these syntaxes. 
+`every hour @ 15 minutes` `every hour @ hh:15`. Offsets can also be combined with `and`, like `every hour @ hh:15 and hh:45`.
+
+### every minute
+Like every hour, but for minutes. Offsets can be expressed like `every minute @ 15 seconds`, `every minute @ mm:15` or `every minute @ hh:mm:15`
+
+### every second
+Like every hour or every minute, except you can't offset it. Golden Fox don't care about milliseconds. 
+
+### every day
+`every day` can not stand alone. You must supply at least one `time`, like `every day at 10:00`. Multiple `time`s can be used. `every day at 10:00 and 18:00`. A time can be expressed like `hh:mm:ss` or `hh:mm`. `13:45` equals `13:45:00`.
+
+### every weekday
+`every thursday at 15:00` and `thursdays at 15:00` means the same thing.
+
+### every day in week
+`3rd day every week @ 12:30` or `4th last day every week @ 12:30` means the same thing. Any nonsensical input is not guarded against. No one knows what would happen if you say `14th day every week @ 12:30`.
+
+### every day in month
+Works the same way as every day in week, except it works with months instead. `last day every month @ 12:30` or `15th day every month @ 12:30` are both valid input. `31st day every month @ 12:30` is not valid input.
+
+### every day in year
+Like the above but for years. `last day every year at 12:00`. 
+
+## Constraints
+On all of the intervals above, you can add constraints. 
+
+### Between
+Can be added to `every hour`, `every minute` and `every second`. It would look like this: `every hour between 14:00 and 18:00`. Constraints are inclusive so generating a sequence of dates from this interval would have `14:00` and `18:00` included.
+
+### From
+Can be added to any interval. Defines a starting point for the interval. `every day @ 10:00 from 2016-01-01` with input `2010-01-01` would give `2016-01-01 10:00:00`. `From` can be a date, but you can also be more specific and supply a time, like `from 2016-01-01 15:30` 
+
+### Until
+This constraint is a little special. You use it just like you use `From`. `every day until 2020-01-01`. So what will happen the day we pass in a date higher than `2020-01-01`? Well. There´s no sensible next occurence really, so we will throw an `InvalidOperationException`. Would we get an exception if we passed in `2010-01-01`? Remeber, constraints are inclusive, so no, we wouldn't.
 
 ## Contribute
 
