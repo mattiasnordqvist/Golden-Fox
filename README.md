@@ -32,7 +32,7 @@ This fox ain't golden for no reason. As long as the words you talk fit into [thi
 
 ```csharp
 
-Schedule.Fox("every day").From(DateTime.Today);
+Schedule.Fox("every day @ 10:00").From(DateTime.Today);
 
 ```
 
@@ -40,7 +40,7 @@ or
 
 ```csharp
 
-new Fox("every day", DateTime.Today);
+new Fox("every day @ 10:00", DateTime.Today);
 
 ```
 Returns an IEnumerable starting with the next occurence from the given date (inclusive)
@@ -50,7 +50,7 @@ If you scratch the surface of the golden fox, you'll soon see that his fur is ju
 
 ```csharp
 
-Fox.Compile("every day").Evaluate(DateTime.Today)
+Fox.Compile("every day @ 10:00").Evaluate(DateTime.Today)
 
 ```
 
@@ -59,7 +59,7 @@ which will return just the first occurence from the given date. Not inclusively 
 
 ```csharp
 
-Fox.Compile("every day").Evaluate(DateTime.Today, true)
+Fox.Compile("every day @ 10:00").Evaluate(DateTime.Today, true)
 
 ```
 
