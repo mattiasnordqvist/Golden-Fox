@@ -2,7 +2,7 @@
 
 namespace GoldenFox
 {
-    public interface IOperator<T>
+    public interface IOperator
     {
         DateTime Evaluate(DateTime from, bool inclusive = false);
     }

@@ -2,7 +2,7 @@
 
 namespace GoldenFox.Internal.Operators
 {
-    internal class Constant : IOperator<DateTime>
+    internal class Constant : IOperator
     {
         private readonly DateTime _constant;
 

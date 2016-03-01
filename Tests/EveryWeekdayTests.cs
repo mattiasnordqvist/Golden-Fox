@@ -62,7 +62,7 @@ namespace Tests
         {
             var expected = new DateTime(2015, 10, 5, 7, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
-            var sut = new First(new List<IOperator<DateTime>>
+            var sut = new First(new List<IOperator>
                     {
                         new Weekday(DayOfWeek.Monday, new Timestamp(7, 30)),
                         new Weekday(DayOfWeek.Monday, new Timestamp(8, 30)),
@@ -76,7 +76,7 @@ namespace Tests
             var expected = new DateTime(2015, 10, 5, 8, 30, 0);
             var from = new DateTime(2015, 10, 05, 6, 30, 0);
 
-            var sut = new First(new List<IOperator<DateTime>>
+            var sut = new First(new List<IOperator>
             {
                 new Weekday(DayOfWeek.Monday, new Timestamp(5, 30)),
                 new Weekday(DayOfWeek.Monday, new Timestamp(8, 30)),
@@ -100,7 +100,7 @@ namespace Tests
             var expected = new DateTime(2015, 10, 8, 5, 30, 0);
             var from = new DateTime(2015, 10, 07, 6, 30, 0);
 
-            var sut = new First(new List<IOperator<DateTime>>
+            var sut = new First(new List<IOperator>
             {
                 new Weekday(DayOfWeek.Thursday, new Timestamp(5, 30)),
                 new Weekday(DayOfWeek.Sunday, new Timestamp(5, 30)),

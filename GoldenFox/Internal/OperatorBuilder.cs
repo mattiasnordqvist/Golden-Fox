@@ -16,7 +16,7 @@ namespace GoldenFox.Internal
 
         private readonly Stack<Context> _contexts = new Stack<Context>();
 
-        public IOperator<DateTime> Result { get; set; }
+        public IOperator Result { get; set; }
 
         private Context Current => _contexts.Peek();
 
@@ -274,7 +274,7 @@ namespace GoldenFox.Internal
             Current.Timestamps.Push(context.ParseTime());
         }
 
-        public void Add(IOperator<DateTime> op)
+        public void Add(IOperator op)
         {
             Result = Result != null ? new First(op, Result) : op;
         }

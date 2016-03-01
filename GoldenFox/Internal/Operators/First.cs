@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace GoldenFox.Internal.Operators
 {
-    internal class First : IOperator<DateTime>
+    internal class First : IOperator
     {
-        private readonly List<IOperator<DateTime>> _nexts;
+        private readonly List<IOperator> _nexts;
 
-        public First(IOperator<DateTime> o1, IOperator<DateTime> o2) : this(new List<IOperator<DateTime>> { o1, o2 })
+        public First(IOperator o1, IOperator o2) : this(new List<IOperator> { o1, o2 })
         {
         }
 
-        public First(List<IOperator<DateTime>> nexts)
+        public First(List<IOperator> nexts)
         {
             _nexts = nexts;
         }

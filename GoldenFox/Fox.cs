@@ -14,7 +14,7 @@ namespace GoldenFox
 {
     public class Fox : IEnumerable<DateTime>
     {
-        private readonly IOperator<DateTime> _schedule;
+        private readonly IOperator _schedule;
 
         private DateTime _current;
 
@@ -24,7 +24,7 @@ namespace GoldenFox
             _current = startFrom;
         }
 
-        public static IOperator<DateTime> Compile(string schedule)
+        public static IOperator Compile(string schedule)
         {
             var lexer = new GoldenFoxLanguageLexer(new AntlrInputStream(new StringReader(schedule)));
             var tokens = new CommonTokenStream(lexer);
