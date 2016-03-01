@@ -37,12 +37,12 @@ namespace GoldenFox.Internal
 
         public override void ExitSecondsOffset(GoldenFoxLanguageParser.SecondsOffsetContext context)
         {
-            Current.SecondsOffset.Add(int.Parse(context.INT().GetText()));
+            Current.SecondsOffset.Push(int.Parse(context.INT().GetText()));
         }
 
         public override void ExitMinutesOffset(GoldenFoxLanguageParser.MinutesOffsetContext context)
         {
-            Current.SecondsOffset.Add((int.Parse(context.INT(0).GetText()) * 60) + (context.INT().Length == 2 ? int.Parse(context.INT(1).GetText()) : 0));
+            Current.SecondsOffset.Push(int.Parse(context.INT(0).GetText()) * 60 + (context.INT().Length == 2 ? int.Parse(context.INT(1).GetText()) : 0));
         }
 
         public override void ExitEveryday(GoldenFoxLanguageParser.EverydayContext context)
@@ -68,12 +68,12 @@ namespace GoldenFox.Internal
         {
             if (!Current.SecondsOffset.Any())
             {
-                Current.SecondsOffset.Add(0);
+                Current.SecondsOffset.Push(0);
             }
             
-            foreach (var secondOffset in Current.SecondsOffset)
+            while (Current.SecondsOffset.Any())
             {
-                var min = new Minute { OffsetInSeconds = secondOffset };
+                var min = new Minute { OffsetInSeconds = Current.SecondsOffset.Pop() };
                 while (Current.Constraints.Any())
                 {
                     min.AddConstraint(Current.Constraints.Pop());
@@ -82,7 +82,6 @@ namespace GoldenFox.Internal
                 _stack.Push(min);
             }
 
-            Current.SecondsOffset.Clear();
         }
 
         public override void ExitEveryweekday(GoldenFoxLanguageParser.EveryweekdayContext context)
@@ -248,12 +247,12 @@ namespace GoldenFox.Internal
         {
             if (!Current.SecondsOffset.Any())
             {
-                Current.SecondsOffset.Add(0);
+                Current.SecondsOffset.Push(0);
             }
 
-            foreach (var secondOffset in Current.SecondsOffset)
+            while (Current.SecondsOffset.Any())
             {
-                var hour = new Hour { OffsetInSeconds = secondOffset };
+                var hour = new Hour { OffsetInSeconds = Current.SecondsOffset.Pop() };
                 while (Current.Constraints.Any())
                 {
                     hour.AddConstraint(Current.Constraints.Pop());
@@ -261,8 +260,6 @@ namespace GoldenFox.Internal
 
                 _stack.Push(hour);
             }
-
-            Current.SecondsOffset.Clear();
         }
 
         public override void ExitBetween(GoldenFoxLanguageParser.BetweenContext context)

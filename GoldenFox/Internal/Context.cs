@@ -15,6 +15,6 @@ namespace GoldenFox.Internal
 
         public readonly Stack<IConstraint> Constraints = new Stack<IConstraint>();
 
-        public readonly List<int> SecondsOffset = new List<int>();
+        public readonly Stack<int> SecondsOffset = new Stack<int>();
     }
 }
