@@ -81,7 +81,6 @@ namespace GoldenFox.Internal
 
                 _stack.Push(min);
             }
-
         }
 
         public override void ExitEveryweekday(GoldenFoxLanguageParser.EveryweekdayContext context)
