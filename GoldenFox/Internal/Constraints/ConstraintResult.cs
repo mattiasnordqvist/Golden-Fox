@@ -2,7 +2,7 @@
 
 namespace GoldenFox.Internal.Constraints
 {
-    internal class ConstraintResult
+    public class ConstraintResult
     {
         public bool Passed { get; set; }
 

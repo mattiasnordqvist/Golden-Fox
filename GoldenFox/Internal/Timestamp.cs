@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 
 namespace GoldenFox.Internal
 {
-    internal class Timestamp : IComparable<Timestamp>, IComparable<DateTime>
+    public class Timestamp : IComparable<Timestamp>, IComparable<DateTime>
     {
         public Timestamp(params int[] components) : this(components.Length > 0 ? components[0] : 0,
             components.Length > 1 ? components[1] : 0,
@@ -58,6 +59,17 @@ namespace GoldenFox.Internal
         public int CompareTo(DateTime other)
         {
             return AsComparable.CompareTo(new Timestamp(other).AsComparable);
+        }
+
+
+        public static implicit operator Timestamp(string value)
+        {
+            return new Timestamp(value.Split(':').Select(int.Parse).ToArray());
+        }
+
+        public static implicit operator Timestamp(DateTime time)
+        {
+            return new Timestamp(time);
         }
     }
 }

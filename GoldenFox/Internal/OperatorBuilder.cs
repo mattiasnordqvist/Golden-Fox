@@ -37,12 +37,12 @@ namespace GoldenFox.Internal
 
         public override void ExitSecondsOffset(GoldenFoxLanguageParser.SecondsOffsetContext context)
         {
-            Current.SecondsOffset.Push(int.Parse(context.INT().GetText()));
+            Current.SecondsOffset.Push(context.INT().AsInt());
         }
 
         public override void ExitMinutesOffset(GoldenFoxLanguageParser.MinutesOffsetContext context)
         {
-            Current.SecondsOffset.Push(int.Parse(context.INT(0).GetText()) * 60 + (context.INT().Length == 2 ? int.Parse(context.INT(1).GetText()) : 0));
+            Current.SecondsOffset.Push(context.INT(0).AsInt() * 60 + (context.INT().Length == 2 ? context.INT(1).AsInt() : 0));
         }
 
         public override void ExitEveryday(GoldenFoxLanguageParser.EverydayContext context)
@@ -83,6 +83,25 @@ namespace GoldenFox.Internal
             }
         }
 
+        public override void ExitEveryhour(GoldenFoxLanguageParser.EveryhourContext context)
+        {
+            if (!Current.SecondsOffset.Any())
+            {
+                Current.SecondsOffset.Push(0);
+            }
+
+            while (Current.SecondsOffset.Any())
+            {
+                var hour = new Hour { OffsetInSeconds = Current.SecondsOffset.Pop() };
+                while (Current.Constraints.Any())
+                {
+                    hour.AddConstraint(Current.Constraints.Pop());
+                }
+
+                _stack.Push(hour);
+            }
+        }
+
         public override void ExitEveryweekday(GoldenFoxLanguageParser.EveryweekdayContext context)
         {
             var constraints = new List<IConstraint>();
@@ -120,7 +139,7 @@ namespace GoldenFox.Internal
             var index = 0;
             if (context.numberedDay() != null)
             {
-                index = int.Parse(context.numberedDay().INT().GetText());
+                index = context.numberedDay().INT().AsInt();
                 if (context.Last() != null)
                 {
                     index = 7 - index + 1;
@@ -148,7 +167,7 @@ namespace GoldenFox.Internal
             var index = 0;
             if (context.numberedDay() != null)
             {
-                index = int.Parse(context.numberedDay().INT().GetText());
+                index = context.numberedDay().INT().AsInt();
                 if (context.Last() != null)
                 {
                     index = -index + 1;
@@ -174,7 +193,7 @@ namespace GoldenFox.Internal
             var index = 0;
             if (context.numberedDay() != null)
             {
-                index = int.Parse(context.numberedDay().INT().GetText());
+                index = context.numberedDay().INT().AsInt();
                 if (context.Last() != null)
                 {
                     index = -index + 1;
@@ -197,7 +216,7 @@ namespace GoldenFox.Internal
 
         public override void ExitDate(GoldenFoxLanguageParser.DateContext context)
         {
-            var date = new DateTime(int.Parse(context.INT(0).GetText()), int.Parse(context.INT(1).GetText()), int.Parse(context.INT(2).GetText()));
+            var date = new DateTime(context.INT(0).AsInt(), context.INT(1).AsInt(), context.INT(2).AsInt());
             Current.Dates.Push(date);
         }
 
@@ -205,7 +224,7 @@ namespace GoldenFox.Internal
         {
             var date = Current.Dates.Pop();
 
-            ExtendedDateTime dateTime = new ExtendedDateTime();
+            var dateTime = new ExtendedDateTime();
             if (Current.Timestamps.Any())
             {
                 dateTime.DateTime = date.SetTime(Current.Timestamps.Pop());
@@ -219,6 +238,11 @@ namespace GoldenFox.Internal
             Current.DateTimes.Push(dateTime);
         }
 
+        public override void EnterFrom(GoldenFoxLanguageParser.FromContext context)
+        {
+            _contexts.Push(new Context());
+        }
+
         public override void ExitFrom(GoldenFoxLanguageParser.FromContext context)
         {
             var extDateTime = Current.DateTimes.Pop();
@@ -226,6 +250,11 @@ namespace GoldenFox.Internal
             var from = new From(datetime);
             _contexts.Pop();
             Current.Constraints.Push(from);
+        }
+
+        public override void EnterUntil(GoldenFoxLanguageParser.UntilContext context)
+        {
+            _contexts.Push(new Context());
         }
 
         public override void ExitUntil(GoldenFoxLanguageParser.UntilContext context)
@@ -242,24 +271,7 @@ namespace GoldenFox.Internal
             Current.Constraints.Push(until);
         }
 
-        public override void ExitEveryhour(GoldenFoxLanguageParser.EveryhourContext context)
-        {
-            if (!Current.SecondsOffset.Any())
-            {
-                Current.SecondsOffset.Push(0);
-            }
-
-            while (Current.SecondsOffset.Any())
-            {
-                var hour = new Hour { OffsetInSeconds = Current.SecondsOffset.Pop() };
-                while (Current.Constraints.Any())
-                {
-                    hour.AddConstraint(Current.Constraints.Pop());
-                }
-
-                _stack.Push(hour);
-            }
-        }
+        
 
         public override void ExitBetween(GoldenFoxLanguageParser.BetweenContext context)
         {
@@ -278,15 +290,9 @@ namespace GoldenFox.Internal
             Result = Result != null ? new First(op, Result) : op;
         }
 
-        public override void EnterFrom(GoldenFoxLanguageParser.FromContext context)
-        {
-            _contexts.Push(new Context());
-        }
+        
 
-        public override void EnterUntil(GoldenFoxLanguageParser.UntilContext context)
-        {
-            _contexts.Push(new Context());
-        }
+        
 
         private DayOfWeek ParseWeekDay(GoldenFoxLanguageParser.WeekdayContext weekdayContext)
         {

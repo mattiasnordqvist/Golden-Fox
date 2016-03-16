@@ -2,7 +2,7 @@
 
 namespace GoldenFox.Internal.Constraints
 {
-    internal interface IConstraint
+    public interface IConstraint
     {
         ConstraintResult Contains(DateTime dateTime);
     }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="EveryYearTests.cs" />
     <Compile Include="EveryMonthsTests.cs" />
+    <Compile Include="Fluent\FluentTests.cs" />
     <Compile Include="Full\GoldenFoxTests.cs" />
     <Compile Include="EveryWeekdayTests.cs" />
     <Compile Include="HourTests.cs" />
@@ -59,6 +60,10 @@
     <Compile Include="Full\TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GoldenFox.Fluent\GoldenFox.Fluent.csproj">
+      <Project>{814A5117-9338-48D4-967B-65FB67811842}</Project>
+      <Name>GoldenFox.Fluent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoldenFox\GoldenFox.csproj">
       <Project>{8480F33A-4585-4055-8BAF-48ACB74D7A94}</Project>
       <Name>GoldenFox</Name>
