@@ -108,7 +108,5 @@ This constraint is a little special. You use it just like you use `From`. `every
 
 ## Contribute
 
-It is hard to teach foxes English. You're welcome to give him a lesson and expand his vocabulary and understanding. Or just create an issues for input that you wish the fox to recognize.
-
-Make a pull request and give me a lesson in parsing. I need it...
+Besides being used in production code in some of my projects, this is my pet project for learning how to create DSLs. All ideas on new features and how to improve the code are welcome.
 
