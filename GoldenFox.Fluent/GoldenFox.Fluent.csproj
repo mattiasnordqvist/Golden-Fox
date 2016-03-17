@@ -45,6 +45,7 @@
     <Compile Include="ConstraintExtensions.cs" />
     <Compile Include="Every.cs" />
     <Compile Include="FromConstraint.cs" />
+    <Compile Include="HourBuilder.cs" />
     <Compile Include="MinuteBuilder.cs" />
     <Compile Include="OperatorBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -118,5 +118,26 @@ namespace Tests.Fluent
             Assert.AreEqual(new DateTime(2015, 1, 1, 16, 25, 15), schedule.Evaluate(new DateTime(2015, 1, 1, 16, 24, 59)));
         }
 
+        [Test]
+        public void EveryHourWithOffsetBetweenAndFrom()
+        {
+            var schedule = Every.Hour().WithOffset(30, 0).Between("15:00").And("17:00").From(new DateTime(2015, 1, 1));
+            Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2014, 1 ,1)));
+            Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 0, 0)));
+            Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 29, 0)));
+            Assert.AreEqual(new DateTime(2015, 1, 1, 16, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 30, 0)));
+            Assert.AreEqual(new DateTime(2015, 1, 2, 15, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 16, 30, 0)));
+        }
+
+        [Test]
+        public void DoubleUntilShouldWorkAsLongAsNotBothArePassed()
+        {
+            var schedule = Every.Hour().WithOffset(30, 0).Until(new DateTime(2015, 1, 1))
+                .And(Every.Hour().WithOffset(45, 0).Until(new DateTime(2016, 1, 1)));
+            Assert.AreEqual(new DateTime(2014, 1, 1, 0, 30, 0), schedule.Evaluate(new DateTime(2014, 1, 1)));
+            Assert.AreEqual(new DateTime(2015, 2, 1, 0, 45, 0), schedule.Evaluate(new DateTime(2015, 2, 1)));
+            Assert.Throws<InvalidOperationException>(() => schedule.Evaluate(new DateTime(2016, 2, 1)));
+        }
+
     }
 }

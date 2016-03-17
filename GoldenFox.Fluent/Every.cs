@@ -26,6 +26,12 @@ namespace GoldenFox.Fluent
 
         internal abstract OperatorBuilder InternalBuild();
 
+        public static HourBuilder Hour()
+        {
+            var hourBuilder = new HourBuilder();
+            return hourBuilder;
+        }
+
         public static MinuteBuilder Minute()
         {
             var minuteBuilder = new MinuteBuilder();
