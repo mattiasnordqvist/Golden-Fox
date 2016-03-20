@@ -10,6 +10,11 @@ namespace GoldenFox.Internal.Operators.Intervals
 
         private Func<DateTime, DateTime> _stepFunc;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="day">1 is first day</param>
+        /// <param name="timestamp"></param>
         public DayInYear(int day, Timestamp timestamp)
         {
             _day = day;

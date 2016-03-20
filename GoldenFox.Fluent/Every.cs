@@ -7,7 +7,6 @@ using GoldenFox.Internal.Operators;
 
 namespace GoldenFox.Fluent
 {
-
     public abstract class Every : IOperator
     {
         private readonly List<IConstraint> _constraints = new List<IConstraint>();

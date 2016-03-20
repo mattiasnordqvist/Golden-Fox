@@ -46,11 +46,17 @@
     <Compile Include="Every.cs" />
     <Compile Include="FromConstraint.cs" />
     <Compile Include="HourBuilder.cs" />
+    <Compile Include="IntervalBuilder.cs" />
+    <Compile Include="IntervalBuilderStep1.cs" />
+    <Compile Include="IntervalBuilderStep2.cs" />
+    <Compile Include="Last.cs" />
     <Compile Include="MinuteBuilder.cs" />
+    <Compile Include="NthExtensions.cs" />
     <Compile Include="OperatorBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondBuilder.cs" />
     <Compile Include="UntilConstraint.cs" />
+    <Compile Include="YearBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoldenFox\GoldenFox.csproj">

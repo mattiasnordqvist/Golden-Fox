@@ -139,5 +139,17 @@ namespace Tests.Fluent
             Assert.Throws<InvalidOperationException>(() => schedule.Evaluate(new DateTime(2016, 2, 1)));
         }
 
+        [Test]
+        public void DayEveryYear()
+        {
+            var schedule = 1.St().DayEvery().Year().At("12:00");
+            Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2016, 2, 26, 0, 6, 0)));
+        }
+
+        public void LastDayEveryYear()
+        {
+            var schedule = Last.DayEvery().Year().At("12:00");
+            Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2016, 2, 26, 0, 6, 0)));
+        }
     }
 }
