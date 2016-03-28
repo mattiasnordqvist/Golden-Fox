@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenFox.ANTLR", "GoldenFo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "ParseConsole\TestConsole.csproj", "{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenFox.Fluent", "GoldenFox.Fluent\GoldenFox.Fluent.csproj", "{814A5117-9338-48D4-967B-65FB67811842}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F7D0BB3-B0AB-44F7-8390-53A6333BD452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814A5117-9338-48D4-967B-65FB67811842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814A5117-9338-48D4-967B-65FB67811842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814A5117-9338-48D4-967B-65FB67811842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814A5117-9338-48D4-967B-65FB67811842}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

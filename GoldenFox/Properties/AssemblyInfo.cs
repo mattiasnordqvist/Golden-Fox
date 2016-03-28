@@ -17,3 +17,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("7dfa1881-ab79-4423-aeca-550876f6f902")]
 [assembly: InternalsVisibleTo("Tests")]
+[assembly: InternalsVisibleTo("TestConsole")]
+[assembly: InternalsVisibleTo("GoldenFox.Fluent")]

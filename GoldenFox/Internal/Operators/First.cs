@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace GoldenFox.Internal.Operators
 {
@@ -19,7 +20,27 @@ namespace GoldenFox.Internal.Operators
 
         public DateTime Evaluate(DateTime from, bool inclusive = false)
         {
-            return _nexts.Select(x => x.Evaluate(from, inclusive)).Min();
+            var capturedResults = _nexts.Select(x => CaptureResult(() => x.Evaluate(from, inclusive))).ToList();
+            if (capturedResults.Any(x => x.DateTime.HasValue))
+            {
+                return capturedResults.Where(x => x.DateTime.HasValue).Select(x => x.DateTime.Value).Min();
+            }
+            else
+            {
+                throw new InvalidOperationException(string.Empty, new AggregateException(capturedResults.Select(x => x.Exception)));
+            }
+        }
+
+        private CapturedResult CaptureResult(Func<DateTime> func)
+        {
+            try
+            {
+                return new CapturedResult { DateTime = func() };
+            }
+            catch (InvalidOperationException e)
+            {
+                return new CapturedResult { Exception = e };
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace GoldenFox.Internal.Constraints
 {
-    internal class From : IConstraint
+    public class From : IConstraint
     {
         private readonly DateTime _from;
 

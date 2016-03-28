@@ -131,6 +131,12 @@ namespace Tests.Full
         }
 
         [Test]
+        public void LastDayEveryWeek()
+        {
+            "last day every week at 12:00".From("2017-01-01 00:00:00").Gives("2017-01-01 12:00:00");
+        }
+
+        [Test]
         public void LastDayEveryMonthAtSpecificTime()
         {
             "last day every month at 10:20".From("2015-08-14").Gives("2015-08-31 10:20:00");

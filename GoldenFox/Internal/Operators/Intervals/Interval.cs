@@ -6,7 +6,7 @@ using GoldenFox.Internal.Constraints;
 
 namespace GoldenFox.Internal.Operators.Intervals
 {
-    internal abstract class Interval : IOperator
+    public abstract class Interval : IOperator
     {
         protected readonly List<IConstraint> Constraints = new List<IConstraint>();
 

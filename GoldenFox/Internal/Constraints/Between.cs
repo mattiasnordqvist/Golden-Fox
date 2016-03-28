@@ -2,7 +2,7 @@
 
 namespace GoldenFox.Internal.Constraints
 {
-    internal class Between : IConstraint
+    public class Between : IConstraint
     {
         public Between(Timestamp from, Timestamp to)
         {

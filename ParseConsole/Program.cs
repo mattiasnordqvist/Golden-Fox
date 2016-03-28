@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Linq;
 
+using GoldenFox;
+using GoldenFox.Fluent;
+using GoldenFox.Internal;
+using GoldenFox.Internal.Operators.Intervals;
+
 namespace TestConsole
 {
     public class Program
@@ -11,7 +16,7 @@ namespace TestConsole
             {
                 var line = Console.ReadLine();
                 Console.WriteLine("Next occurence: ");
-                var result = new GoldenFox.Fox(line, DateTime.Now).First();
+                var result = new Fox(line, DateTime.Now).First();
                 Console.WriteLine(result);
             }
         }
