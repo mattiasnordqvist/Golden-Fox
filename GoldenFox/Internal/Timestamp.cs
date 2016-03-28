@@ -61,7 +61,6 @@ namespace GoldenFox.Internal
             return AsComparable.CompareTo(new Timestamp(other).AsComparable);
         }
 
-
         public static implicit operator Timestamp(string value)
         {
             return new Timestamp(value.Split(':').Select(int.Parse).ToArray());

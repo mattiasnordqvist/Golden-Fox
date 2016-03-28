@@ -173,5 +173,14 @@ namespace Tests.Fluent
             var schedule = Every.Sunday().At("12:00");
             Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
         }
+
+        [Test]
+        public void SundayEveryWeekFrom()
+        {
+
+            var schedule = Every.Sunday().At("12:00")
+                .From("2018-01-01")
+            Assert.AreEqual(new DateTime(2018, 1, 7, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
+        }
     }
 }

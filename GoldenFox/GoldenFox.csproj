@@ -45,6 +45,7 @@
     <Compile Include="Internal\Constraints\ConstraintResult.cs" />
     <Compile Include="Internal\Context.cs" />
     <Compile Include="Internal\ContextExtensions.cs" />
+    <Compile Include="Internal\DateAndTime.cs" />
     <Compile Include="Internal\DateTimeExtensions.cs" />
     <Compile Include="Internal\ExtendedDateTime.cs" />
     <Compile Include="Internal\Operators\Intervals\Day.cs" />
