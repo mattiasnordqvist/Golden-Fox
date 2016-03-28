@@ -18,6 +18,11 @@ namespace GoldenFox.Fluent
             return @this;
         }
 
+        public static Every From(this Every @this, DateAndTime from)
+        {
+            return @this.From(from.ToDateTime());
+        }
+
         public static Every Until(this Every @this, DateTime until)
         {
             var c = new UntilConstraint(until);
