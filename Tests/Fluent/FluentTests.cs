@@ -146,10 +146,32 @@ namespace Tests.Fluent
             Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2016, 2, 26, 0, 6, 0)));
         }
 
+        [Test]
         public void LastDayEveryYear()
         {
             var schedule = Last.DayEvery().Year().At("12:00");
-            Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2016, 2, 26, 0, 6, 0)));
+            Assert.AreEqual(new DateTime(2016, 12, 31, 12, 0, 0), schedule.Evaluate(new DateTime(2016, 2, 26, 0, 6, 0)));
+        }
+
+        [Test]
+        public void FirstDayEveryWeek()
+        {
+            var schedule = 1.St().DayEvery().Week().At("12:00");
+            Assert.AreEqual(new DateTime(2017, 1, 2, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
+        }
+
+        [Test]
+        public void LastDayEveryWeek()
+        {
+            var schedule = Last.DayEvery().Week().At("12:00");
+            Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
+        }
+
+        [Test]
+        public void SundayEveryWeek()
+        {
+            var schedule = Every.Sunday().At("12:00");
+            Assert.AreEqual(new DateTime(2017, 1, 1, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
         }
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="BetweenConstraint.cs" />
     <Compile Include="ConstraintExtensions.cs" />
     <Compile Include="Every.cs" />
+    <Compile Include="First.cs" />
     <Compile Include="FromConstraint.cs" />
     <Compile Include="HourBuilder.cs" />
     <Compile Include="IntervalBuilder.cs" />
@@ -51,11 +52,13 @@
     <Compile Include="IntervalBuilderStep2.cs" />
     <Compile Include="Last.cs" />
     <Compile Include="MinuteBuilder.cs" />
+    <Compile Include="MonthBuilder.cs" />
     <Compile Include="NthExtensions.cs" />
     <Compile Include="OperatorBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondBuilder.cs" />
     <Compile Include="UntilConstraint.cs" />
+    <Compile Include="WeekBuilder.cs" />
     <Compile Include="YearBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

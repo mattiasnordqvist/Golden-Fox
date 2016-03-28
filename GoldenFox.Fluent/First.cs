@@ -1,10 +1,12 @@
 namespace GoldenFox.Fluent
 {
-    public class Last
+    public class First
     {
         public static IntervalBuilderStep2 DayEvery()
         {
-            return new IntervalBuilder(0);
+            return new IntervalBuilder(1);
         }
     }
+
+
 }

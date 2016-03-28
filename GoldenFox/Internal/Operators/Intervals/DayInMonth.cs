@@ -72,11 +72,6 @@ namespace GoldenFox.Internal.Operators.Intervals
             return candidate;
         }
 
-        private DateTime Step(DateTime candidate)
-        {
-            return _stepFunc(candidate);
-        }
-
         private bool IsSameDay(DateTime @from, int day)
         {
             if (day > 0 && day == @from.Day)

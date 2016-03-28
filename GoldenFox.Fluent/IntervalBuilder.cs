@@ -24,5 +24,15 @@ namespace GoldenFox.Fluent
         {
             return new YearBuilder(_n);
         }
+
+        MonthBuilder IntervalBuilderStep2.Month()
+        {
+            return new MonthBuilder(_n);
+        }
+
+        WeekBuilder IntervalBuilderStep2.Week()
+        {
+            return new WeekBuilder(_n);
+        }
     }
 }

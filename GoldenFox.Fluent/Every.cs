@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using GoldenFox.Internal.Constraints;
-using GoldenFox.Internal.Operators;
 
 namespace GoldenFox.Fluent
 {
@@ -24,6 +23,41 @@ namespace GoldenFox.Fluent
         }
 
         internal abstract OperatorBuilder InternalBuild();
+
+        public static WeekBuilder Monday()
+        {
+            return new WeekBuilder(1);
+        }
+
+        public static WeekBuilder Tuesday()
+        {
+            return new WeekBuilder(2);
+        }
+
+        public static WeekBuilder Wednesday()
+        {
+            return new WeekBuilder(3);
+        }
+
+        public static WeekBuilder Thursday()
+        {
+            return new WeekBuilder(4);
+        }
+
+        public static WeekBuilder Friday()
+        {
+            return new WeekBuilder(5);
+        }
+
+        public static WeekBuilder Saturday()
+        {
+            return new WeekBuilder(6);
+        }
+
+        public static WeekBuilder Sunday()
+        {
+            return new WeekBuilder(7);
+        }
 
         public static HourBuilder Hour()
         {
@@ -67,7 +101,7 @@ namespace GoldenFox.Fluent
 
         public DateTime Evaluate(DateTime @from, bool inclusive = false)
         {
-            return new First(_operators.Select(x => x.Build()).ToList()).Evaluate(@from, inclusive);
+            return new Internal.Operators.First(_operators.Select(x => x.Build()).ToList()).Evaluate(@from, inclusive);
         }
     }
 }

@@ -3,17 +3,17 @@ using GoldenFox.Internal.Operators.Intervals;
 
 namespace GoldenFox.Fluent
 {
-    public class YearBuilder : Every
+    public class MonthBuilder : Every
     {
         private readonly int _day;
         private Timestamp _time = "00:00";
 
-        public YearBuilder(int day)
+        public MonthBuilder(int day)
         {
             _day = day;
         }
 
-        public YearBuilder At(Timestamp timestamp)
+        public MonthBuilder At(Timestamp timestamp)
         {
             _time = timestamp;
             return this;
@@ -21,12 +21,12 @@ namespace GoldenFox.Fluent
 
         internal override OperatorBuilder InternalBuild()
         {
-            var dayInYear = new DayInYear(_day, _time);
+            var dayInMonth = new DayInMonth(_day, _time);
             return new OperatorBuilder(
                 x =>
                     {
-                        dayInYear.AddConstraints(x);
-                        return dayInYear;
+                        dayInMonth.AddConstraints(x);
+                        return dayInMonth;
                     });
         }
     }
