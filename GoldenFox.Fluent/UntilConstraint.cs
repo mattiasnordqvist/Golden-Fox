@@ -12,6 +12,7 @@ namespace GoldenFox.Fluent
         {
             _until = until;
         }
+
         public IConstraint Build()
         {
             return new Until(_until);

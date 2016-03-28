@@ -48,6 +48,7 @@
     <Compile Include="Internal\DateAndTime.cs" />
     <Compile Include="Internal\DateTimeExtensions.cs" />
     <Compile Include="Internal\ExtendedDateTime.cs" />
+    <Compile Include="Internal\Operators\CapturedResult.cs" />
     <Compile Include="Internal\Operators\Intervals\Day.cs" />
     <Compile Include="Internal\Operators\Intervals\DayInYear.cs" />
     <Compile Include="Internal\Operators\Intervals\DayInMonth.cs" />

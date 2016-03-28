@@ -4,7 +4,6 @@ namespace GoldenFox.Fluent
 {
     public class SecondBuilder : Every
     {
-        
         internal override OperatorBuilder InternalBuild()
         {
             var second = new Second();

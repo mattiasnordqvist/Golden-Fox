@@ -4,7 +4,6 @@ namespace GoldenFox.Fluent
 {
     public class MinuteBuilder : Every
     {
-
         private int _offset;
 
         public MinuteBuilder WithOffset(int seconds)

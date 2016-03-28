@@ -27,7 +27,7 @@ namespace GoldenFox.Internal.Operators
             }
             else
             {
-                throw new InvalidOperationException("", new AggregateException(capturedResults.Select(x => x.Exception)));
+                throw new InvalidOperationException(string.Empty, new AggregateException(capturedResults.Select(x => x.Exception)));
             }
         }
 
@@ -35,18 +35,12 @@ namespace GoldenFox.Internal.Operators
         {
             try
             {
-                return new CapturedResult { DateTime = func()};
+                return new CapturedResult { DateTime = func() };
             }
             catch (InvalidOperationException e)
             {
                 return new CapturedResult { Exception = e };
             }
         }
-    }
-
-    internal class CapturedResult
-    {
-        public Exception Exception { get; set; }
-        public DateTime? DateTime { get; set; }
     }
 }

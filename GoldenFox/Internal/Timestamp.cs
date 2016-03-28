@@ -51,16 +51,6 @@ namespace GoldenFox.Internal
 
         private int AsComparable => Ms + (Second * 1000) + (Minute * 1000 * 100) + (Hour * 1000 * 100 * 100);
 
-        public int CompareTo(Timestamp other)
-        {
-            return AsComparable.CompareTo(other.AsComparable);
-        }
-
-        public int CompareTo(DateTime other)
-        {
-            return AsComparable.CompareTo(new Timestamp(other).AsComparable);
-        }
-
         public static implicit operator Timestamp(string value)
         {
             return new Timestamp(value.Split(':').Select(int.Parse).ToArray());
@@ -69,6 +59,16 @@ namespace GoldenFox.Internal
         public static implicit operator Timestamp(DateTime time)
         {
             return new Timestamp(time);
+        }
+
+        public int CompareTo(Timestamp other)
+        {
+            return AsComparable.CompareTo(other.AsComparable);
+        }
+
+        public int CompareTo(DateTime other)
+        {
+            return AsComparable.CompareTo(new Timestamp(other).AsComparable);
         }
     }
 }

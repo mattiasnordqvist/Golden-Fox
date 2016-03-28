@@ -10,7 +10,6 @@ namespace Tests.Fluent
     [TestFixture]
     public class FluentTests
     {
-
         [Test]
         public void EverySecond()
         {
@@ -53,7 +52,6 @@ namespace Tests.Fluent
             Assert.AreEqual(new DateTime(2015, 06, 1, 16, 0, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 0, 0)));
             Assert.AreEqual(new DateTime(2015, 06, 1, 16, 25, 0), schedule.Evaluate(new DateTime(2015, 6, 1, 16, 24, 59)));
         }
-
 
         [Test]
         public void EveryMinuteAndEveryMinuteWithGlobalBetween()
@@ -122,7 +120,7 @@ namespace Tests.Fluent
         public void EveryHourWithOffsetBetweenAndFrom()
         {
             var schedule = Every.Hour().WithOffset(30, 0).Between("15:00").And("17:00").From(new DateTime(2015, 1, 1));
-            Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2014, 1 ,1)));
+            Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2014, 1, 1)));
             Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 0, 0)));
             Assert.AreEqual(new DateTime(2015, 1, 1, 15, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 29, 0)));
             Assert.AreEqual(new DateTime(2015, 1, 1, 16, 30, 0), schedule.Evaluate(new DateTime(2015, 1, 1, 15, 30, 0)));
@@ -177,7 +175,6 @@ namespace Tests.Fluent
         [Test]
         public void SundayEveryWeekFrom()
         {
-
             var schedule = Every.Sunday().At("12:00").From("2018-01-01");
             Assert.AreEqual(new DateTime(2018, 1, 7, 12, 0, 0), schedule.Evaluate(new DateTime(2017, 1, 1, 0, 0, 0)));
         }

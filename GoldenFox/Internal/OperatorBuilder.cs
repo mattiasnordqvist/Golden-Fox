@@ -42,7 +42,7 @@ namespace GoldenFox.Internal
 
         public override void ExitMinutesOffset(GoldenFoxLanguageParser.MinutesOffsetContext context)
         {
-            Current.SecondsOffset.Push(context.INT(0).AsInt() * 60 + (context.INT().Length == 2 ? context.INT(1).AsInt() : 0));
+            Current.SecondsOffset.Push((context.INT(0).AsInt() * 60) + (context.INT().Length == 2 ? context.INT(1).AsInt() : 0));
         }
 
         public override void ExitEveryday(GoldenFoxLanguageParser.EverydayContext context)
@@ -271,8 +271,6 @@ namespace GoldenFox.Internal
             Current.Constraints.Push(until);
         }
 
-        
-
         public override void ExitBetween(GoldenFoxLanguageParser.BetweenContext context)
         {
             var second = Current.Timestamps.Pop();
@@ -289,10 +287,6 @@ namespace GoldenFox.Internal
         {
             Result = Result != null ? new First(op, Result) : op;
         }
-
-        
-
-        
 
         private DayOfWeek ParseWeekDay(GoldenFoxLanguageParser.WeekdayContext weekdayContext)
         {

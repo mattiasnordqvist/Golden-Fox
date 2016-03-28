@@ -5,18 +5,6 @@ namespace GoldenFox.Internal
 {
     public class DateAndTime
     {
-        public int Year { get; set; }
-
-        public int Month { get; set; }
-
-        public int Day { get; set; }
-
-        public int Second { get; set; }
-        public int Ms { get; set; }
-        public int Hour { get; set; }
-        public int Minute { get; set; }
-
-
         public DateAndTime(params int[] components) : this(components.Length > 0 ? components[0] : 0,
             components.Length > 1 ? components[1] : 0,
             components.Length > 2 ? components[2] : 0,
@@ -38,6 +26,16 @@ namespace GoldenFox.Internal
             Ms = ms;
         }
 
+        public int Year { get; set; }
+
+        public int Month { get; set; }
+
+        public int Day { get; set; }
+
+        public int Second { get; set; }
+        public int Ms { get; set; }
+        public int Hour { get; set; }
+        public int Minute { get; set; }
 
         public static implicit operator DateAndTime(string value)
         {

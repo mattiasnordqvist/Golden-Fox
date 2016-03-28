@@ -10,19 +10,12 @@ namespace GoldenFox.Fluent
     {
         private readonly List<IConstraint> _constraints = new List<IConstraint>();
 
+        private readonly List<Every> _operators = new List<Every>();
+
         protected Every()
         {
             _operators.Add(this);
         }
-
-        internal IOperator Build()
-        {
-            var operatorBuilder = InternalBuild();
-            var op = operatorBuilder.Build(_constraints);
-            return op;
-        }
-
-        internal abstract OperatorBuilder InternalBuild();
 
         public static WeekBuilder Monday()
         {
@@ -77,14 +70,25 @@ namespace GoldenFox.Fluent
             return minuteBuilder;
         }
 
-        private readonly List<Every> _operators = new List<Every>();
-
-
         public Every And(Every every)
         {
             _operators.Add(every);
             return this;
         }
+
+        public DateTime Evaluate(DateTime @from, bool inclusive = false)
+        {
+            return new Internal.Operators.First(_operators.Select(x => x.Build()).ToList()).Evaluate(@from, inclusive);
+        }
+
+        internal IOperator Build()
+        {
+            var operatorBuilder = InternalBuild();
+            var op = operatorBuilder.Build(_constraints);
+            return op;
+        }
+
+        internal abstract OperatorBuilder InternalBuild();
 
         internal void AddConstraint(IConstraint contraint)
         {
@@ -96,12 +100,6 @@ namespace GoldenFox.Fluent
                     @operator.AddConstraint(contraint);
                 }
             }
-            
-        }
-
-        public DateTime Evaluate(DateTime @from, bool inclusive = false)
-        {
-            return new Internal.Operators.First(_operators.Select(x => x.Build()).ToList()).Evaluate(@from, inclusive);
         }
     }
 }

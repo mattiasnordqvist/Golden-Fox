@@ -7,6 +7,4 @@ namespace GoldenFox.Fluent
             return new IntervalBuilder(1);
         }
     }
-
-
 }

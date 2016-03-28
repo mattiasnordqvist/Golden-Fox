@@ -4,7 +4,6 @@ namespace GoldenFox.Fluent
 {
     public class HourBuilder : Every
     {
-
         private int _offset;
 
         public HourBuilder WithOffset(int seconds)
@@ -13,10 +12,9 @@ namespace GoldenFox.Fluent
             return this;
         }
 
-
         public HourBuilder WithOffset(int minutes, int seconds)
         {
-            _offset = seconds + 60 * minutes;
+            _offset = seconds + (60 * minutes);
             return this;
         }
 
