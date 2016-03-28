@@ -106,6 +106,20 @@ Can be added to any interval. Defines a starting point for the interval. `every 
 ### Until
 This constraint is a little special. You use it just like you use `From`. `every day until 2020-01-01`. So what will happen the day we pass in a date higher than `2020-01-01`? Well. There´s no sensible next occurence really, so we will throw an `InvalidOperationException`. Would we get an exception if we passed in `2010-01-01`? Remeber, constraints are inclusive, so no, we wouldn't.
 
+## Fluent Api
+In version 2.2.0, I added a fluent version of the api. You can explore it yourself by start typing any of these lines:  
+```csharp
+
+using GoldenFox.Fluent
+
+Every. // use intellisense from here
+1.St(). // use intellisense from here
+First(). // use intellisense from here
+2.Nd(). // use intellisense from here
+Last(). // use intellisense from here
+
+```
+
 ## Contribute
 
 Besides being used in production code in some of my projects, this is my pet project for learning how to create DSLs. All ideas on new features and how to improve the code are welcome.

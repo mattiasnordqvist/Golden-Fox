@@ -52,6 +52,11 @@ namespace GoldenFox.Fluent
             return new WeekBuilder(7);
         }
 
+        public static DayBuilder Day()
+        {
+            return new DayBuilder();
+        }
+
         public static HourBuilder Hour()
         {
             var hourBuilder = new HourBuilder();

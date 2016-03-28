@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BetweenConstraint.cs" />
     <Compile Include="ConstraintExtensions.cs" />
+    <Compile Include="DayBuilder.cs" />
     <Compile Include="Every.cs" />
     <Compile Include="First.cs" />
     <Compile Include="FromConstraint.cs" />
