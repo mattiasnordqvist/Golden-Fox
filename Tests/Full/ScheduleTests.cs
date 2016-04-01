@@ -8,6 +8,16 @@ namespace Tests.Full
     public class ScheduleTests
     {
         [Test]
+        public void TestFromSomeLiveCode()
+        {
+            "every day @ 06:00 and 12:00 and 18:00".From("2016-04-01 05:49").Gives("2016-04-01 06:00");
+            "every day @ 06:00 and 12:00 and 18:00".From("2016-04-01 11:49").Gives("2016-04-01 12:00");
+            "every day @ 06:00 and 12:00 and 18:00".From("2016-04-01 15:49").Gives("2016-04-01 18:00");
+            "every day @ 06:00 and 12:00 and 18:00".From("2016-04-01 18:49").Gives("2016-04-02 06:00");
+
+        }
+
+        [Test]
         public void EveryHour()
         {
             "every hour".From("2015-01-01 05:23", true).Gives("2015-01-01 06:00");

@@ -28,7 +28,7 @@ between: 'between' time 'and' time;
 from: 'from' datetime;
 until: 'until' datetime;
 time: (INT':'INT(':'INT)?);
-times: time ('and' time)?;
+times: time ('and' times)?;
 weekday: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
 numberedDay: INT('st'|'nd'|'rd'|'th');
 datetime: (date)(time)?; 
