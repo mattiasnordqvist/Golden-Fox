@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using GoldenFox.Internal.Constraints;
 
 namespace GoldenFox.Internal.Operators
 {

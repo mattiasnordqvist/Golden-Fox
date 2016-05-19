@@ -1,6 +1,5 @@
 ﻿using GoldenFox.Internal;
 using GoldenFox.Internal.Constraints;
-using GoldenFox.Internal.Operators.Intervals;
 
 namespace GoldenFox.Fluent
 {

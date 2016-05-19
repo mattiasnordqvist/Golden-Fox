@@ -265,7 +265,7 @@ namespace GoldenFox.Internal
             {
                 datetime = datetime.AddDays(1).AddSeconds(-1);
             }
-
+            
             var until = new Until(datetime);
             _contexts.Pop();
             Current.Constraints.Push(until);
