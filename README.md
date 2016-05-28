@@ -24,6 +24,26 @@ See how simple this schedule is to store in a database? You need ONE column of o
 A typical situation when Golden Fox comes to use is when you are scheduling services to run at specific times. 
 Given a schedule and a point in time, you can let Golden Fox find a future point in time according to the schedule.
 
+Another is when you want to generate events at these intervals. It is easy to create an observable from a Golden Fox schedule.
+
+```csharp
+var enumerator = Schedule.Fox("every second").From(DateTime.Now).GetEnumerator();
+enumerator.MoveNext();
+
+var observable = Observable.Generate(
+    enumerator.Current,
+    i => true,
+    i => 
+    {
+        enumerator.MoveNext();
+        return enumerator.Current;
+    },
+    i => i,
+    i => new TimeSpan(0, 0, 0, (int)Math.Max(0, (i - DateTime.Now).TotalSeconds)));
+
+observable.Subscribe(x => Console.WriteLine(x));
+```
+
 ## Does Golden Fox understand English?
 
 This fox ain't golden for no reason. As long as the words you talk fit into [this grammar](GoldenFox.ANTLR/GoldenFoxLanguage.g4), you're fine.
