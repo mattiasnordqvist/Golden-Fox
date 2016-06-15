@@ -83,7 +83,7 @@ Fox.Compile("every day @ 10:00").Evaluate(DateTime.Today, true)
 
 ```
 
-if you want inclusiveness. However, in this case it wouldn't matter, because DateTime.Today evaluates to Today at 00:00 which is makes 10:00 the next occurence no matter if you include 00:00 or not as a viable option.
+if you want inclusiveness. However, in this case it wouldn't matter, because DateTime.Today evaluates to Today at 00:00 which makes 10:00 the next occurence no matter if you include 00:00 or not as a viable option.
 
 ## Intervals
 
