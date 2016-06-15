@@ -83,7 +83,7 @@ Fox.Compile("every day @ 10:00").Evaluate(DateTime.Today, true)
 
 ```
 
-if you want inclusiveness. However, in this case it wouldn't matter, because DateTime.Today evaluates to Today at 00:00 which is makes 10:00 the next occurence no matter if you include 00:00 or not as viable options.
+if you want inclusiveness. However, in this case it wouldn't matter, because DateTime.Today evaluates to Today at 00:00 which is makes 10:00 the next occurence no matter if you include 00:00 or not as a viable option.
 
 ## Intervals
 
@@ -127,7 +127,7 @@ Can be added to any interval. Defines a starting point for the interval. `every 
 This constraint is a little special. You use it just like you use `From`. `every day until 2020-01-01`. So what will happen the day we pass in a date higher than `2020-01-01`? Well. There´s no sensible next occurence really, so we will throw an `InvalidOperationException`. Would we get an exception if we passed in `2010-01-01`? Remeber, constraints are inclusive, so no, we wouldn't.
 
 ## Fluent Api
-In version 2.2.0, I added a fluent version of the api. You can explore it yourself by start typing any of these lines:  
+In version 2.2.0, I added a fluent version of the api. It is available as a separate nuget package. You can explore it yourself by start typing any of these lines:  
 ```csharp
 
 using GoldenFox.Fluent
