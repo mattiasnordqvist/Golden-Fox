@@ -572,5 +572,30 @@ namespace Tests.Full
         {
             "every hour until 2018-01-01 23:00".From("2018-01-01 22:34").Gives("2018-01-01 23:00:00");
         }
+
+        [Test]
+        public void FailingExamplesFromTheFields_1_ConstraintsAreNotAppliedToBothHourlyOperators()
+        {
+            // Already working
+            "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-06 07:00").Gives("2016-10-06 07:05");
+            "every hour @ hh:05 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
+            "every hour @ hh:35 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:35");
+
+            // Failing, between constraint os only applied to hh:05
+            "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
+            "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-05 18:35").Gives("2016-10-06 07:05");
+        }
+
+        [Test]
+        public void FailingExamplesFromTheFields_2_SeemsToBeWorkingAlready()
+        {
+            "every day @ 13:00 and 17:35".From("2016-10-05 13:00:04").Gives("2016-10-05 17:35");
+        }
+
+        [Test]
+        public void HourMisinterpretedAsMinute()
+        {
+            "every monday at hh:00 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:00");
+        }
     }
 }
