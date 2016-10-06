@@ -580,7 +580,8 @@ namespace Tests.Full
             "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-06 07:00").Gives("2016-10-06 07:05");
             "every hour @ hh:05 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
             "every hour @ hh:35 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:35");
-
+            "every hour @ hh:05 between 07:00 and 17:05 and every hour @ hh:35 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
+            
             // Failing, between constraint is only applied to hh:05
             "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
             "every hour @ hh:05 and hh:35 between 07:00 and 17:05".From("2016-10-05 18:35").Gives("2016-10-06 07:05");
