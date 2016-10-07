@@ -70,13 +70,19 @@ namespace GoldenFox.Internal
             {
                 Current.SecondsOffset.Push(0);
             }
-            
+
+            var constraints = new List<IConstraint>();
+            while (Current.Constraints.Any())
+            {
+                constraints.Add(Current.Constraints.Pop());
+            }
+
             while (Current.SecondsOffset.Any())
             {
                 var min = new Minute { OffsetInSeconds = Current.SecondsOffset.Pop() };
-                while (Current.Constraints.Any())
+                if (constraints.Any())
                 {
-                    min.AddConstraint(Current.Constraints.Pop());
+                    min.AddConstraints(constraints);
                 }
 
                 _stack.Push(min);
@@ -90,12 +96,19 @@ namespace GoldenFox.Internal
                 Current.SecondsOffset.Push(0);
             }
 
+            var constraints = new List<IConstraint>();
+            while (Current.Constraints.Any())
+            {
+                constraints.Add(Current.Constraints.Pop());
+            }
+
             while (Current.SecondsOffset.Any())
             {
+
                 var hour = new Hour { OffsetInSeconds = Current.SecondsOffset.Pop() };
-                while (Current.Constraints.Any())
+                if (constraints.Any())
                 {
-                    hour.AddConstraint(Current.Constraints.Pop());
+                    hour.AddConstraints(constraints);
                 }
 
                 _stack.Push(hour);
