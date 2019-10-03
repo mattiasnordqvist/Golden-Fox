@@ -588,5 +588,10 @@ namespace Tests.Full
             "every hour @ hh:05 and hh:25 and hh:45 between 07:00 and 17:05".From("2016-10-05 17:15").Gives("2016-10-06 07:05");
             "every hour @ hh:05 and hh:25 and hh:45 between 07:00 and 17:05".From("2016-10-05 17:35").Gives("2016-10-06 07:05");
         }
+
+        [Test]
+        public void SomeRealTest() {
+            "every hour @ hh:15 and hh:25 and hh:35 and hh:45 and hh:55 and hh:05".From("2019-10-03 08:46").Gives("2019-10-03 08:55");
+        }
     }
 }
