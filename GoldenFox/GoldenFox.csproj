@@ -1,92 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8480F33A-4585-4055-8BAF-48ACB74D7A94}</ProjectGuid>
+    <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoldenFox</RootNamespace>
-    <AssemblyName>GoldenFox</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr4.Runtime.4.6.6\lib\net45\Antlr4.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\GoldenFox.ANTLR\GoldenFox.ANTLR.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\Constraints\Between.cs" />
-    <Compile Include="Internal\Constraints\ConstraintResult.cs" />
-    <Compile Include="Internal\Context.cs" />
-    <Compile Include="Internal\ContextExtensions.cs" />
-    <Compile Include="Internal\DateAndTime.cs" />
-    <Compile Include="Internal\DateTimeExtensions.cs" />
-    <Compile Include="Internal\ExtendedDateTime.cs" />
-    <Compile Include="Internal\Operators\CapturedResult.cs" />
-    <Compile Include="Internal\Operators\Intervals\Day.cs" />
-    <Compile Include="Internal\Operators\Intervals\DayInYear.cs" />
-    <Compile Include="Internal\Operators\Intervals\DayInMonth.cs" />
-    <Compile Include="Internal\Operators\First.cs" />
-    <Compile Include="Internal\Operators\Constant.cs" />
-    <Compile Include="Internal\Constraints\From.cs" />
-    <Compile Include="Internal\Operators\Intervals\Hour.cs" />
-    <Compile Include="Internal\Constraints\IConstraint.cs" />
-    <Compile Include="Internal\Operators\Intervals\Interval.cs" />
-    <Compile Include="Internal\OperatorBuilder.cs" />
-    <Compile Include="Internal\Operators\Intervals\Second.cs" />
-    <Compile Include="Internal\Constraints\Until.cs" />
-    <Compile Include="IOperator.cs" />
-    <Compile Include="Internal\Operators\Intervals\Minute.cs" />
-    <Compile Include="Internal\StringExtensions.cs" />
-    <Compile Include="Internal\Timestamp.cs" />
-    <Compile Include="Internal\Operators\Intervals\Weekday.cs" />
-    <Compile Include="Schedule.cs" />
-    <Compile Include="Fox.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoldenFox.ANTLR\GoldenFox.ANTLR.csproj">
-      <Project>{263f6745-70ee-4e0a-9ad8-b7e942cc7012}</Project>
-      <Name>GoldenFox.ANTLR</Name>
-    </ProjectReference>
+    <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
