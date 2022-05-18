@@ -2,12 +2,27 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Version>3.0.1</Version>
+	  <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GoldenFox.ANTLR\GoldenFox.ANTLR.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\GoldenFox.ANTLR\GoldenFox.ANTLR.csproj">
+		<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		<IncludeAssets>GoldenFox.ANTLR.dll</IncludeAssets>
+	  </ProjectReference>
+	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
   </ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Tests" />
+		<InternalsVisibleTo Include="TestConsole" />
+		<InternalsVisibleTo Include="GoldenFox.Fluent" />
+	</ItemGroup>
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+		</ItemGroup>
+	</Target>
 </Project>
