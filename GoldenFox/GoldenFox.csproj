@@ -8,10 +8,6 @@
     <ProjectReference Include="..\GoldenFox.ANTLR\GoldenFox.ANTLR.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
   </ItemGroup>
 </Project>
