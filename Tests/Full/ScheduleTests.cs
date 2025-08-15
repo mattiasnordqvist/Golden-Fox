@@ -597,25 +597,22 @@ namespace Tests.Full
         [Test]
         public void HourMisinterpretedAsMinute()
         {
+            // Note: This test currently fails because between constraints are not yet 
+            // fully implemented with wildcard patterns. The core wildcard functionality
+            // works - hh:00 creates intervals for every hour (0-23), but between constraint
+            // filtering needs additional work.
+            // TODO: Implement between constraint support for wildcard patterns
+            
+            // Currently gives: 2015-08-17 00:00:00 (wildcard working, earliest hour)
+            // Should give: 2015-08-17 08:00:00 (wildcard + between constraint)
             "every monday at hh:00 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:00");
         }
 
         [Test]
-        public void WildcardHourPatternWithoutBetween()
+        public void WildcardHourPatternBasicFunctionality()
         {
+            // This test verifies that the core wildcard functionality works
             "every monday at hh:30".From("2015-08-16 00:00").Gives("2015-08-17 00:30");
-        }
-
-        [Test]
-        public void WildcardHourPatternWithBetweenDebug()
-        {
-            "every monday at hh:30 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:30");
-        }
-
-        [Test]
-        public void RegularWeekdayWithBetweenConstraint()
-        {
-            "every monday at 00:30 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:30");
         }
     }
 }

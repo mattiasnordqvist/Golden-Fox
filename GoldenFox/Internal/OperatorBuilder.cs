@@ -141,44 +141,17 @@ namespace GoldenFox.Internal
                 var minutes = offsetInSeconds / 60;
                 var seconds = offsetInSeconds % 60;
                 
-                // For wildcard patterns like hh:00, create intervals for each hour
-                // If there's a "between" constraint, only create intervals for hours in that range
-                var betweenConstraint = constraints.OfType<Between>().FirstOrDefault();
-                var startHour = 0;
-                var endHour = 23;
-                
-                // Debug: Check if ANY constraints exist
-                if (constraints.Any())
-                {
-                    // If we have constraints, default to hour 1 to see if this path is taken
-                    startHour = 1;
-                    endHour = 1;
-                }
-                
-                if (betweenConstraint != null)
-                {
-                    startHour = betweenConstraint.From.Hour;
-                    endHour = betweenConstraint.To.Hour;
-                }
-                
-                for (var hour = startHour; hour <= endHour; hour++)
+                // For wildcard patterns like hh:00, create intervals for each hour (0-23)
+                // Let the constraints (like "between") filter them naturally during evaluation
+                for (var hour = 0; hour <= 23; hour++)
                 {
                     var timestamp = new Timestamp(hour, minutes, seconds);
                     var interval = new Weekday(dayOfWeek, timestamp);
                     
-                    // Add constraints except the between constraint since we've already applied it
-                    var filteredConstraints = constraints.Where(c => !(c is Between)).ToList();
-                    interval.AddConstraints(filteredConstraints);
+                    // Add all constraints - let them be applied during evaluation
+                    interval.AddConstraints(constraints);
                     _stack.Push(interval);
                 }
-            }
-            
-            // Debug: If neither timestamps nor seconds offset were processed, create a debug interval
-            if (!Current.Timestamps.Any() && !Current.SecondsOffset.Any())
-            {
-                // This means the parsing didn't work as expected
-                var debugInterval = new Weekday(ParseWeekDay(context.weekday()), new Timestamp(11, 11, 11)); // 11:11:11 as debug marker
-                _stack.Push(debugInterval);
             }
         }
 
@@ -208,26 +181,15 @@ namespace GoldenFox.Internal
                 var minutes = offsetInSeconds / 60;
                 var seconds = offsetInSeconds % 60;
                 
-                // For wildcard patterns like hh:00, create intervals for each hour
-                // If there's a "between" constraint, only create intervals for hours in that range
-                var betweenConstraint = constraints.OfType<Between>().FirstOrDefault();
-                var startHour = 0;
-                var endHour = 23;
-                
-                if (betweenConstraint != null)
-                {
-                    startHour = betweenConstraint.From.Hour;
-                    endHour = betweenConstraint.To.Hour;
-                }
-                
-                for (var hour = startHour; hour <= endHour; hour++)
+                // For wildcard patterns like hh:00, create intervals for each hour (0-23)
+                // Let the constraints (like "between") filter them naturally during evaluation
+                for (var hour = 0; hour <= 23; hour++)
                 {
                     var timestamp = new Timestamp(hour, minutes, seconds);
                     var interval = new Weekday(dayOfWeek, timestamp);
                     
-                    // Add constraints except the between constraint since we've already applied it
-                    var filteredConstraints = constraints.Where(c => !(c is Between)).ToList();
-                    interval.AddConstraints(filteredConstraints);
+                    // Add all constraints - let them be applied during evaluation
+                    interval.AddConstraints(constraints);
                     _stack.Push(interval);
                 }
             }
