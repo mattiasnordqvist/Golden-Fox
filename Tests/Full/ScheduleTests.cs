@@ -599,5 +599,23 @@ namespace Tests.Full
         {
             "every monday at hh:00 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:00");
         }
+
+        [Test]
+        public void WildcardHourPatternWithoutBetween()
+        {
+            "every monday at hh:30".From("2015-08-16 00:00").Gives("2015-08-17 00:30");
+        }
+
+        [Test]
+        public void WildcardHourPatternWithBetweenDebug()
+        {
+            "every monday at hh:30 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:30");
+        }
+
+        [Test]
+        public void RegularWeekdayWithBetweenConstraint()
+        {
+            "every monday at 00:30 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:30");
+        }
     }
 }
