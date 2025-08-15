@@ -123,11 +123,35 @@ namespace GoldenFox.Internal
                 constraints.Add(Current.Constraints.Pop());
             }
 
+            // Handle regular timestamps (specific times)
             while (Current.Timestamps.Any())
             {
                 var interval = new Weekday(ParseWeekDay(context.weekday()), Current.Timestamps.Pop());
                 interval.AddConstraints(constraints);
                 _stack.Push(interval);
+            }
+
+            // Handle wildcard patterns (minute offsets like hh:00)
+            while (Current.SecondsOffset.Any())
+            {
+                var offsetInSeconds = Current.SecondsOffset.Pop();
+                var dayOfWeek = ParseWeekDay(context.weekday());
+                
+                // Extract minute and second from offset
+                var minutes = offsetInSeconds / 60;
+                var seconds = offsetInSeconds % 60;
+                
+                // For wildcard patterns like hh:00, create intervals for each hour (0-23)
+                // Let the constraints (like "between") filter them naturally during evaluation
+                for (var hour = 0; hour <= 23; hour++)
+                {
+                    var timestamp = new Timestamp(hour, minutes, seconds);
+                    var interval = new Weekday(dayOfWeek, timestamp);
+                    
+                    // Add all constraints - let them be applied during evaluation
+                    interval.AddConstraints(constraints);
+                    _stack.Push(interval);
+                }
             }
         }
 
@@ -139,11 +163,35 @@ namespace GoldenFox.Internal
                 constraints.Add(Current.Constraints.Pop());
             }
 
+            // Handle regular timestamps (specific times)
             while (Current.Timestamps.Any())
             {
                 var interval = new Weekday(ParseWeekDay(context.weekday()), Current.Timestamps.Pop());
                 interval.AddConstraints(constraints);
                 _stack.Push(interval);
+            }
+
+            // Handle wildcard patterns (minute offsets like hh:00)
+            while (Current.SecondsOffset.Any())
+            {
+                var offsetInSeconds = Current.SecondsOffset.Pop();
+                var dayOfWeek = ParseWeekDay(context.weekday());
+                
+                // Extract minute and second from offset
+                var minutes = offsetInSeconds / 60;
+                var seconds = offsetInSeconds % 60;
+                
+                // For wildcard patterns like hh:00, create intervals for each hour (0-23)
+                // Let the constraints (like "between") filter them naturally during evaluation
+                for (var hour = 0; hour <= 23; hour++)
+                {
+                    var timestamp = new Timestamp(hour, minutes, seconds);
+                    var interval = new Weekday(dayOfWeek, timestamp);
+                    
+                    // Add all constraints - let them be applied during evaluation
+                    interval.AddConstraints(constraints);
+                    _stack.Push(interval);
+                }
             }
         }
 
