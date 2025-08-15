@@ -593,5 +593,11 @@ namespace Tests.Full
         public void SomeRealTest() {
             "every hour @ hh:15 and hh:25 and hh:35 and hh:45 and hh:55 and hh:05".From("2019-10-03 08:46").Gives("2019-10-03 08:55");
         }
+
+        [Test]
+        public void HourMisinterpretedAsMinute()
+        {
+            "every monday at hh:00 between 08:00 and 15:00".From("2015-08-16 00:00").Gives("2015-08-17 08:00");
+        }
     }
 }
